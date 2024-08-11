@@ -1,24 +1,38 @@
-import logo from './logo.svg';
+import React from 'react';
+import {Routes,Route} from 'react-router-dom';
+import "antd/dist/reset.css";
 import './App.css';
-
+import SideMenu from './components/Layout/SideMenu';
+import Header from './components/Layout/Header';
+import Footer from './components/Layout/Footer';
+import AuthRoutes from './routes/AuthRoutes';
+import ManagementRoutes from './routes/ManagementRoutes';
+import AppRoutes from './routes/AppRoutes';
+ 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{display:"flex",flexDirection:"column",flex:1, height:"100vh", background:"#b7dcfa"}}>
+      <Header/>
+        <div style={{display:"flex",flexDirection:"row",flex:1, backgroundColor:"#b7dcfa"}}>
+          <SideMenu/>
+          <Content/>
+        </div>
+      <Footer/>
     </div>
+  );
+}
+ 
+
+// define routes
+function Content() {
+  return  (
+  <div>  
+    <Routes>
+        <Route path="/auth/*" element={<AuthRoutes />} />
+        <Route path="/management/*" element={<ManagementRoutes />} />
+        <Route path="/app/*" element={<AppRoutes />} />
+    </Routes>
+  </div> 
   );
 }
 
