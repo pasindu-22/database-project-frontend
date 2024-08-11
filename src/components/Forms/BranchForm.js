@@ -6,7 +6,7 @@ import axios from 'axios';
 const onFinish = async(values) => {
   console.log('Success:', values);
   try {
-    const response = await axios.post('http://localhost:5000/api/admins/createBranch',  values );
+    const response = await axios.post('http://localhost:5000/api/branches/',  values );
     console.log(response.data);
     alert('Branch created successfully!');
   } catch (error) {
@@ -51,12 +51,12 @@ const BranchForm = () => (
     </Form.Item>
 
     <Form.Item
-      label="Location"
-      name="location"
+      label="Address"
+      name="address"
       rules={[
         {
           required: true,
-          message: 'Please input your password!',
+          message: 'Please Enter address!',
         },
       ]}
     >
