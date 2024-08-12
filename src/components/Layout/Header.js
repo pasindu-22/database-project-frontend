@@ -8,7 +8,7 @@ function Header() {
       alignItems:"center",
       fontWeight:"bold"
     }} 
-      >ABC Bank™</div>;
+      >A Bank™</div>;
 }
 
 export default Header;

@@ -8,6 +8,7 @@ import Footer from './components/Layout/Footer';
 import AuthRoutes from './routes/AuthRoutes';
 import ManagementRoutes from './routes/ManagementRoutes';
 import AppRoutes from './routes/AppRoutes';
+import CustomerRoutes from './routes/CustomerRoutes';
  
 function App() {
   return (
@@ -30,6 +31,7 @@ function Content() {
     <Routes>
         <Route path="/auth/*" element={<AuthRoutes />} />
         <Route path="/management/*" element={<ManagementRoutes />} />
+        <Route path="/customers/*" element={<CustomerRoutes/>} />
         <Route path="/app/*" element={<AppRoutes />} />
     </Routes>
   </div> 
