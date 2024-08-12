@@ -1,5 +1,5 @@
 import React from 'react';
-import { BankOutlined, ProfileOutlined, BellOutlined,AppstoreOutlined,GroupOutlined, UserAddOutlined, MailOutlined, SettingOutlined ,AlertOutlined ,TeamOutlined, ToolOutlined} from '@ant-design/icons';
+import { BankOutlined,PieChartOutlined, ProfileOutlined, BellOutlined,AppstoreOutlined,GroupOutlined, UserAddOutlined, SettingOutlined ,AlertOutlined ,TeamOutlined, ToolOutlined} from '@ant-design/icons';
 import { Menu } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,9 +15,24 @@ const items = [
             icon: <BankOutlined />,
           },
           {
-            key: '/app/dashboard/events',
+            key: '/app/events',
             label: 'Events',
             icon: <BellOutlined />,
+          },
+        ],
+      },
+      {
+        key: '/app/reports',
+        label: 'Reports',
+        icon: <PieChartOutlined />,
+        children: [
+          {
+            key: '/app/reports/report1',
+            label: 'report1',
+          },
+          {
+            key: '/app/reports/report2',
+            label: 'report2',
           },
         ],
       },
@@ -59,6 +74,7 @@ const items = [
       },
     ],
   },
+  
   {
     key: '/app/loans',
     label: 'Loans',
