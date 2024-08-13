@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 // import LoginForm from './Forms/LoginForm'
 import reportWebVitals from './reportWebVitals';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -12,6 +12,7 @@ root.render(
     <BrowserRouter>
       <Routes>
         {/* <Route path="/" element={<LoginForm />} /> */}
+        <Route path="/" element={<Navigate to="/role-selection" />} />
         <Route path="/*" element={<App />} />
       </Routes>
     </BrowserRouter>

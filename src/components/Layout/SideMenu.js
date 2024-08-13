@@ -1,5 +1,5 @@
 import React from 'react';
-import { BankOutlined, PieChartOutlined, ProfileOutlined, BellOutlined, AppstoreOutlined, GroupOutlined, UserAddOutlined, SettingOutlined, AlertOutlined, TeamOutlined, ToolOutlined } from '@ant-design/icons';
+import { BankOutlined,LogoutOutlined, PieChartOutlined, ProfileOutlined, BellOutlined, AppstoreOutlined, GroupOutlined, UserAddOutlined, SettingOutlined, AlertOutlined, TeamOutlined, ToolOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
@@ -150,6 +150,14 @@ const items = [
       },
     ],
   },
+  {
+    type: 'divider',
+  },
+  {
+    key: '/signout',
+    label: 'Sign Out',
+    icon: <LogoutOutlined />,
+  },
 ];
 
 const SideMenu = () => {
@@ -157,7 +165,10 @@ const SideMenu = () => {
 
   const onClick = (e) => {
     console.log('click ', e);
-    if (e.key === '/customers/individual/existing' || e.key === '/customers/business/existing') {
+    if (e.key === '/signout') {
+      localStorage.removeItem('role'); // Clear the role from localStorage
+      navigate('/'); // Redirect to the role selection screen
+    } else if (e.key === '/customers/individual/existing' || e.key === '/customers/business/existing') {
       navigate('/customers/search'); // Navigate to the search page
     } else {
       navigate(e.key); // Use navigate to change the route
