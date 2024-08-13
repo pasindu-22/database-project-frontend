@@ -1,42 +1,64 @@
 import React from 'react';
-import { BankOutlined, ProfileOutlined, BellOutlined,AppstoreOutlined,GroupOutlined, UserAddOutlined, MailOutlined, SettingOutlined ,AlertOutlined ,TeamOutlined, ToolOutlined} from '@ant-design/icons';
+import { BankOutlined, PieChartOutlined, ProfileOutlined, BellOutlined, AppstoreOutlined, GroupOutlined, UserAddOutlined, SettingOutlined, AlertOutlined, TeamOutlined, ToolOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 const items = [
-    {
-        key: '/app/dashboard',
-        label: 'Dashboard',
-        type: 'group',
-        children: [
-          {
-            key: '/app/home',
-            label: 'Home',
-            icon: <BankOutlined />,
-          },
-          {
-            key: '/app/dashboard/events',
-            label: 'Events',
-            icon: <BellOutlined />,
-          },
-        ],
-      },
-    {
-    key: '/customers/',
-    label: 'Customers',
-    icon: <ProfileOutlined  />,
+  {
+    key: '/app/dashboard',
+    label: 'Dashboard',
+    type: 'group',
     children: [
       {
-        key: '/customers/',
+        key: '/app/home',
+        label: 'Home',
+        icon: <BankOutlined />,
+      },
+      {
+        key: '/app/events',
+        label: 'Events',
+        icon: <BellOutlined />,
+      },
+    ],
+  },
+  {
+    key: '/app/reports',
+    label: 'Reports',
+    icon: <PieChartOutlined />,
+    children: [
+      {
+        key: '/app/reports/transactions',
+        label: 'Total Transactions Report',
+      },
+      {
+        key: '/app/reports/lateloans',
+        label: 'Late Loans Report',
+      },
+    ],
+  },
+  {
+    type: 'divider',
+    style: {
+      margin: '16px 0',
+      thickness: '2px',
+    },
+  },
+  {
+    key: '/customers/',
+    label: 'Customers',
+    icon: <ProfileOutlined />,
+    children: [
+      {
+        key: '/customers/individual/',
         label: 'Individual',
         type: 'group',
         children: [
           {
-            key: '/customers/new',
+            key: '/customers/individual/new',
             label: 'New Customer',
           },
           {
-            key: '/customers/existing',
+            key: '/customers/individual/existing',
             label: 'Existing Customer',
           },
         ],
@@ -101,20 +123,20 @@ const items = [
         label: 'New',
         icon: <UserAddOutlined />,
         children: [
-            {
-                key: '/management/new/manager',
-                label: 'Manager',
-            },
-            {
-                key: '/management/new/branch',
-                label: 'Branch',
-            },
-            ],
+          {
+            key: '/management/new/manager',
+            label: 'Manager',
+          },
+          {
+            key: '/management/new/branch',
+            label: 'Branch',
+          },
+        ],
       },
       {
         key: '/app/system-management/employee',
         label: 'Employee Management',
-        icon : <ToolOutlined />,
+        icon: <ToolOutlined />,
       },
       {
         key: '/app/system-management/teams',
@@ -130,12 +152,16 @@ const items = [
   },
 ];
 
-const SideMenu1 = () => {
+const SideMenu = () => {
   const navigate = useNavigate();
 
   const onClick = (e) => {
     console.log('click ', e);
-    navigate(e.key);  // Use navigate to change the route
+    if (e.key === '/customers/individual/existing' || e.key === '/customers/business/existing') {
+      navigate('/customers/search'); // Navigate to the search page
+    } else {
+      navigate(e.key); // Use navigate to change the route
+    }
   };
 
   return (
@@ -152,4 +178,4 @@ const SideMenu1 = () => {
   );
 };
 
-export default SideMenu1;
+export default SideMenu;
