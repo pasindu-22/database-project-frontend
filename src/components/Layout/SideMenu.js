@@ -2,6 +2,7 @@ import React from 'react';
 import { BankOutlined,PieChartOutlined, ProfileOutlined, BellOutlined,AppstoreOutlined,GroupOutlined, UserAddOutlined, SettingOutlined ,AlertOutlined ,TeamOutlined, ToolOutlined} from '@ant-design/icons';
 import { Menu } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { Color } from 'antd/es/color-picker';
 
 const items = [
     {
@@ -35,6 +36,13 @@ const items = [
             label: 'report2',
           },
         ],
+      },
+      {
+        type: 'divider',
+        style: {
+          margin: '16px 0',
+          thickness: '2px',
+        },
       },
     {
     key: '/customers/',

@@ -68,7 +68,11 @@ const CustomerNavigation = () => {
     navigate(e.key); // Navigate to the route specified in the key
   };
 
-  return <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />;
+  return <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} style={{
+    width: '100vh',
+    backgroundColor: 'darkgray',
+    borderRadius: '10px',
+  }}/>;
 };
 
 export default CustomerNavigation;
