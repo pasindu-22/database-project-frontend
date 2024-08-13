@@ -26,6 +26,7 @@ function App() {
 
 // define routes
 function Content() {
+  console.log("Content");
   return  (
   <div>  
     <Routes>

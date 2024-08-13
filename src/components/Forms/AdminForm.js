@@ -13,7 +13,7 @@ const AdminForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/managers/');
+      const response = await axios.post('http://localhost:3001/api/managers/');
       console.log(response.data);
       alert('Admin created successfully!');
     } catch (error) {
