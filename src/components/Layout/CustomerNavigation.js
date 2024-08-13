@@ -17,40 +17,21 @@ const items = [
     disabled: false,
   },
   {
-    label: 'Transactions',
-    key: 'transactions',
+    label: 'New',
+    key: 'new',
     icon: <SettingOutlined />,
     children: [
-      {
-        type: 'group',
-        label: 'Item 1',
-        children: [
           {
-            label: 'Option 1',
-            key: 'option1',
+            label: 'Saving Account',
+            key: 'savingAccount',
           },
           {
-            label: 'Option 2',
-            key: 'option2',
+            label: 'Checking Account',
+            key: 'checkingAccount',
           },
+          
         ],
       },
-      {
-        type: 'group',
-        label: 'Item 2',
-        children: [
-          {
-            label: 'Option 3',
-            key: 'option3',
-          },
-          {
-            label: 'Option 4',
-            key: 'option4',
-          },
-        ],
-      },
-    ],
-  },
   {
     label: 'System Logs',
     key: 'logs',
@@ -70,11 +51,21 @@ const CustomerNavigation = () => {
     navigate(`/customers/${customerId}/${e.key}`); // Navigate to the route specified in the key with customer ID
   };
 
-  return <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} style={{
+  return (
+  <Menu 
+  onClick={onClick} 
+  selectedKeys={[current]} 
+  mode="horizontal" 
+  items={items} 
+  style={{
     width: '100vh',
     backgroundColor: 'darkgray',
     borderRadius: '10px',
-  }} />;
+  }} 
+  defaultSelectedKeys={['profile']}
+  defaultOpenKeys={['profile']}
+  />
+);
 };
 
 export default CustomerNavigation;
