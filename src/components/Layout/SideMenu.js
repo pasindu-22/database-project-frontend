@@ -1,53 +1,52 @@
 import React from 'react';
-import { BankOutlined,PieChartOutlined, ProfileOutlined, BellOutlined,AppstoreOutlined,GroupOutlined, UserAddOutlined, SettingOutlined ,AlertOutlined ,TeamOutlined, ToolOutlined} from '@ant-design/icons';
+import { BankOutlined, PieChartOutlined, ProfileOutlined, BellOutlined, AppstoreOutlined, GroupOutlined, UserAddOutlined, SettingOutlined, AlertOutlined, TeamOutlined, ToolOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { Color } from 'antd/es/color-picker';
 
 const items = [
-    {
-        key: '/app/dashboard',
-        label: 'Dashboard',
-        type: 'group',
-        children: [
-          {
-            key: '/app/home',
-            label: 'Home',
-            icon: <BankOutlined />,
-          },
-          {
-            key: '/app/events',
-            label: 'Events',
-            icon: <BellOutlined />,
-          },
-        ],
+  {
+    key: '/app/dashboard',
+    label: 'Dashboard',
+    type: 'group',
+    children: [
+      {
+        key: '/app/home',
+        label: 'Home',
+        icon: <BankOutlined />,
       },
       {
-        key: '/app/reports',
-        label: 'Reports',
-        icon: <PieChartOutlined />,
-        children: [
-          {
-            key: '/app/reports/report1',
-            label: 'report1',
-          },
-          {
-            key: '/app/reports/report2',
-            label: 'report2',
-          },
-        ],
+        key: '/app/events',
+        label: 'Events',
+        icon: <BellOutlined />,
+      },
+    ],
+  },
+  {
+    key: '/app/reports',
+    label: 'Reports',
+    icon: <PieChartOutlined />,
+    children: [
+      {
+        key: '/app/reports/report1',
+        label: 'report1',
       },
       {
-        type: 'divider',
-        style: {
-          margin: '16px 0',
-          thickness: '2px',
-        },
+        key: '/app/reports/report2',
+        label: 'report2',
       },
-    {
+    ],
+  },
+  {
+    type: 'divider',
+    style: {
+      margin: '16px 0',
+      thickness: '2px',
+    },
+  },
+  {
     key: '/customers/',
     label: 'Customers',
-    icon: <ProfileOutlined  />,
+    icon: <ProfileOutlined />,
     children: [
       {
         key: '/customers/individual/',
@@ -82,7 +81,6 @@ const items = [
       },
     ],
   },
-  
   {
     key: '/app/loans',
     label: 'Loans',
@@ -125,20 +123,20 @@ const items = [
         label: 'New',
         icon: <UserAddOutlined />,
         children: [
-            {
-                key: '/management/new/manager',
-                label: 'Manager',
-            },
-            {
-                key: '/management/new/branch',
-                label: 'Branch',
-            },
-            ],
+          {
+            key: '/management/new/manager',
+            label: 'Manager',
+          },
+          {
+            key: '/management/new/branch',
+            label: 'Branch',
+          },
+        ],
       },
       {
         key: '/app/system-management/employee',
         label: 'Employee Management',
-        icon : <ToolOutlined />,
+        icon: <ToolOutlined />,
       },
       {
         key: '/app/system-management/teams',
@@ -159,7 +157,11 @@ const SideMenu = () => {
 
   const onClick = (e) => {
     console.log('click ', e);
-    navigate(e.key);  // Use navigate to change the route
+    if (e.key === '/customers/individual/existing' || e.key === '/customers/business/existing') {
+      navigate('/customers/search'); // Navigate to the search page
+    } else {
+      navigate(e.key); // Use navigate to change the route
+    }
   };
 
   return (
