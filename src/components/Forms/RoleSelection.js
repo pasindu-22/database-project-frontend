@@ -17,11 +17,11 @@ const RoleSelection = ({ onRoleSelect }) => {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor:'lightgrey' }}>
       <Card
         title={<Title level={2} style={{ textAlign: 'center' }}>Select Role</Title>}
         bordered={false}
-        style={{ width: 400, boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.1)' }}
+        style={{ width: 400, boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.1)' ,backgroundColor:'lightsteelblue'}}
       >
         <Row gutter={[16, 16]} justify="center">
           <Col span={24}>

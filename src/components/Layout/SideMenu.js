@@ -1,6 +1,6 @@
 import React from 'react';
 import { BankOutlined,LogoutOutlined, PieChartOutlined, ProfileOutlined, BellOutlined, AppstoreOutlined, GroupOutlined, UserAddOutlined, SettingOutlined, AlertOutlined, TeamOutlined, ToolOutlined } from '@ant-design/icons';
-import { Menu } from 'antd';
+import { Menu, Modal } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 const items = [
@@ -166,8 +166,16 @@ const SideMenu = () => {
   const onClick = (e) => {
     console.log('click ', e);
     if (e.key === '/signout') {
-      localStorage.removeItem('role'); // Clear the role from localStorage
-      navigate('/'); // Redirect to the role selection screen
+      Modal.confirm({
+        title: 'Confirm Logout',
+        content: 'Are you sure you want to log out?',
+        okText: 'Yes',
+        cancelText: 'No',
+        onOk: () => {
+          localStorage.removeItem('role'); // Clear the role from localStorage
+          navigate('/'); // Redirect to the role selection screen
+        },
+      });
     } else if (e.key === '/customers/individual/existing' || e.key === '/customers/business/existing') {
       navigate('/customers/search'); // Navigate to the search page
     } else {
