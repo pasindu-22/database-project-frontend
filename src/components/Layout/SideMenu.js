@@ -189,6 +189,7 @@ const SideMenu = () => {
       style={{
         width: 256,
         backgroundColor: 'whitesmoke',
+        borderRadius: '15px 15px 15px 15px',
       }}
       defaultSelectedKeys={['/app/home']}
       defaultOpenKeys={['/app/dashboard']}
