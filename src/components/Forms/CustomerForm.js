@@ -113,11 +113,12 @@ const CustomerForm = () => {
       name="register"
       onFinish={onFinish}
       initialValues={{
-        residence: ['zhejiang', 'hangzhou', 'xihu'],
-        prefix: '86',
+        residence: ['Western', 'Moratuwa', 'Katubedda'],
+        prefix: '011',
       }}
       style={{
         maxWidth: 600,
+        padding: 20,
       }}
       scrollToFirstError
     >
@@ -197,7 +198,7 @@ const CustomerForm = () => {
           {
             type: 'array',
             required: true,
-            message: 'Please select your habitual residence!',
+            message: 'Please select your residence!',
           },
         ]}
       >
