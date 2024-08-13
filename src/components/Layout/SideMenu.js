@@ -27,12 +27,12 @@ const items = [
     icon: <PieChartOutlined />,
     children: [
       {
-        key: '/app/reports/report1',
-        label: 'report1',
+        key: '/app/reports/transactions',
+        label: 'Total Transactions Report',
       },
       {
-        key: '/app/reports/report2',
-        label: 'report2',
+        key: '/app/reports/lateloans',
+        label: 'Late Loans Report',
       },
     ],
   },
