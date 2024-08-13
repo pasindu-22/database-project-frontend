@@ -50,13 +50,15 @@ const columns = [
 ];
 
 const ManagerList = () => {
+    console.log('ManagerList component rendered');
     const [data, setData] = useState([]);
 
     useEffect(() => {
         // Fetch data from the backend using Axios
-        axios.get('http://localhost:5000/api/admins/managers')
+        axios.get('http://localhost:3001/api/managers')
             .then(response => {
                 setData(response.data);
+                console.log(response.data);
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
@@ -66,6 +68,7 @@ const ManagerList = () => {
 
     const onChange = (pagination, filters, sorter, extra) => {
         console.log('params', pagination, filters, sorter, extra);
+        console.log('Data:', data); 
     };
 
     return (

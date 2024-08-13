@@ -31,8 +31,8 @@ function App() {
 
 // define routes
 function Content() {
-  return (
-    <div>
+  return  (
+    <div>  
       <Routes>
         <Route path="/auth/*" element={<AuthRoutes />} />
         <Route path="/management/*" element={<ManagementRoutes />} />
