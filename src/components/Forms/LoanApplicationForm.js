@@ -11,7 +11,7 @@ const LoanApplicationForm = () => {
     console.log('Form values:', values);
 
     // Send form data to the backend
-    axios.post('http://localhost:5000/api/loanApplications/', values)
+    axios.post('http://localhost:3001/api/loanApplications/', values)
       .then(response => {
         message.success('Loan application submitted successfully!');
         form.resetFields();
