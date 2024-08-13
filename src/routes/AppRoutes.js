@@ -1,5 +1,7 @@
 import React from 'react';
 import { Routes,Route } from 'react-router-dom';
+import LoanApplicationPage from '../pages/LoanApplicationPage';
+import LoanApplicationForm from '../components/Forms/LoanApplicationForm';
 // import Home from '../components/Home';
 
 function AppRoutes() {
@@ -9,6 +11,7 @@ function AppRoutes() {
         <Route path="/home" element={<div>Home</div>} />
         <Route path="/dashboard" element={<div>Dashboard</div>} />
         <Route path="/profile" element={<div>Profile</div>} />
+        <Route path="/loans/individual" element={<LoanApplicationPage/>} />
         <Route path="/signout" element={<div>Signout</div>} />
     </Routes>
     </div>
