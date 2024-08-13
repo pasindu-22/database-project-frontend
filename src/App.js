@@ -9,6 +9,11 @@ import AuthRoutes from './routes/AuthRoutes';
 import ManagementRoutes from './routes/ManagementRoutes';
 import AppRoutes from './routes/AppRoutes';
 import CustomerRoutes from './routes/CustomerRoutes';
+import CustomerNavigation from './components/Layout/CustomerNavigation';
+import CustomerForm from './components/Forms/CustomerForm';
+import ProfilePage from './pages/ProfilePage';
+import ProfileRoutes from './routes/ProfileRoutes';
+import AccountRoutes from './routes/AccountRoutes';
  
 function App() {
   return (
@@ -31,10 +36,35 @@ function Content() {
     <Routes>
         <Route path="/auth/*" element={<AuthRoutes />} />
         <Route path="/management/*" element={<ManagementRoutes />} />
-        <Route path="/customers/*" element={<CustomerRoutes/>} />
+        <Route path="/customers/individual/new" element={<CustomerForm />} />
+        <Route path="/customers/Business/new" element={<CustomerForm />} />
+        <Route path="/customers/*" element={<WithCustomerNavigation><CustomerRoutes /></WithCustomerNavigation>} />
+        {/* <Route
+          path="/customers/*"
+          element={
+            <WithTopMenu>
+              <CustomerRoutes />
+              <ProfileRoutes/>
+              <AccountRoutes/>
+            </WithTopMenu>
+          }
+        /> */}
         <Route path="/app/*" element={<AppRoutes />} />
     </Routes>
   </div> 
+  );
+}
+
+
+// WithCustomerNavigation function
+function WithCustomerNavigation({ children }) {
+  return (
+    <>
+      <CustomerNavigation />
+      <div style={{ padding: '16px', backgroundColor: '#b7dcfa', height: '100%' }}>
+        {children}
+      </div>
+    </>
   );
 }
 

@@ -42,16 +42,16 @@ const items = [
     icon: <ProfileOutlined  />,
     children: [
       {
-        key: '/customers/',
+        key: '/customers/individual/',
         label: 'Individual',
         type: 'group',
         children: [
           {
-            key: '/customers/new',
+            key: '/customers/individual/new',
             label: 'New Customer',
           },
           {
-            key: '/customers/existing',
+            key: '/customers/individual/existing',
             label: 'Existing Customer',
           },
         ],
@@ -146,7 +146,7 @@ const items = [
   },
 ];
 
-const SideMenu1 = () => {
+const SideMenu = () => {
   const navigate = useNavigate();
 
   const onClick = (e) => {
@@ -168,4 +168,4 @@ const SideMenu1 = () => {
   );
 };
 
-export default SideMenu1;
+export default SideMenu;

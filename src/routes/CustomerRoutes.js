@@ -1,17 +1,21 @@
 import React from 'react';
 import { Routes,Route } from 'react-router-dom';
-import ManagerList from '../components/Lists/ManagerList';
-import CustomerForm from '../components/Forms/CustomerForm';
+import CustomerNavigation from '../components/Layout/CustomerNavigation';
+import ProfileRoutes from './ProfileRoutes';
+import AccountRoutes from './AccountRoutes';
 
 function CustomerRoutes() {
   return (
-  <Routes>
-      <Route path="/new" element={<CustomerForm />} />
-      <Route path="/existing" element={<ManagerList />} />
-      <Route path="/bussiness/new" element={<ManagerList />} />
-      <Route path="/bussiness/existing" element={<ManagerList />} />
+    <>
+      <Routes>
+        <Route path="/existing/individual" element={<CustomerNavigation />} />
+        <Route path="/existing/business" element={<CustomerNavigation />} />
+        <Route path="/profile/*" element={<ProfileRoutes />} />
+        <Route path="/accounts/*" element={<AccountRoutes />} />
+        <Route path="/logs/*" element={<AccountRoutes />} />
       
-  </Routes>
+      </Routes>
+  </>
   );
 }
 
