@@ -29,6 +29,7 @@ const BranchForm = () => (
     }}
     style={{
       maxWidth: 600,
+      padding: 20,
     }}
     initialValues={{
       remember: true,

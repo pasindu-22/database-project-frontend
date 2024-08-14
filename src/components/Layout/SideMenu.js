@@ -1,7 +1,7 @@
-import React from 'react';
-import { BankOutlined,LogoutOutlined, PieChartOutlined, ProfileOutlined, BellOutlined, AppstoreOutlined, GroupOutlined, UserAddOutlined, SettingOutlined, AlertOutlined, TeamOutlined, ToolOutlined } from '@ant-design/icons';
+import React, { useState } from 'react';
+import { BankOutlined, LogoutOutlined, PieChartOutlined, ProfileOutlined, BellOutlined, AppstoreOutlined, GroupOutlined, UserAddOutlined, SettingOutlined, AlertOutlined, TeamOutlined, ToolOutlined } from '@ant-design/icons';
 import { Menu, Modal } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const items = [
   {
@@ -49,33 +49,31 @@ const items = [
     icon: <ProfileOutlined />,
     children: [
       {
-        key: '/customers/individual/',
-        label: 'Individual',
-        type: 'group',
+        key: '/customers',
+        label: 'New Customer',
+        icon: <UserAddOutlined />,
         children: [
           {
             key: '/customers/individual/new',
-            label: 'New Customer',
+            label: 'Personal',
           },
           {
-            key: '/customers/individual/existing',
-            label: 'Existing Customer',
+            key: '/customers/business/new',
+            label: 'Business',
           },
         ],
       },
       {
-        key: '/customers/business',
-        label: 'Business',
-        icon: <GroupOutlined />,
-        type: 'group',
+        key: '/customers/existing',
+        label: 'Existing Customer',
         children: [
           {
-            key: '/customers/business/new',
-            label: 'New Customer',
+            key: '/customers/individual/existing',
+            label: 'Personal',
           },
           {
             key: '/customers/business/existing',
-            label: 'Existing Customer',
+            label: 'Business',
           },
         ],
       },
@@ -95,18 +93,8 @@ const items = [
         label: 'Business',
       },
       {
-        key: '/app/loans/submenu',
-        label: 'Submenu',
-        children: [
-          {
-            key: '/app/loans/option7',
-            label: 'Option 7',
-          },
-          {
-            key: '/app/loans/option8',
-            label: 'Option 8',
-          },
-        ],
+        key: '/app/loans/pending',
+        label: 'Pending Loans',
       },
     ],
   },
@@ -162,6 +150,8 @@ const items = [
 
 const SideMenu = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [openKeys, setOpenKeys] = useState([]);
 
   const onClick = (e) => {
     console.log('click ', e);
@@ -183,6 +173,15 @@ const SideMenu = () => {
     }
   };
 
+  const onOpenChange = (keys) => {
+    const latestOpenKey = keys.find(key => openKeys.indexOf(key) === -1);
+    if (items.map(item => item.key).indexOf(latestOpenKey) === -1) {
+      setOpenKeys(keys);
+    } else {
+      setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
+    }
+  };
+
   return (
     <Menu
       onClick={onClick}
@@ -191,8 +190,9 @@ const SideMenu = () => {
         backgroundColor: 'whitesmoke',
         borderRadius: '15px 15px 15px 15px',
       }}
-      defaultSelectedKeys={['/app/home']}
-      defaultOpenKeys={['/app/dashboard']}
+      selectedKeys={[location.pathname]}
+      openKeys={openKeys}
+      onOpenChange={onOpenChange}
       mode="inline"
       items={items}
     />
