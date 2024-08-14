@@ -1,48 +1,7 @@
-import React, { useState } from 'react';
-import {
-  AutoComplete,
-  Button,
-  Cascader,
-  Checkbox,
-  Form,
-  Input,
-  Select,
-} from 'antd';
-const { Option } = Select;
-const residences = [
-  {
-    value: 'southern',
-    label: 'Southern',
-    children: [
-      {
-        value: 'galle',
-        label: 'Galle',
-        children: [
-          {
-            value: 'fort',
-            label: 'Galle Fort',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    value: 'western',
-    label: 'Western',
-    children: [
-      {
-        value: 'moratuwa',
-        label: 'Moratuwa',
-        children: [
-          {
-            value: 'molpe',
-            label: 'Molpe Road',
-          },
-        ],
-      },
-    ],
-  },
-];
+import React from 'react';
+import { Button, Form, Input } from 'antd';
+import axios from 'axios';
+
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -61,6 +20,7 @@ const formItemLayout = {
     },
   },
 };
+
 const tailFormItemLayout = {
   wrapperCol: {
     xs: {
@@ -73,46 +33,30 @@ const tailFormItemLayout = {
     },
   },
 };
+
 const CustomerForm = () => {
   const [form] = Form.useForm();
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values);
-  };
-  const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-      <Select
-        style={{
-          width: 70,
-        }}
-      >
-        <Option value="91">091</Option>
-        <Option value="11">011</Option>
-      </Select>
-    </Form.Item>
-  );
-  
-  const [autoCompleteResult, setAutoCompleteResult] = useState([]);
-  const onWebsiteChange = (value) => {
-    if (!value) {
-      setAutoCompleteResult([]);
-    } else {
-      setAutoCompleteResult(['.com', '.org', '.net'].map((domain) => `${value}${domain}`));
+
+  const onFinish = async(values) => {
+    console.log('Success:', values);
+    const { Name, NIC, Address } = values;
+    const customerData = { Name, NIC, Address };
+    try {
+      const response = await axios.post('http://localhost:3001/api/customers/',  customerData );
+      console.log(response.data);
+      alert('Customer created successfully!');
+    } catch (error) {
+      console.error('There was an error creating the user!', error);
+      alert('Failed to create user');
     }
   };
-  const websiteOptions = autoCompleteResult.map((website) => ({
-    label: website,
-    value: website,
-  }));
+
   return (
     <Form
       {...formItemLayout}
       form={form}
-      name="register"
+      name="customer_form"
       onFinish={onFinish}
-      initialValues={{
-        residence: ['Western', 'Moratuwa', 'Katubedda'],
-        prefix: '011',
-      }}
       style={{
         maxWidth: 600,
         padding: 20,
@@ -120,16 +64,68 @@ const CustomerForm = () => {
       scrollToFirstError
     >
       <Form.Item
-        name="email"
-        label="E-mail"
+        name="Name"
+        label="Name"
         rules={[
           {
-            type: 'email',
-            message: 'The input is not valid E-mail!',
+            required: true,
+            message: 'Please input your name!',
+            whitespace: true,
           },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        name="NIC"
+        label="NIC"
+        rules={[
           {
             required: true,
-            message: 'Please input your E-mail!',
+            message: 'Please input your NIC!',
+            whitespace: true,
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        name="Address"
+        label="Address"
+        rules={[
+          {
+            required: true,
+            message: 'Please input address!',
+            whitespace: true,
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        name="phone"
+        label="Telephone"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your telephone number!',
+          },
+        ]}
+      >
+        <Input style={{ width: '100%' }} />
+      </Form.Item>
+
+      <Form.Item
+        name="username"
+        label="Username"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your username!',
+            whitespace: true,
           },
         ]}
       >
@@ -150,137 +146,6 @@ const CustomerForm = () => {
         <Input.Password />
       </Form.Item>
 
-      <Form.Item
-        name="confirm"
-        label="Confirm Password"
-        dependencies={['password']}
-        hasFeedback
-        rules={[
-          {
-            required: true,
-            message: 'Please confirm your password!',
-          },
-          ({ getFieldValue }) => ({
-            validator(_, value) {
-              if (!value || getFieldValue('password') === value) {
-                return Promise.resolve();
-              }
-              return Promise.reject(new Error('The new password that you entered do not match!'));
-            },
-          }),
-        ]}
-      >
-        <Input.Password />
-      </Form.Item>
-
-      <Form.Item
-        name="nickname"
-        label="Nickname"
-        tooltip="What do you want others to call you?"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your nickname!',
-            whitespace: true,
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        name="residence"
-        label="Habitual Residence"
-        rules={[
-          {
-            type: 'array',
-            required: true,
-            message: 'Please select your residence!',
-          },
-        ]}
-      >
-        <Cascader options={residences} />
-      </Form.Item>
-
-      <Form.Item
-        name="phone"
-        label="Phone Number"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your phone number!',
-          },
-        ]}
-      >
-        <Input
-          addonBefore={prefixSelector}
-          style={{
-            width: '100%',
-          }}
-        />
-      </Form.Item>
-
-      <Form.Item
-        name="website"
-        label="Website"
-        rules={[
-          {
-            required: true,
-            message: 'Please input website!',
-          },
-        ]}
-      >
-        <AutoComplete options={websiteOptions} onChange={onWebsiteChange} placeholder="website">
-          <Input />
-        </AutoComplete>
-      </Form.Item>
-
-      <Form.Item
-        name="intro"
-        label="Intro"
-        rules={[
-          {
-            required: true,
-            message: 'Please input Intro',
-          },
-        ]}
-      >
-        <Input.TextArea showCount maxLength={100} />
-      </Form.Item>
-
-      <Form.Item
-        name="gender"
-        label="Gender"
-        rules={[
-          {
-            required: true,
-            message: 'Please select gender!',
-          },
-        ]}
-      >
-        <Select placeholder="select your gender">
-          <Option value="male">Male</Option>
-          <Option value="female">Female</Option>
-        </Select>
-      </Form.Item>
-
-      
-
-      <Form.Item
-        name="agreement"
-        valuePropName="checked"
-        rules={[
-          {
-            validator: (_, value) =>
-              value ? Promise.resolve() : Promise.reject(new Error('Should accept agreement')),
-          },
-        ]}
-        {...tailFormItemLayout}
-      >
-        <Checkbox>
-          I have read the <a href="">agreement</a>
-        </Checkbox>
-      </Form.Item>
       <Form.Item {...tailFormItemLayout}>
         <Button type="primary" htmlType="submit">
           Register
@@ -289,4 +154,5 @@ const CustomerForm = () => {
     </Form>
   );
 };
+
 export default CustomerForm;
