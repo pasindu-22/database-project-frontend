@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Input, Button, Select, DatePicker, InputNumber, message } from 'antd';
 import axios from 'axios';
+import moment from 'moment';
 
 const { Option } = Select;
 
@@ -8,6 +9,10 @@ const LoanApplicationForm = () => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
+
+    values.Date = moment(values.Date).format('YYYY-MM-DD');
+    values.Branch_ID = parseInt(values.Branch_ID, 10);
+    values.Customer_ID = parseInt(values.Customer_ID, 10);
     console.log('Form values:', values);
 
     // Send form data to the backend
@@ -91,9 +96,8 @@ const LoanApplicationForm = () => {
         rules={[{ required: true, message: 'Please select the loan type!' }]}
       >
         <Select placeholder="Select Loan Type">
-          <Option value="Home">Home Loan</Option>
-          <Option value="Car">Car Loan</Option>
-          <Option value="Personal">Personal Loan</Option>
+          <Option value="Online">Online</Option>
+          <Option value="Normal">Normal</Option>
         </Select>
       </Form.Item>
 

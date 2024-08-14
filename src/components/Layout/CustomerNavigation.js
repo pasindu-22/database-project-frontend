@@ -7,12 +7,12 @@ import { CustomerContext } from '../../contexts/CustomerContext';
 const items = [
   {
     label: 'Accounts',
-    key: 'accounts',
+    key: 'accounts/details',
     icon: <MailOutlined />,
   },
   {
     label: 'Profile',
-    key: 'profile',
+    key: 'profile/details',
     icon: <AppstoreOutlined />,
     disabled: false,
   },
