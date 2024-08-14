@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Layout, Menu, Card, Descriptions, Button, Row, Col, Typography, Badge, Space, Spin } from 'antd';
-import { EditOutlined, LockOutlined, PhoneOutlined, CheckCircleOutlined, RedoOutlined } from '@ant-design/icons';
+import React, { useEffect, useState, useContext } from 'react';
+import { Layout, Card, Descriptions, Button, Row, Col, Typography, Spin, Form, Input, Modal } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
 import axios from 'axios';
+import { CustomerContext } from '../contexts/CustomerContext';
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
@@ -9,107 +10,113 @@ const { Title } = Typography;
 const ProfilePage = () => {
   const [loading, setLoading] = useState(true);
   const [profileData, setProfileData] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [form] = Form.useForm();
+  const { customerId } = useContext(CustomerContext);
 
   useEffect(() => {
-    // Fetch data from backend
-    axios.get('/api/profile') 
-      .then(response => {
+    const fetchProfileData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3001/api/customers/${customerId}`);
         setProfileData(response.data);
-        setLoading(false);
-      })
-      .catch(error => {
+      } catch (error) {
         console.error("There was an error fetching the profile data!", error);
+      } finally {
         setLoading(false);
-      });
-  }, []);
+      }
+    };
+
+    if (customerId) {
+      fetchProfileData();
+    } else {
+      setLoading(false);
+    }
+  }, [customerId]);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+    form.setFieldsValue(profileData);
+  };
+
+  const handleOk = async () => {
+    try {
+      const values = await form.validateFields();
+      await axios.put(`/api/customers/${customerId}`, values);
+      setProfileData(values);
+      setIsModalVisible(false);
+    } catch (error) {
+      console.error("There was an error updating the profile data!", error);
+    }
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
 
   if (loading) {
-    return <Spin size="large" style={{ display: 'block', margin: '20% auto' }} />;
+    return (
+      <Layout style={{ minHeight: '100vh' }}>
+        <Header style={{ background: '#A9A9A9', padding: 0, textAlign: 'center' }}>
+          <Title level={2}>Customer Profile</Title>
+        </Header>
+        <Content style={{ background: '#A9A9A9', padding: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <Spin size="large" />
+        </Content>
+      </Layout>
+    );
   }
 
   if (!profileData) {
-    return <p>Failed to load profile data.</p>;
+    return (
+      <Layout style={{ minHeight: '100vh' }}>
+        <Header style={{ background: '#A9A9A9', padding: 0, textAlign: 'center' }}>
+          <Title level={2}>Customer Profile</Title>
+        </Header>
+        <Content style={{ background: '#A9A9A9', padding: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <p>No profile data found</p>
+        </Content>
+      </Layout>
+    );
   }
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Header style={{ background: '#fff', padding: 0 }}>
-        <Menu mode="horizontal" defaultSelectedKeys={['2']}>
-          <Menu.Item key="1">Accounts</Menu.Item>
-          <Menu.Item key="2">Profile</Menu.Item>
-          <Menu.Item key="3">Transactions</Menu.Item>
-          <Menu.Item key="4">Beneficiaries</Menu.Item>
-          <Menu.Item key="5">Identity</Menu.Item>
-          <Menu.Item key="6">System Log</Menu.Item>
-          <Menu.Item key="7">Checks</Menu.Item>
-        </Menu>
+      <Header style={{ background: '#A9A9A9', padding: 0, textAlign: 'center' }}>
+        <Title level={2}>Customer Profile</Title>
       </Header>
-      <Layout>
-        <Content style={{ padding: '24px' }}>
-          <Row gutter={16}>
-            <Col span={16}>
-              <Card title="Profile information" extra={
-                <Space>
-                  <Button icon={<EditOutlined />} type="primary">Edit</Button>
-                  <Button icon={<LockOutlined />} danger>Block Profile</Button>
-                  <Button icon={<CheckCircleOutlined />} type="default">Check KYC</Button>
-                  <Button icon={<RedoOutlined />} type="default">Reset KYC</Button>
-                  <Button icon={<PhoneOutlined />} type="default">Update Phone</Button>
-                </Space>
-              }>
-                <Descriptions bordered>
-                  <Descriptions.Item label="First name">{profileData.firstName}</Descriptions.Item>
-                  <Descriptions.Item label="Last name">{profileData.lastName}</Descriptions.Item>
-                  <Descriptions.Item label="Birth date">{profileData.birthDate}</Descriptions.Item>
-                  <Descriptions.Item label="Gender">{profileData.gender}</Descriptions.Item>
-                  <Descriptions.Item label="Email" span={3}>{profileData.email}</Descriptions.Item>
-                  <Descriptions.Item label="Country">{profileData.country}</Descriptions.Item>
-                  <Descriptions.Item label="Postal code">{profileData.postalCode}</Descriptions.Item>
-                  <Descriptions.Item label="Region">{profileData.region}</Descriptions.Item>
-                  <Descriptions.Item label="City">{profileData.city}</Descriptions.Item>
-                  <Descriptions.Item label="Address line" span={3}>{profileData.address}</Descriptions.Item>
-                </Descriptions>
-              </Card>
-              <Card title="Documents" style={{ marginTop: 24 }}>
-                <Descriptions bordered>
-                  <Descriptions.Item label="Type">{profileData.documentType}</Descriptions.Item>
-                  <Descriptions.Item label="Date of expiry">{profileData.documentExpiry}</Descriptions.Item>
-                  <Descriptions.Item label="Number">{profileData.documentNumber}</Descriptions.Item>
-                </Descriptions>
-              </Card>
-            </Col>
-            <Col span={8}>
-              <Card title="Status">
-                <Descriptions bordered>
-                  <Descriptions.Item label="Status">
-                    <Badge status="success" text={profileData.status} />
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Solution">{profileData.solution}</Descriptions.Item>
-                  <Descriptions.Item label="Country">{profileData.country}</Descriptions.Item>
-                  <Descriptions.Item label="Phone number">{profileData.phone}</Descriptions.Item>
-                  <Descriptions.Item label="KYC level">{profileData.kycLevel}</Descriptions.Item>
-                  <Descriptions.Item label="KYC status">{profileData.kycStatus}</Descriptions.Item>
-                </Descriptions>
-              </Card>
-              <Card title="Affiliated objects" style={{ marginTop: 24 }}>
-                <Descriptions bordered>
-                  <Descriptions.Item label="Business">{profileData.business}</Descriptions.Item>
-                  <Descriptions.Item label="Employee">{profileData.employee}</Descriptions.Item>
-                  <Descriptions.Item label="Affiliation type">{profileData.affiliationType}</Descriptions.Item>
-                </Descriptions>
-              </Card>
-              <Card title="Notes" style={{ marginTop: 24 }}>
-                <Descriptions bordered>
-                  <Descriptions.Item label="Last Update">{profileData.lastUpdate}</Descriptions.Item>
-                  <Descriptions.Item label="Notes">{profileData.notes}</Descriptions.Item>
-                </Descriptions>
-              </Card>
-            </Col>
-          </Row>
-        </Content>
-      </Layout>
+      <Content style={{ background: '#A9A9A9', padding: '50px' }}>
+        <Card
+          title="Profile Details"
+          extra={<Button icon={<EditOutlined />} onClick={showModal}>Edit</Button>}
+        >
+          <Descriptions bordered>
+            <Descriptions.Item label="Customer ID">{profileData.Customer_ID}</Descriptions.Item>
+            <Descriptions.Item label="Name">{profileData.Name}</Descriptions.Item>
+            <Descriptions.Item label="NIC">{profileData.NIC}</Descriptions.Item>
+            <Descriptions.Item label="Address">{profileData.Address}</Descriptions.Item>
+          </Descriptions>
+        </Card>
+        <Modal
+          title="Edit Profile"
+          visible={isModalVisible}
+          onOk={handleOk}
+          onCancel={handleCancel}
+        >
+          <Form form={form} layout="vertical">
+            <Form.Item name="name" label="Name" rules={[{ required: true, message: 'Please input the name!' }]}>
+              <Input />
+            </Form.Item>
+            <Form.Item name="nic" label="NIC" rules={[{ required: true, message: 'Please input the NIC!' }]}>
+              <Input />
+            </Form.Item>
+            <Form.Item name="address" label="Address" rules={[{ required: true, message: 'Please input the address!' }]}>
+              <Input />
+            </Form.Item>
+          </Form>
+        </Modal>
+      </Content>
     </Layout>
   );
-}
+};
 
 export default ProfilePage;
