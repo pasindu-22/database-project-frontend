@@ -1,10 +1,10 @@
 import React from 'react';
-import CustomerNavigation from './CustomerNavigation';
+import AccountNavigation from './AccountNavigation';
 
-const WithCustomerNavigation = ({ children }) => {
+const WithAccountNavigation = ({ children }) => {
   return (
     <>
-      <CustomerNavigation />
+      <AccountNavigation />
       <div style={{ padding: '16px', backgroundColor: '#b7dcfa', height: '100%' }}>
         {children}
       </div>
@@ -12,4 +12,4 @@ const WithCustomerNavigation = ({ children }) => {
   );
 };
 
-export default WithCustomerNavigation;
+export default WithAccountNavigation;

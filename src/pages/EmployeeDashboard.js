@@ -9,7 +9,7 @@ import AppRoutes from '../routes/AppRoutes';
 import CustomerRoutes from '../routes/CustomerRoutes';
 import CustomerForm from '../components/Forms/CustomerForm';
 import SearchCustomer from '../components/Forms/SearchCustomer';
-import WithCustomerNavigation from '../components/Layout/WithCustomerNavigation';
+import WithAccountNavigation from '../components/Layout/WithAccountNavigation';
 
 const EmployeeDashboard = () => {
   return (
@@ -24,7 +24,7 @@ const EmployeeDashboard = () => {
             <Route path="/customers/individual/new" element={<CustomerForm />} />
             <Route path="/customers/business/new" element={<CustomerForm />} />
             <Route path="/customers/search" element={<SearchCustomer />} />
-            <Route path="/customers/*" element={<WithCustomerNavigation><CustomerRoutes /></WithCustomerNavigation>} />
+            <Route path="/customers/*" element={<WithAccountNavigation><CustomerRoutes /></WithAccountNavigation>} />
             <Route path="/app/*" element={<AppRoutes />} />
           </Routes>
         </div>

@@ -35,7 +35,7 @@ const PendingLoansPage = () => {
         // Update the local state to reflect the action
         setData(prevData =>
           prevData.map(item =>
-            item.applicationId === applicationId ? { ...item, approved: action === 'approve' ? 'Approved' : 'Rejected' } : item
+            item.applicationId === applicationId ? { ...item, approved: action === 'true' ? 'Approved' : 'Rejected' } : item
           )
         );
       })
@@ -47,12 +47,12 @@ const PendingLoansPage = () => {
   const columns = [
     {
       title: 'Branch ID',
-      dataIndex: 'branchId',
+      dataIndex: 'Branch_ID',
       key: 'branchId',
     },
     {
       title: 'Customer ID',
-      dataIndex: 'customerId',
+      dataIndex: 'Customer_ID',
       key: 'customerId',
     },
     {
@@ -62,37 +62,37 @@ const PendingLoansPage = () => {
     },
     {
       title: 'Application ID',
-      dataIndex: 'applicationId',
+      dataIndex: 'Application_ID',
       key: 'applicationId',
     },
     {
       title: 'Loan Period',
-      dataIndex: 'loanPeriod',
+      dataIndex: 'LoanPeriod',
       key: 'loanPeriod',
     },
     {
       title: 'Date',
-      dataIndex: 'date',
+      dataIndex: 'Date',
       key: 'date',
     },
     {
       title: 'Loan Value',
-      dataIndex: 'loanValue',
+      dataIndex: 'LoanValue',
       key: 'loanValue',
     },
     {
       title: 'Approved',
-      dataIndex: 'approved',
+      dataIndex: 'Approved',
       key: 'approved',
       render: status => (
-        <Tag color={status === 'Pending' ? 'orange' : status === 'Approved' ? 'green' : 'red'}>
-          {status.toUpperCase()}
+        <Tag color={status === 0 ? 'orange' : status === 1 ? 'green' : 'red'}>
+          {status === 0 ? 'Pending' : status === 1 ? 'Approved' : 'Rejected'}
         </Tag>
       ),
     },
     {
       title: 'Loan Type',
-      dataIndex: 'loanType',
+      dataIndex: 'LoanType',
       key: 'loanType',
     },
     {
@@ -100,10 +100,10 @@ const PendingLoansPage = () => {
       key: 'action',
       render: (text, record) => (
         <Space size="middle">
-          <Button type="primary" onClick={() => handleAction(record.applicationId, 'approve')} disabled={record.approved !== 'Pending'}>
+          <Button type="primary" onClick={() => handleAction(record.applicationId, 'approve')} >
             Approve
           </Button>
-          <Button type="danger" onClick={() => handleAction(record.applicationId, 'reject')} disabled={record.approved !== 'Pending'}>
+          <Button type="danger" onClick={() => handleAction(record.applicationId, 'reject')} >
             Reject
           </Button>
         </Space>
