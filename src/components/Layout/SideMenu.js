@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BankOutlined, LogoutOutlined, PieChartOutlined, ProfileOutlined, BellOutlined, AppstoreOutlined, GroupOutlined, UserAddOutlined, SettingOutlined, AlertOutlined, TeamOutlined, ToolOutlined } from '@ant-design/icons';
+import { MergeCellsOutlined, MoneyCollectOutlined ,BankOutlined, LogoutOutlined, PieChartOutlined, ProfileOutlined, BellOutlined, AppstoreOutlined, GroupOutlined, UserAddOutlined, SettingOutlined, AlertOutlined, TeamOutlined, ToolOutlined } from '@ant-design/icons';
 import { Menu, Modal } from 'antd';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -18,6 +18,11 @@ const items = [
         key: '/app/events',
         label: 'Events',
         icon: <BellOutlined />,
+      },
+      {
+        key: '/app/transactions/new',
+        label: 'Transaction',
+        icon: <MoneyCollectOutlined />,
       },
     ],
   },
@@ -49,33 +54,14 @@ const items = [
     icon: <ProfileOutlined />,
     children: [
       {
-        key: '/customers',
+        key: '/customers/new',
         label: 'New Customer',
         icon: <UserAddOutlined />,
-        children: [
-          {
-            key: '/customers/individual/new',
-            label: 'Personal',
-          },
-          {
-            key: '/customers/business/new',
-            label: 'Business',
-          },
-        ],
       },
       {
-        key: '/customers/existing',
+        key: '/customers/search',
         label: 'Existing Customer',
-        children: [
-          {
-            key: '/customers/individual/existing',
-            label: 'Personal',
-          },
-          {
-            key: '/customers/business/existing',
-            label: 'Business',
-          },
-        ],
+        icon: <MergeCellsOutlined />,
       },
     ],
   },
@@ -127,11 +113,6 @@ const items = [
         icon: <ToolOutlined />,
       },
       {
-        key: '/app/system-management/teams',
-        label: 'Teams',
-        icon: <TeamOutlined />,
-      },
-      {
         key: '/app/system-management/logs',
         label: 'System Logs',
         icon: <AlertOutlined />,
@@ -166,11 +147,9 @@ const SideMenu = () => {
           navigate('/'); // Redirect to the role selection screen
         },
       });
-    } else if (e.key === '/customers/individual/existing' || e.key === '/customers/business/existing') {
-      navigate('/customers/search'); // Navigate to the search page
-    } else {
-      navigate(e.key); // Use navigate to change the route
-    }
+      }else {
+        navigate(e.key); // Use navigate to change the route
+      }
   };
 
   const onOpenChange = (keys) => {

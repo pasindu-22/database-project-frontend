@@ -34,7 +34,7 @@ const items = [
     icon: <PieChartOutlined />,
     children: [
       {
-        key: '/customer/accounts/new',
+        key: '/customer/accounts/fd/new',
         label: 'New Fixed Deposit',
       },
       {

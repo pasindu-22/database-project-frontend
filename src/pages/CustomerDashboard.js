@@ -4,6 +4,8 @@ import SideMenu from '../components/Layout/CustomerSideMenu';
 import CustomerRoutes from '../routes/CustomerRoutes';
 import CustomerForm from '../components/Forms/CustomerForm';
 import { Footer, Header } from 'antd/es/layout/layout';
+import LoanApplicationForm from '../components/Forms/LoanApplicationForm';
+import FixedDepositForm from '../components/Forms/FDForm';
 
 const CustomerDashboard = () => {
   return (
@@ -12,9 +14,10 @@ const CustomerDashboard = () => {
     <div style={{ display: "flex", flexDirection: "row", flex: 1, backgroundColor: "#b7dcfa" }}>
       <SideMenu /> {/* Add Sidebar */}
       <div style={{ flex: 1 }}>
-        <h1>Customer Dashboard</h1>
         <Routes>
-          <Route path="/" element={<CustomerRoutes />} />
+          <Route path="/customer/accounts/fd/new" element={<FixedDepositForm/>}/>
+          <Route path="/customer/loan/new" element={<LoanApplicationForm/>}/>
+          <Route path="/customer/dashboard" element={<div> Welcome User</div>} />
           <Route path="/customers/individual/new" element={<CustomerForm />} />
           <Route path="/customers/business/new" element={<CustomerForm />} />
           

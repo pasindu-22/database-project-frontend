@@ -21,8 +21,7 @@ const EmployeeDashboard = () => {
           <Routes>
             <Route path="/auth/*" element={<AuthRoutes />} />
             <Route path="/management/*" element={<ManagementRoutes />} />
-            <Route path="/customers/individual/new" element={<CustomerForm />} />
-            <Route path="/customers/business/new" element={<CustomerForm />} />
+            <Route path="/customers/new" element={<CustomerForm />} />
             <Route path="/customers/search" element={<SearchCustomer />} />
             <Route path="/customers/*" element={<WithAccountNavigation><CustomerRoutes /></WithAccountNavigation>} />
             <Route path="/app/*" element={<AppRoutes />} />
