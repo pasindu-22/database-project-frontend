@@ -79,7 +79,7 @@ const items = [
         label: 'Business',
       },
       {
-        key: '/app/loans/pending',
+        key: '/app/loans/applications',
         label: 'Pending Loans',
       },
     ],

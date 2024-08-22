@@ -31,11 +31,11 @@ const PendingLoansPage = () => {
     // Send data to the backend using Axios
     axios.put(`http://localhost:3001/api/loanapplications/${Application_Id}`, postData)
       .then(response => {
-        message.success(`Application ${Application_Id} ${Approved}d successfully!`);
+        message.success(`Application ${Application_Id} ${Approved} successfully!`);
         // Update the local state to reflect the action
         setData(prevData =>
           prevData.map(item =>
-            item.Application_ID === Application_Id ? { ...item, Approved: Approved === 'true' ? 'Approved' : 'Rejected' } : item
+            item.Application_ID === Application_Id ? { ...item, Approved: Approved === 'approved' ? 'approved' : 'rejected' } : item
           )
         );
       })
@@ -114,7 +114,7 @@ const PendingLoansPage = () => {
   return (
     
     <div>
-    <Title level={2}>Pending Loans</Title>
+    <Title level={2}>Loan Applications</Title>
     <Table 
       columns={columns} 
       dataSource={data} 

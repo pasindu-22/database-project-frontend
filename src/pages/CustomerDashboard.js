@@ -6,6 +6,7 @@ import CustomerForm from '../components/Forms/CustomerForm';
 import { Footer, Header } from 'antd/es/layout/layout';
 import LoanApplicationForm from '../components/Forms/LoanApplicationForm';
 import FixedDepositForm from '../components/Forms/FDForm';
+import TransactionForm from '../components/Forms/TransactionForm';
 
 const CustomerDashboard = () => {
   return (
@@ -20,6 +21,7 @@ const CustomerDashboard = () => {
           <Route path="/customer/dashboard" element={<div> Welcome User</div>} />
           <Route path="/customers/individual/new" element={<CustomerForm />} />
           <Route path="/customers/business/new" element={<CustomerForm />} />
+          <Route path="/customer/transaction/new" element={<TransactionForm/>}/>
         </Routes> 
       </div>
     </div>
