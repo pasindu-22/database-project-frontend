@@ -11,7 +11,7 @@ const CustomerDashboard = () => {
   return (
     <div style={{ display: "flex", flexDirection: "column", flex: 1, height: "100vh", background: "#b7dcfa" }}>
       <Header/>
-    <div style={{ display: "flex", flexDirection: "row", flex: 1, backgroundColor: "#b7dcfa" }}>
+      <div style={{ display: "flex", flexDirection: "row", flex: 1, backgroundColor: "#b7dcfa" }}>
       <SideMenu /> {/* Add Sidebar */}
       <div style={{ flex: 1 }}>
         <Routes>
@@ -20,8 +20,7 @@ const CustomerDashboard = () => {
           <Route path="/customer/dashboard" element={<div> Welcome User</div>} />
           <Route path="/customers/individual/new" element={<CustomerForm />} />
           <Route path="/customers/business/new" element={<CustomerForm />} />
-          
-        </Routes>
+        </Routes> 
       </div>
     </div>
     <Footer/>

@@ -19,28 +19,28 @@ const PendingLoansPage = () => {
         message.error('Failed to fetch loan applications.');
         setLoading(false);
       });
-  }, []);
+  }, []);  // Empty array means this effect runs only once after initial render
 
-  const handleAction = (applicationId, action) => {
+  const handleAction = (Application_Id, Approved) => {
     // Prepare data to send to the backend
     const postData = {
-      applicationId,
-      action, // 'approve' or 'reject'
+      Application_Id,
+      Approved, // 'approve' or 'reject'
     };
 
     // Send data to the backend using Axios
-    axios.post('/api/loans/action', postData)
+    axios.put(`http://localhost:3001/api/loanapplications/${Application_Id}`, postData)
       .then(response => {
-        message.success(`Application ${applicationId} ${action}d successfully!`);
+        message.success(`Application ${Application_Id} ${Approved}d successfully!`);
         // Update the local state to reflect the action
         setData(prevData =>
           prevData.map(item =>
-            item.applicationId === applicationId ? { ...item, approved: action === 'true' ? 'Approved' : 'Rejected' } : item
+            item.Application_ID === Application_Id ? { ...item, Approved: Approved === 'true' ? 'Approved' : 'Rejected' } : item
           )
         );
       })
       .catch(error => {
-        message.error(`Failed to ${action} application ${applicationId}. Please try again.`);
+        message.error(`Failed to ${Approved} application ${Application_Id}. Please try again.`);
       });
   };
 
@@ -85,8 +85,8 @@ const PendingLoansPage = () => {
       dataIndex: 'Approved',
       key: 'approved',
       render: status => (
-        <Tag color={status === 0 ? 'orange' : status === 1 ? 'green' : 'red'}>
-          {status === 0 ? 'Pending' : status === 1 ? 'Approved' : 'Rejected'}
+        <Tag color={status === 'pending' ? 'orange' : status === 'approved' ? 'green' : 'red'}>
+          {status === 'pending' ? 'Pending' : status === 'approved' ? 'Approved' : 'Rejected'}
         </Tag>
       ),
     },
@@ -100,10 +100,10 @@ const PendingLoansPage = () => {
       key: 'action',
       render: (text, record) => (
         <Space size="middle">
-          <Button type="primary" onClick={() => handleAction(record.applicationId, 'approve')} >
+          <Button type="primary" onClick={() => handleAction(record.Application_ID, 'approved')} >
             Approve
           </Button>
-          <Button type="danger" onClick={() => handleAction(record.applicationId, 'reject')} >
+          <Button type="danger" onClick={() => handleAction(record.Application_ID, 'rejected')} >
             Reject
           </Button>
         </Space>

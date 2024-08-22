@@ -103,13 +103,13 @@ const LoanApplicationForm = () => {
 
       <Form.Item
         name="Approved"
-        label="Approved"
+        label="Approval Status"
         valuePropName="checked"
         rules={[{ required: true, message: 'Please select the approval status!' }]}
       >
         <Select placeholder="Select Approval Status">
-          <Option value={true}>Approved</Option>
-          <Option value={false}>Pending</Option>
+          {/* <Option value={'appro'}>Approved</Option> */}
+          <Option value={'pending'}>Pending</Option>
         </Select>
       </Form.Item>
 
