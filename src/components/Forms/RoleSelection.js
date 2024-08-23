@@ -1,19 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Card, Typography, Row, Col } from 'antd';
+import LoginModal from '../Modals/LoginModal';
 
 const { Title } = Typography;
 
 const RoleSelection = ({ onRoleSelect }) => {
-  const navigate = useNavigate();
+  const [selectedRole, setSelectedRole] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleRoleSelection = (role) => {
-    onRoleSelect(role);
-    if (role === 'customer') {
-      navigate('/customer-dashboard');
-    } else if (role === 'employee' || role === 'manager') {
-      navigate('/employee-dashboard');
-    }
+    setSelectedRole(role);
+    setIsModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
   };
 
   return (
@@ -41,6 +43,7 @@ const RoleSelection = ({ onRoleSelect }) => {
           </Col>
         </Row>
       </Card>
+      <LoginModal visible={isModalVisible} onClose={handleCloseModal} role={selectedRole} />
     </div>
   );
 };
