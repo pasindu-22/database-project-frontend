@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { BankOutlined, LogoutOutlined, PieChartOutlined, ProfileOutlined, BellOutlined, AppstoreOutlined, GroupOutlined, UserAddOutlined, SettingOutlined, AlertOutlined, TeamOutlined, ToolOutlined } from '@ant-design/icons';
+import { MergeCellsOutlined, MoneyCollectOutlined ,BankOutlined, LogoutOutlined, PieChartOutlined, ProfileOutlined, BellOutlined, AppstoreOutlined, GroupOutlined, UserAddOutlined, SettingOutlined, AlertOutlined, TeamOutlined, ToolOutlined } from '@ant-design/icons';
 import { Menu, Modal } from 'antd';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 
 const items = [
   {
@@ -18,6 +19,11 @@ const items = [
         key: '/app/events',
         label: 'Events',
         icon: <BellOutlined />,
+      },
+      {
+        key: '/app/transactions/new',
+        label: 'Transaction',
+        icon: <MoneyCollectOutlined />,
       },
     ],
   },
@@ -49,33 +55,14 @@ const items = [
     icon: <ProfileOutlined />,
     children: [
       {
-        key: '/customers',
+        key: '/customers/new',
         label: 'New Customer',
         icon: <UserAddOutlined />,
-        children: [
-          {
-            key: '/customers/individual/new',
-            label: 'Personal',
-          },
-          {
-            key: '/customers/business/new',
-            label: 'Business',
-          },
-        ],
       },
       {
-        key: '/customers/existing',
+        key: '/customers/search',
         label: 'Existing Customer',
-        children: [
-          {
-            key: '/customers/individual/existing',
-            label: 'Personal',
-          },
-          {
-            key: '/customers/business/existing',
-            label: 'Business',
-          },
-        ],
+        icon: <MergeCellsOutlined />,
       },
     ],
   },
@@ -93,7 +80,7 @@ const items = [
         label: 'Business',
       },
       {
-        key: '/app/loans/pending',
+        key: '/app/loans/applications',
         label: 'Pending Loans',
       },
     ],
@@ -127,11 +114,6 @@ const items = [
         icon: <ToolOutlined />,
       },
       {
-        key: '/app/system-management/teams',
-        label: 'Teams',
-        icon: <TeamOutlined />,
-      },
-      {
         key: '/app/system-management/logs',
         label: 'System Logs',
         icon: <AlertOutlined />,
@@ -151,6 +133,7 @@ const items = [
 const SideMenu = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { logout } = useAuth();
   const [openKeys, setOpenKeys] = useState([]);
 
   const onClick = (e) => {
@@ -162,12 +145,14 @@ const SideMenu = () => {
         okText: 'Yes',
         cancelText: 'No',
         onOk: () => {
-          localStorage.removeItem('role'); // Clear the role from localStorage
-          navigate('/'); // Redirect to the role selection screen
+          // console.log('Logging out...');
+          // localStorage.removeItem('role'); // Clear the role from localStorage
+          // localStorage.removeItem('user'); // Clear the user from localStorage
+          // console.log('Role and user removed from localStorage');
+          // navigate('/'); // Redirect to the role selection screen
+          logout();
         },
       });
-    } else if (e.key === '/customers/individual/existing' || e.key === '/customers/business/existing') {
-      navigate('/customers/search'); // Navigate to the search page
     } else {
       navigate(e.key); // Use navigate to change the route
     }

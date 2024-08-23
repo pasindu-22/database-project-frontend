@@ -1,12 +1,23 @@
 // contexts/AuthContext.js
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem('user');
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem('user', JSON.stringify(user));
+    } else {
+      localStorage.removeItem('user');
+    }
+  }, [user]);
 
   const login = (userData) => {
     setUser(userData);
@@ -15,7 +26,8 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setUser(null);
-    navigate('/login');
+    localStorage.removeItem('user'); // Ensure user is removed from localStorage
+    navigate('/role-selection');
   };
 
   const redirectToRoleBasedRoute = (role) => {
@@ -30,7 +42,7 @@ export const AuthProvider = ({ children }) => {
         navigate('/customers');
         break;
       default:
-        navigate('/login');
+        navigate('/role-selection');
     }
   };
 

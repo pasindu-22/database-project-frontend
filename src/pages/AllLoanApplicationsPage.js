@@ -19,40 +19,40 @@ const PendingLoansPage = () => {
         message.error('Failed to fetch loan applications.');
         setLoading(false);
       });
-  }, []);
+  }, []);  // Empty array means this effect runs only once after initial render
 
-  const handleAction = (applicationId, action) => {
+  const handleAction = (Application_Id, Approved) => {
     // Prepare data to send to the backend
     const postData = {
-      applicationId,
-      action, // 'approve' or 'reject'
+      Application_Id,
+      Approved, // 'approve' or 'reject'
     };
 
     // Send data to the backend using Axios
-    axios.post('/api/loans/action', postData)
+    axios.put(`http://localhost:3001/api/loanapplications/${Application_Id}`, postData)
       .then(response => {
-        message.success(`Application ${applicationId} ${action}d successfully!`);
+        message.success(`Application ${Application_Id} ${Approved} successfully!`);
         // Update the local state to reflect the action
         setData(prevData =>
           prevData.map(item =>
-            item.applicationId === applicationId ? { ...item, approved: action === 'approve' ? 'Approved' : 'Rejected' } : item
+            item.Application_ID === Application_Id ? { ...item, Approved: Approved === 'approved' ? 'approved' : 'rejected' } : item
           )
         );
       })
       .catch(error => {
-        message.error(`Failed to ${action} application ${applicationId}. Please try again.`);
+        message.error(`Failed to ${Approved} application ${Application_Id}. Please try again.`);
       });
   };
 
   const columns = [
     {
       title: 'Branch ID',
-      dataIndex: 'branchId',
+      dataIndex: 'Branch_ID',
       key: 'branchId',
     },
     {
       title: 'Customer ID',
-      dataIndex: 'customerId',
+      dataIndex: 'Customer_ID',
       key: 'customerId',
     },
     {
@@ -62,37 +62,37 @@ const PendingLoansPage = () => {
     },
     {
       title: 'Application ID',
-      dataIndex: 'applicationId',
+      dataIndex: 'Application_ID',
       key: 'applicationId',
     },
     {
       title: 'Loan Period',
-      dataIndex: 'loanPeriod',
+      dataIndex: 'LoanPeriod',
       key: 'loanPeriod',
     },
     {
       title: 'Date',
-      dataIndex: 'date',
+      dataIndex: 'Date',
       key: 'date',
     },
     {
       title: 'Loan Value',
-      dataIndex: 'loanValue',
+      dataIndex: 'LoanValue',
       key: 'loanValue',
     },
     {
       title: 'Approved',
-      dataIndex: 'approved',
+      dataIndex: 'Approved',
       key: 'approved',
       render: status => (
-        <Tag color={status === 'Pending' ? 'orange' : status === 'Approved' ? 'green' : 'red'}>
-          {status.toUpperCase()}
+        <Tag color={status === 'pending' ? 'orange' : status === 'approved' ? 'green' : 'red'}>
+          {status === 'pending' ? 'Pending' : status === 'approved' ? 'Approved' : 'Rejected'}
         </Tag>
       ),
     },
     {
       title: 'Loan Type',
-      dataIndex: 'loanType',
+      dataIndex: 'LoanType',
       key: 'loanType',
     },
     {
@@ -100,10 +100,10 @@ const PendingLoansPage = () => {
       key: 'action',
       render: (text, record) => (
         <Space size="middle">
-          <Button type="primary" onClick={() => handleAction(record.applicationId, 'approve')} disabled={record.approved !== 'Pending'}>
+          <Button type="primary" onClick={() => handleAction(record.Application_ID, 'approved')} >
             Approve
           </Button>
-          <Button type="danger" onClick={() => handleAction(record.applicationId, 'reject')} disabled={record.approved !== 'Pending'}>
+          <Button type="danger" onClick={() => handleAction(record.Application_ID, 'rejected')} >
             Reject
           </Button>
         </Space>
@@ -114,7 +114,7 @@ const PendingLoansPage = () => {
   return (
     
     <div>
-    <Title level={2}>Pending Loans</Title>
+    <Title level={2}>Loan Applications</Title>
     <Table 
       columns={columns} 
       dataSource={data} 

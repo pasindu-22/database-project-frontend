@@ -17,6 +17,7 @@ const onFinish = async(values) => {
 const onFinishFailed = (errorInfo) => {
   console.log('Failed:', errorInfo);
 };
+
 const BranchForm = () => (
   <div justify="center">
   <Form 
@@ -103,4 +104,5 @@ const BranchForm = () => (
   </Form>
   </div>
 );
+
 export default BranchForm;

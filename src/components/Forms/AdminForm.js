@@ -1,48 +1,61 @@
-// src/components/UserForm.js
 import React, { useState } from 'react';
-import './AdminForm.css';
+import { Form, Input, Button, message } from 'antd';
 import axios from 'axios';
+import './AdminForm.css';
 
 const AdminForm = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [role_name, setRole] = useState('');
+  const [form] = Form.useForm();
 
-  // Create a new manager
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (values) => {
     try {
-      const response = await axios.post('http://localhost:3001/api/managers/');
+      const response = await axios.post('http://localhost:3001/api/managers/', values);
       console.log(response.data);
-      alert('Admin created successfully!');
+      message.success('Admin created successfully!');
+      form.resetFields();
     } catch (error) {
       console.error('There was an error creating the user!', error);
-      alert('Failed to create user');
+      message.error('Failed to create user');
     }
   };
 
   return (
-    <form className='form-container' onSubmit={handleSubmit}>
-      <div >
-        <label>Name:</label>
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)}  />
-      </div>
-      <div>
-        <label>Email:</label>
-        <input type="text" value={email} onChange={(e) => setEmail(e.target.value)}  />
-      </div>
-      <div>
-        <label>Password:</label>
-        <input type="text" value={password} onChange={(e) => setPassword(e.target.value)}  />
-      </div>
-      <div>
-        <label>Role Name:</label>
-        <input type="text" value={role_name} onChange={(e) => setRole(e.target.value)}  />
-      </div>
-      <button type="submit">Create Manager</button>
-    </form>
+    <Form
+      form={form}
+      className='form-container'
+      onFinish={handleSubmit}
+      layout="vertical"
+    >
+      <Form.Item
+        name="name"
+        label="Name"
+        rules={[{ required: true, message: 'Please enter the name!' }]}
+      >
+        <Input placeholder="Enter Name" />
+      </Form.Item>
+
+      <Form.Item
+        name="username"
+        label="Username"
+        rules={[{ required: true, message: 'Please enter the username!' }]}
+      >
+        <Input placeholder="Enter Username" />
+      </Form.Item>
+
+      <Form.Item
+        name="password"
+        label="Password"
+        rules={[{ required: true, message: 'Please enter the password!' }]}
+      >
+        <Input.Password placeholder="Enter Password" />
+      </Form.Item>
+
+      <Form.Item>
+        <Button type="primary" htmlType="submit" block>
+          Create Manager
+        </Button>
+      </Form.Item>
+    </Form>
   );
 };
 
-export default AdminForm; // export the component
+export default AdminForm;

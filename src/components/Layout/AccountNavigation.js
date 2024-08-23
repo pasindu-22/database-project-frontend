@@ -18,16 +18,16 @@ const items = [
   },
   {
     label: 'New',
-    key: 'new',
+    key: 'accounts/',
     icon: <SettingOutlined />,
     children: [
           {
             label: 'Saving Account',
-            key: 'savingAccount',
+            key: 'accounts/new',
           },
           {
-            label: 'Checking Account',
-            key: 'checkingAccount',
+            label: 'Fixed Deposit',
+            key: 'accounts/fd/new',
           },
           
         ],

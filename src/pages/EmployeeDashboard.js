@@ -9,10 +9,12 @@ import AppRoutes from '../routes/AppRoutes';
 import CustomerRoutes from '../routes/CustomerRoutes';
 import CustomerForm from '../components/Forms/CustomerForm';
 import SearchCustomer from '../components/Forms/SearchCustomer';
-import WithCustomerNavigation from '../components/Layout/WithCustomerNavigation';
+import WithAccountNavigation from '../components/Layout/WithAccountNavigation';
+import { CustomerProvider } from '../contexts/CustomerContext';
 
 const EmployeeDashboard = () => {
   return (
+    <CustomerProvider>
     <div style={{ display: "flex", flexDirection: "column", flex: 1, height: "100vh", background: "#b7dcfa" }}>
       <Header />
       <div style={{ display: "flex", flexDirection: "row", flex: 1, backgroundColor: "#b7dcfa" }}>
@@ -21,16 +23,16 @@ const EmployeeDashboard = () => {
           <Routes>
             <Route path="/auth/*" element={<AuthRoutes />} />
             <Route path="/management/*" element={<ManagementRoutes />} />
-            <Route path="/customers/individual/new" element={<CustomerForm />} />
-            <Route path="/customers/business/new" element={<CustomerForm />} />
+            <Route path="/customers/new" element={<CustomerForm />} />
             <Route path="/customers/search" element={<SearchCustomer />} />
-            <Route path="/customers/*" element={<WithCustomerNavigation><CustomerRoutes /></WithCustomerNavigation>} />
+            <Route path="/customers/*" element={<WithAccountNavigation><CustomerRoutes /></WithAccountNavigation>} />
             <Route path="/app/*" element={<AppRoutes />} />
           </Routes>
         </div>
       </div>
       <Footer />
     </div>
+    </CustomerProvider>
   );
 };
 
