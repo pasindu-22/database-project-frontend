@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BankOutlined, LogoutOutlined, PieChartOutlined, ProfileOutlined, BellOutlined, AppstoreOutlined, GroupOutlined, UserAddOutlined, SettingOutlined, AlertOutlined, TeamOutlined, ToolOutlined } from '@ant-design/icons';
 import { Menu, Modal } from 'antd';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 
 const items = [
     {
@@ -126,6 +127,7 @@ const items = [
 const SideMenu = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { logout } = useAuth();
   const [openKeys, setOpenKeys] = useState([]);
 
   const onClick = (e) => {
@@ -137,8 +139,9 @@ const SideMenu = () => {
         okText: 'Yes',
         cancelText: 'No',
         onOk: () => {
-          localStorage.removeItem('role'); // Clear the role from localStorage
-          navigate('/'); // Redirect to the role selection screen
+          // localStorage.removeItem('role'); // Clear the role from localStorage
+          // navigate('/'); // Redirect to the role selection screen
+          logout();
         },
       });
     } else if (e.key === '/customers/individual/existing' || e.key === '/customers/business/existing') {
