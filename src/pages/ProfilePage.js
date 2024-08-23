@@ -41,7 +41,7 @@ const ProfilePage = () => {
   const handleOk = async () => {
     try {
       const values = await form.validateFields();
-      await axios.put(`/api/customers/${customerId}`, values);
+      await axios.put(`http://localhost:3001/api/customers/${customerId}`, values);
       setProfileData(values);
       setIsModalVisible(false);
     } catch (error) {
@@ -103,13 +103,13 @@ const ProfilePage = () => {
           onCancel={handleCancel}
         >
           <Form form={form} layout="vertical">
-            <Form.Item name="name" label="Name" rules={[{ required: true, message: 'Please input the name!' }]}>
+            <Form.Item name="Name" label="Name" rules={[{ required: true, message: 'Please input the name!' }]}>
               <Input />
             </Form.Item>
-            <Form.Item name="nic" label="NIC" rules={[{ required: true, message: 'Please input the NIC!' }]}>
+            <Form.Item name="NIC" label="NIC" rules={[{ required: true, message: 'Please input the NIC!' }]}>
               <Input />
             </Form.Item>
-            <Form.Item name="address" label="Address" rules={[{ required: true, message: 'Please input the address!' }]}>
+            <Form.Item name="Address" label="Address" rules={[{ required: true, message: 'Please input the address!' }]}>
               <Input />
             </Form.Item>
           </Form>
