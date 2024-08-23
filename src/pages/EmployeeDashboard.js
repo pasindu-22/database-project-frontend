@@ -10,9 +10,11 @@ import CustomerRoutes from '../routes/CustomerRoutes';
 import CustomerForm from '../components/Forms/CustomerForm';
 import SearchCustomer from '../components/Forms/SearchCustomer';
 import WithAccountNavigation from '../components/Layout/WithAccountNavigation';
+import { CustomerProvider } from '../contexts/CustomerContext';
 
 const EmployeeDashboard = () => {
   return (
+    <CustomerProvider>
     <div style={{ display: "flex", flexDirection: "column", flex: 1, height: "100vh", background: "#b7dcfa" }}>
       <Header />
       <div style={{ display: "flex", flexDirection: "row", flex: 1, backgroundColor: "#b7dcfa" }}>
@@ -30,6 +32,7 @@ const EmployeeDashboard = () => {
       </div>
       <Footer />
     </div>
+    </CustomerProvider>
   );
 };
 

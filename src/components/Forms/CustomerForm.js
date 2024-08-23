@@ -39,8 +39,8 @@ const CustomerForm = () => {
 
   const onFinish = async(values) => {
     console.log('Success:', values);
-    const { Name, NIC, Address } = values;
-    const customerData = { Name, NIC, Address };
+    const { Name, NIC, Address ,username,password} = values;
+    const customerData = { Name, NIC, Address, username, password };
     try {
       const response = await axios.post('http://localhost:3001/api/customers/',  customerData );
       console.log(response.data);

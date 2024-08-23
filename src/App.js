@@ -11,7 +11,7 @@ function App() {
   const { user } = useAuth();
 
   return (
-    <CustomerProvider>
+    <>
       {!user ? (
         <RoleSelection />
       ) : (
@@ -21,7 +21,7 @@ function App() {
           <CustomerDashboard />
         )
       )}
-    </CustomerProvider>
+    </>
   );
 }
 
