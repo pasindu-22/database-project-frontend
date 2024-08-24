@@ -19,7 +19,13 @@ const RoleSelection = ({ onRoleSelect }) => {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor:'lightgrey' }}>
+    <div style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '100vh',
+      background: 'linear-gradient(25deg, rgba(225, 175, 189, 1), rgba(110, 216, 255, 1))'
+    }}>
       <Card
         title={<Title level={2} style={{ textAlign: 'center' }}>Select Role</Title>}
         bordered={false}
