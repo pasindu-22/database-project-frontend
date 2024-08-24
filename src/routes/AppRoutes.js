@@ -1,7 +1,6 @@
 import React from 'react';
 import { Routes,Route } from 'react-router-dom';
 import LoanApplicationPage from '../pages/LoanApplicationPage';
-import LoanApplicationForm from '../components/Forms/LoanApplicationForm';
 import AllLoanApplicationsPage from '../pages/AllLoanApplicationsPage';
 import HomePage from '../pages/HomePage';
 import TransactionForm from '../components/Forms/TransactionForm';

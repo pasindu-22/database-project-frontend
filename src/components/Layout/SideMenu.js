@@ -145,11 +145,6 @@ const SideMenu = () => {
         okText: 'Yes',
         cancelText: 'No',
         onOk: () => {
-          // console.log('Logging out...');
-          // localStorage.removeItem('role'); // Clear the role from localStorage
-          // localStorage.removeItem('user'); // Clear the user from localStorage
-          // console.log('Role and user removed from localStorage');
-          // navigate('/'); // Redirect to the role selection screen
           logout();
         },
       });

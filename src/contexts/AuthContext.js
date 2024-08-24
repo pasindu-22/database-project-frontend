@@ -1,6 +1,6 @@
-// contexts/AuthContext.js
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const AuthContext = createContext();
 
@@ -9,15 +9,54 @@ export const AuthProvider = ({ children }) => {
     const storedUser = localStorage.getItem('user');
     return storedUser ? JSON.parse(storedUser) : null;
   });
+  const [details, setDetails] = useState(null); // State to store manager details
   const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
       localStorage.setItem('user', JSON.stringify(user));
+      let id;
+      switch (user.role) {
+        case 'manager':
+          id = user.Manager_ID;
+          break;
+        case 'employee':
+          id = user.Employee_ID;
+          break;
+        case 'customer':
+          id = user.Customer_ID;
+          break;
+      }
+      fetchDetails(id, user.role); // Fetch details based on role after login
     } else {
       localStorage.removeItem('user');
     }
   }, [user]);
+
+  const fetchDetails = async (id, role) => {
+    try {
+      let endpoint;
+      switch (role) {
+        case 'manager':
+          endpoint = `http://localhost:3001/api/managers/${id}`;
+          break;
+        case 'employee':
+          endpoint = `http://localhost:3001/api/employees/${id}`;
+          break;
+        case 'customer':
+          endpoint = `http://localhost:3001/api/customers/${id}`;
+          break;
+        default:
+          throw new Error('Invalid role');
+      }
+
+      const response = await axios.get(endpoint);
+      setDetails(response.data);
+      console.log(`${role} details:`, response.data);
+    } catch (error) {
+      console.error(`Failed to fetch ${role} details:`, error);
+    }
+  };
 
   const login = (userData) => {
     setUser(userData);
@@ -26,6 +65,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setUser(null);
+    setDetails(null); // Clear manager details on logout
     localStorage.removeItem('user'); // Ensure user is removed from localStorage
     navigate('/role-selection');
   };
@@ -47,7 +87,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, details }}>
       {children}
     </AuthContext.Provider>
   );

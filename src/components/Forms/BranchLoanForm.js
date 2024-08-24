@@ -2,11 +2,13 @@ import React from 'react';
 import { Form, Input, Button, Select, DatePicker, InputNumber, message } from 'antd';
 import axios from 'axios';
 import moment from 'moment';
+import { useAuth } from '../../contexts/AuthContext';
 
 const { Option } = Select;
 
-const LoanApplicationForm = () => {
+const LoanApplicationForm = (isCustomerEditable) => {
   const [form] = Form.useForm();
+  const { details } = useAuth();
 
   const onFinish = (values) => {
 
@@ -34,6 +36,7 @@ const LoanApplicationForm = () => {
       onFinish={onFinish}
       initialValues={{
         Approved: false,  // Default value for Approved
+        Customer_ID: details.Customer_ID, // Set initial value from context if not editable
       }}
       style={{
         width: '100%',
@@ -57,7 +60,16 @@ const LoanApplicationForm = () => {
         label="Customer ID"
         rules={[{ required: true, message: 'Please input the Customer ID!' }]}
       >
-        <Input placeholder="Enter Customer ID" />
+        {isCustomerEditable ? (
+          <Input placeholder="Enter Customer ID" />
+        ) : (
+          <Input
+            placeholder="Enter Customer ID"
+            readOnly
+            disabled
+            value={details.Customer_ID}
+          />
+        )}
       </Form.Item>
 
       <Form.Item
