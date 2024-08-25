@@ -41,7 +41,7 @@ const BranchForm = () => (
   >
     <Form.Item
       label="Name"
-      name="name"
+      name="Name"
       rules={[
         {
           required: true,
@@ -54,7 +54,7 @@ const BranchForm = () => (
 
     <Form.Item
       label="Address"
-      name="address"
+      name="Address"
       rules={[
         {
           required: true,
@@ -80,7 +80,7 @@ const BranchForm = () => (
 
     <Form.Item
       label="Admin ID"
-      name="admin_id"
+      name="Manager_ID"
       rules={[
         {
           required: true,
