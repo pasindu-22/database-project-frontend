@@ -81,10 +81,10 @@ const ProfilePage = () => {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Header style={{ background: '#A9A9A9', padding: 0, textAlign: 'center' }}>
+      <Header style={{ background: '#b7dcfa', padding: 0, textAlign: 'center' }}>
         <Title level={2}>Customer Profile</Title>
       </Header>
-      <Content style={{ background: '#A9A9A9', padding: '50px' }}>
+      <Content style={{ background: '#b7dcfa', padding: '50px' }}>
         <Card
           title="Profile Details"
           extra={<Button icon={<EditOutlined />} onClick={showModal}>Edit</Button>}

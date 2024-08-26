@@ -169,6 +169,8 @@ const SideMenu = () => {
         width: 256,
         backgroundColor: 'whitesmoke',
         borderRadius: '15px 15px 15px 15px',
+        background: 'linear-gradient(25deg, rgba(248, 248, 248, 1), rgba(150, 216, 230, 1))',
+        borderColor: '#fafafa',
       }}
       selectedKeys={[location.pathname]}
       openKeys={openKeys}

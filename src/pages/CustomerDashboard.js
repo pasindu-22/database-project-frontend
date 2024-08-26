@@ -12,7 +12,7 @@ import AccountPageCustomer from './AccountPage-customer';
 const CustomerDashboard = () => {
   return (
     <div style={{ display: "flex", flexDirection: "column", flex: 1, height: "100vh", background: "#b7dcfa" }}>
-      <Header/>
+      <Header style={{backgroundColor:'#20468c'}} />
       <div style={{ display: "flex", flexDirection: "row", flex: 1, backgroundColor: "#b7dcfa" }}>
       <SideMenu /> {/* Add Sidebar */}
       <div style={{ flex: 1 }}>
@@ -27,7 +27,7 @@ const CustomerDashboard = () => {
         </Routes> 
       </div>
     </div>
-    <Footer/>
+    <Footer style={{backgroundColor:'#20468c'}} />
   </div>
   );
 };

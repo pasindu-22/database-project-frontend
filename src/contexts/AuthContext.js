@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = (userData) => {
-    setUser(userData);
+    setUser(userData);    // Setuser data
     redirectToRoleBasedRoute(userData.role);
   };
 

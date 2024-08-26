@@ -40,10 +40,10 @@ const SearchCustomer = () => {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Header style={{ background: '#A9A9A9', padding: 0, textAlign: 'center' }}>
+      <Header style={{ background: 'lightskyblue', padding: 0, textAlign: 'center' ,borderRadius:'10px'}}>
         <h1>Customer Search</h1>
       </Header>
-      <Content style={{ background: '#A9A9A9', padding: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <Content style={{ background: '#b7dcfa', padding: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <Form layout="inline" onFinish={handleSearch}>
           <Form.Item>
             <Input
