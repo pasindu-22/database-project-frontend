@@ -145,11 +145,6 @@ const SideMenu = () => {
         okText: 'Yes',
         cancelText: 'No',
         onOk: () => {
-          // console.log('Logging out...');
-          // localStorage.removeItem('role'); // Clear the role from localStorage
-          // localStorage.removeItem('user'); // Clear the user from localStorage
-          // console.log('Role and user removed from localStorage');
-          // navigate('/'); // Redirect to the role selection screen
           logout();
         },
       });
@@ -174,6 +169,8 @@ const SideMenu = () => {
         width: 256,
         backgroundColor: 'whitesmoke',
         borderRadius: '15px 15px 15px 15px',
+        background: 'linear-gradient(25deg, rgba(248, 248, 248, 1), rgba(150, 216, 230, 1))',
+        borderColor: '#fafafa',
       }}
       selectedKeys={[location.pathname]}
       openKeys={openKeys}

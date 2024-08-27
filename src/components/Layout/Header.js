@@ -6,7 +6,8 @@ function Header() {
       display:"flex",
       justifyContent:"center",
       alignItems:"center",
-      fontWeight:"bold"
+      fontWeight:"bold",
+      width:"100%"
     }} 
       >A Bank™</div>;
 }

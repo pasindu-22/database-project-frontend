@@ -24,7 +24,7 @@ const RoleSelection = ({ onRoleSelect }) => {
       justifyContent: 'center',
       alignItems: 'center',
       height: '100vh',
-      background: 'linear-gradient(25deg, rgba(225, 175, 189, 1), rgba(110, 216, 255, 1))'
+      background: 'linear-gradient(25deg, rgba(120, 19, 189, 1), rgba(110, 216, 230, 1))'
     }}>
       <Card
         title={<Title level={2} style={{ textAlign: 'center' }}>Select Role</Title>}
@@ -33,17 +33,20 @@ const RoleSelection = ({ onRoleSelect }) => {
       >
         <Row gutter={[16, 16]} justify="center">
           <Col span={24}>
-            <Button type="primary" block size="large" onClick={() => handleRoleSelection('manager')}>
+            <Button type="primary" block size="large" onClick={() => handleRoleSelection('manager')}
+              style={{borderRadius:'80px'}}>
               Manager
             </Button>
           </Col>
           <Col span={24}>
-            <Button type="primary" block size="large" onClick={() => handleRoleSelection('employee')}>
+            <Button type="primary" block size="large" onClick={() => handleRoleSelection('employee')}
+              style={{borderRadius:'80px'}}>
               Employee
             </Button>
           </Col>
           <Col span={24}>
-            <Button type="primary" block size="large" onClick={() => handleRoleSelection('customer')}>
+            <Button type="primary" block size="large" onClick={() => handleRoleSelection('customer')}
+              style={{borderRadius:'80px'}}>
               Customer
             </Button>
           </Col>

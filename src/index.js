@@ -13,7 +13,6 @@ root.render(
     <BrowserRouter>
     <AuthProvider>
       <Routes>
-        {/* <Route path="/" element={<LoginForm />} /> */}
         <Route path="/" element={<Navigate to="/role-selection" />} />
         <Route path="/*" element={<App />} />
       </Routes>

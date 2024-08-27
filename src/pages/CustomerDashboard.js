@@ -4,28 +4,34 @@ import SideMenu from '../components/Layout/CustomerSideMenu';
 import CustomerRoutes from '../routes/CustomerRoutes';
 import CustomerForm from '../components/Forms/CustomerForm';
 import { Footer, Header } from 'antd/es/layout/layout';
-import LoanApplicationForm from '../components/Forms/LoanApplicationForm';
+import OnlineLoanForm from '../components/Forms/OnlineLoanForm';
 import FixedDepositForm from '../components/Forms/FDForm';
 import TransactionForm from '../components/Forms/TransactionForm';
+import AccountPageCustomer from './AccountPage-customer';
+import ActiveLoansPage from './ActiveLoansPage';
+import TransactionList from '../components/Lists/TransactionsList';
 
 const CustomerDashboard = () => {
   return (
     <div style={{ display: "flex", flexDirection: "column", flex: 1, height: "100vh", background: "#b7dcfa" }}>
-      <Header/>
+      <Header style={{backgroundColor:'#20468c'}} />
       <div style={{ display: "flex", flexDirection: "row", flex: 1, backgroundColor: "#b7dcfa" }}>
       <SideMenu /> {/* Add Sidebar */}
       <div style={{ flex: 1 }}>
         <Routes>
           <Route path="/customer/accounts/fd/new" element={<FixedDepositForm/>}/>
-          <Route path="/customer/loan/new" element={<LoanApplicationForm/>}/>
+          <Route path="/customer/loan/new" element={<OnlineLoanForm/>}/>
           <Route path="/customer/dashboard" element={<div> Welcome User</div>} />
           <Route path="/customers/individual/new" element={<CustomerForm />} />
           <Route path="/customers/business/new" element={<CustomerForm />} />
+          <Route path="customer/accounts/view" element={<AccountPageCustomer/>} />
           <Route path="/customer/transaction/new" element={<TransactionForm/>}/>
+          <Route path="/customer/loan/view/ongoing" element={<ActiveLoansPage/>} />
+          <Route path="/customer/transaction/view" element={<TransactionList/>}/>
         </Routes> 
-      </div>
+      </div> 
     </div>
-    <Footer/>
+    <Footer style={{backgroundColor:'#20468c'}} />
   </div>
   );
 };

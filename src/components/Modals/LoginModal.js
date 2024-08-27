@@ -13,6 +13,7 @@ const LoginModal = ({ visible, onClose, role }) => {
     try {
       const response = await axios.post(`http://localhost:3001/api/${role}s/login`, values);
       login({ ...response.data, role });
+      console.log('Login response:', response.data);
       message.success('Login successful');
       onClose();
     } catch (error) {

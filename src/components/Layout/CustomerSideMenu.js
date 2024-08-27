@@ -43,7 +43,7 @@ const items = [
         label: 'View Accounts',
       },
       {
-        key: '/app/accounts/view/transactions',
+        key: '/customer/transaction/view',
         label: 'View Transactions',
       },
     ],

@@ -59,11 +59,11 @@ const CustomerNavigation = () => {
   items={items} 
   style={{
     width: '100vh',
-    backgroundColor: 'darkgray',
+    backgroundColor: 'lightgrey',
     borderRadius: '10px',
   }} 
-  defaultSelectedKeys={['profile']}
-  defaultOpenKeys={['profile']}
+  defaultSelectedKeys={['profile/details']}
+  defaultOpenKeys={['profile/details']}
   />
 );
 };

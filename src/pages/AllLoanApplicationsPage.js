@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Tag, Space, Button, message, Typography } from 'antd';
+import { useAuth } from '../contexts/AuthContext';
 import axios from 'axios';
 
 const {Title} = Typography;
@@ -7,29 +8,38 @@ const {Title} = Typography;
 const PendingLoansPage = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { details } = useAuth();
 
   // Fetch data from backend API when component mounts
   useEffect(() => {
-    axios.get('http://localhost:3001/api/loanapplications/')
+    axios.get(`http://localhost:3001/api/loanapplications/${details.Manager_ID}/getAll`)
       .then(response => {
-        setData(response.data); // Assuming the data is in response.data
+        if (Array.isArray(response.data)) {
+          setData(response.data); // Assuming the data is an array
+        } else {
+          console.error('Unexpected response format:', response.data);
+          message.error('Unexpected response format.');
+        }
         setLoading(false);
       })
       .catch(error => {
+        console.error('Error fetching loan applications:', error);
         message.error('Failed to fetch loan applications.');
         setLoading(false);
       });
-  }, []);  // Empty array means this effect runs only once after initial render
+  }, []);   // Empty array means this effect runs only once after initial render
 
   const handleAction = (Application_Id, Approved) => {
     // Prepare data to send to the backend
     const postData = {
-      Application_Id,
-      Approved, // 'approve' or 'reject'
+      // Application_Id,
+      // Approved, // 'approve' or 'reject'
+      Manager_ID: details.Manager_ID, // Assuming the manager ID is available in context
+      Approved,
     };
 
     // Send data to the backend using Axios
-    axios.put(`http://localhost:3001/api/loanapplications/${Application_Id}`, postData)
+    axios.post(`http://localhost:3001/api/loanapplications/${Application_Id}/approve`, postData)
       .then(response => {
         message.success(`Application ${Application_Id} ${Approved} successfully!`);
         // Update the local state to reflect the action
@@ -120,7 +130,7 @@ const PendingLoansPage = () => {
       dataSource={data} 
       loading={loading} 
       rowKey="applicationId" 
-      pagination={{ pageSize: 5 }} // Pagination with 5 rows per page
+      pagination={{ pageSize: 10 }} // Pagination with 5 rows per page
       style={{
         marginTop: 20, 
         padding: 1,
