@@ -60,9 +60,9 @@ const AccountPageCustomer = () => {
   return (
     <Layout style={{ minHeight: '100vh' , borderRadius:'20'}}>
       <Header style={{ background: '#b7dcfa', padding: 0, textAlign: 'center' }}>
-        <Title level={2}>Customer Accounts</Title>
+        <Title level={2}>Your Accounts</Title>
       </Header>
-      <Content style={{ background: '#b7dcfa', padding: '50px' }}>
+      <Content style={{ background: '#b7dcfa', padding: '50px' ,margin:'auto'}}>
         <List
           grid={{ gutter: 16, column: 1 }}
           dataSource={accountData}

@@ -8,6 +8,8 @@ import OnlineLoanForm from '../components/Forms/OnlineLoanForm';
 import FixedDepositForm from '../components/Forms/FDForm';
 import TransactionForm from '../components/Forms/TransactionForm';
 import AccountPageCustomer from './AccountPage-customer';
+import ActiveLoansPage from './ActiveLoansPage';
+import TransactionList from '../components/Lists/TransactionsList';
 
 const CustomerDashboard = () => {
   return (
@@ -24,8 +26,10 @@ const CustomerDashboard = () => {
           <Route path="/customers/business/new" element={<CustomerForm />} />
           <Route path="customer/accounts/view" element={<AccountPageCustomer/>} />
           <Route path="/customer/transaction/new" element={<TransactionForm/>}/>
+          <Route path="/customer/loan/view/ongoing" element={<ActiveLoansPage/>} />
+          <Route path="/customer/transaction/view" element={<TransactionList/>}/>
         </Routes> 
-      </div>
+      </div> 
     </div>
     <Footer style={{backgroundColor:'#20468c'}} />
   </div>
