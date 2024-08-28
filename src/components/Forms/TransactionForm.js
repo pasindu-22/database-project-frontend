@@ -34,11 +34,11 @@ const TransactionForm = () => {
       form={form}
       
       onFinish={onFinish}
-      style={{width: '75%',
-        margin: '20px auto',
+      style={{width: '95%',
+        margin: '20px',
         padding: '20px',
         backgroundColor: '#f7f7f7',
-        borderRadius: '8px',
+        borderRadius: '15px',
         boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)'}}
     >
       <Form.Item
