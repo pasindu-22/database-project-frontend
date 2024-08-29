@@ -10,6 +10,7 @@ import CustomerRoutes from '../routes/CustomerRoutes';
 import CustomerForm from '../components/Forms/CustomerForm';
 import SearchCustomer from '../components/Forms/SearchCustomer';
 import WithAccountNavigation from '../components/Layout/WithAccountNavigation';
+import TransactionReport from '../reports/TransactionReport';
 import { CustomerProvider } from '../contexts/CustomerContext';
 
 const EmployeeDashboard = () => {
@@ -25,6 +26,7 @@ const EmployeeDashboard = () => {
             <Route path="/management/*" element={<ManagementRoutes />} />
             <Route path="/customers/new" element={<CustomerForm />} />
             <Route path="/customers/search" element={<SearchCustomer />} />
+            <Route path='/app/reports/transactions' element={<TransactionReport/>}/>
             <Route path="/customers/*" element={<WithAccountNavigation><CustomerRoutes /></WithAccountNavigation>} />
             <Route path="/app/*" element={<AppRoutes />} />
           </Routes>

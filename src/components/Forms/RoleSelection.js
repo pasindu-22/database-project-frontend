@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Card, Typography, Row, Col } from 'antd';
 import LoginModal from '../Modals/LoginModal';
+import '../../styles/RoleSelection.css';
 
 const { Title } = Typography;
 

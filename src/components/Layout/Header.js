@@ -1,5 +1,6 @@
 function Header() {
     return <div style={{
+      display:'flex',
       height: 60, 
       background: "#164c7e", 
       color:"white", 
