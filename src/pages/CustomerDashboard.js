@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import SideMenu from '../components/Layout/CustomerSideMenu';
 import CustomerRoutes from '../routes/CustomerRoutes';
 import CustomerForm from '../components/Forms/CustomerForm';
-import { Footer, Header } from 'antd/es/layout/layout';
+import Header from '../components/Layout/Header';
 import OnlineLoanForm from '../components/Forms/OnlineLoanForm';
 import FixedDepositForm from '../components/Forms/FDForm';
 import TransactionForm from '../components/Forms/TransactionForm';
@@ -14,10 +14,14 @@ import TransactionList from '../components/Lists/TransactionsList';
 const CustomerDashboard = () => {
   return (
     <div style={{ display: "flex", flexDirection: "column", flex: 1, height: "100vh", background: "#b7dcfa" }}>
-      <Header style={{backgroundColor:'#20468c'}} />
-      <div style={{ display: "flex", flexDirection: "row", flex: 1, backgroundColor: "#b7dcfa" }}>
-      <SideMenu /> {/* Add Sidebar */}
-      <div style={{ flex: 1 }}>
+      <div style={{ position: "fixed", top: 0, width: "100%", zIndex: 1000 }}>
+        <Header />
+      </div>
+      <div style={{ display: "flex", flexDirection: "row", flex: 1, backgroundColor: "#b7dcfa",marginTop: "64px" }}>
+      <div style={{ position: "fixed", top: "64px", height: "calc(100vh - 64px)", zIndex: 1000 }}>
+          <SideMenu />
+        </div>
+        <div style={{ flex: 1, marginLeft: "260px", overflowY: "auto", height: "calc(100vh - 64px)"}}>
         <Routes>
           <Route path="/customer/accounts/fd/new" element={<FixedDepositForm/>}/>
           <Route path="/customer/loan/new" element={<OnlineLoanForm/>}/>
@@ -31,7 +35,6 @@ const CustomerDashboard = () => {
         </Routes> 
       </div> 
     </div>
-    <Footer style={{backgroundColor:'#20468c'}} />
   </div>
   );
 };

@@ -17,10 +17,14 @@ const EmployeeDashboard = () => {
   return (
     <CustomerProvider>
     <div style={{ display: "flex", flexDirection: "column", flex: 1, height: "100vh", background: "#b7dcfa" }}>
-      <Header />
-      <div style={{ display: "flex", flexDirection: "row", flex: 1, backgroundColor: "#b7dcfa" }}>
-        <SideMenu />
-        <div style={{ flex: 1 }}>
+      <div style={{ position: "fixed", top: 0, width: "100%", zIndex: 1000 }}>
+        <Header />
+      </div>
+      <div style={{ display: "flex", flexDirection: "row", flex: 1, backgroundColor: "#b7dcfa",marginTop: "64px" }}>
+        <div style={{ position: "fixed", top: "64px", height: "calc(100vh - 64px)", zIndex: 1000 }}>
+          <SideMenu />
+        </div>
+        <div style={{ flex: 1, marginLeft: "260px", overflowY: "auto", height: "calc(100vh - 64px)"}}>
           <Routes>
             <Route path="/auth/*" element={<AuthRoutes />} />
             <Route path="/management/*" element={<ManagementRoutes />} />
@@ -32,7 +36,6 @@ const EmployeeDashboard = () => {
           </Routes>
         </div>
       </div>
-      <Footer />
     </div>
     </CustomerProvider>
   );
