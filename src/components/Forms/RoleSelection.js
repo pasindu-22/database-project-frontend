@@ -33,29 +33,37 @@ const RoleSelection = ({ onRoleSelect }) => {
       // background: 'linear-gradient(25deg, rgba(120, 19, 189, 1), rgba(110, 216, 230, 1))'
     }}>
       <Card
-        title={<Title level={2} style={{ textAlign: 'center' }}>Select Role</Title>}
+        title={<Title level={2} style={{ textAlign: 'center' }}>A Bank Login Portal</Title>}
         bordered={false}
         style={{ width: 400, boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.1)' ,backgroundColor:'lightsteelblue'}}
       >
-        <Row gutter={[16, 16]} justify="center">
+        <Row gutter={[16, 16]} justify='center' >
           <Col span={24}>
-            <Button type="primary" block size="large" onClick={() => handleRoleSelection('manager')}
+            <Button type="primary" block size="large" onClick={() => handleRoleSelection('customer')}
+              style={{borderRadius:'80px'}}>
+              Already a Customer? Login Here.
+            </Button>
+          </Col>
+          <Col span={24}>
+            <hr style={{ margin: '16px 0' }} />
+          </Col>
+          <Col span={24}>
+            <Title level={4} style={{ textAlign: 'center' }}>An Employee?</Title>
+          </Col>
+          <div style={{display:'flex', direction:'row'}}>
+          <Col span={10}>
+            <Button type="primary" block size="medium" onClick={() => handleRoleSelection('manager')}
               style={{borderRadius:'80px'}}>
               Manager
             </Button>
           </Col>
-          <Col span={24}>
-            <Button type="primary" block size="large" onClick={() => handleRoleSelection('employee')}
+          <Col span={10}>
+            <Button type="primary" block size="medium" onClick={() => handleRoleSelection('employee')}
               style={{borderRadius:'80px'}}>
               Employee
             </Button>
           </Col>
-          <Col span={24}>
-            <Button type="primary" block size="large" onClick={() => handleRoleSelection('customer')}
-              style={{borderRadius:'80px'}}>
-              Customer
-            </Button>
-          </Col>
+          </div>
         </Row>
       </Card>
       <LoginModal visible={isModalVisible} onClose={handleCloseModal} role={selectedRole} />
