@@ -10,12 +10,14 @@ const TransactionsList = () => {
 
     const [ loading, setLoading] = useState(false);
     const [accountData, setAccountData] = useState([]);
+    const [accountID, setAccountID] = useState([]);
     const [transactions, setTransactions] = useState([]);
     const [isModalVisible,setIsModalVisible] = useState(false);
     const {details} = useAuth();
 
     useEffect(() => {
         const fetchAccountData = async () => {
+            // code goes here
             try {
               const response = await axios.get(`http://localhost:3001/api/accounts/customer/${details.Customer_ID}`);
               setAccountData(response.data);
@@ -33,7 +35,23 @@ const TransactionsList = () => {
 
     },[details.Customer_ID]);
 
-    const showModal = () => {
+    useEffect(() => {
+      const fetchTransactions = async () => {
+        if (accountID) {
+          try {
+            const response = await axios.get(`http://localhost:3001/api/transactions/byAccount/${accountID}`);
+            console.log(response.data);
+            setTransactions(response.data);
+          } catch (error) {
+            console.error("There was an error fetching the transactions data!");
+          }
+        }
+      };
+      fetchTransactions();
+    }, [accountID]);
+
+    const showModal = (id) => {
+        setAccountID(id);
         setIsModalVisible(true);
     }
     const handleCancel = () => {
@@ -69,23 +87,28 @@ const TransactionsList = () => {
       const columns = [
         {
             title: 'Date',
-            dataIndex: 'date',
+            dataIndex: 'Date',
             key: 'date',
         },
         {
-            title: 'Amount',
-            dataIndex: 'description',
-            key: 'description',
+            title: 'From',
+            dataIndex: 'FromAccount',
+            key: 'from',
+        },
+        {
+          title: 'To',
+          dataIndex: 'ToAccount',
+          key: 'to',
         },
         {
             title: 'Debit/Credit',
-            dataIndex: 'description',
-            key: 'description',
+            dataIndex: 'Type',
+            key: 'type',
         },
         {
-            title: 'Account Balance',
-            dataIndex: 'description',
-            key: 'description',
+            title: 'Value',
+            dataIndex: 'Value',
+            key: 'value',
         },
       ]
     
@@ -103,7 +126,8 @@ const TransactionsList = () => {
                   <Card 
                     type="inner" 
                     title={`Account IDs: ${account.Account_ID}`} 
-                    extra={<Button type='primary' onClick={showModal}>Transactions</Button>}
+                    extra={<Button type='primary' onClick={() => showModal(account.Account_ID)}>Transactions</Button>}
+
                     >
                     <p>Balance: {account.Balance}</p>
                     </Card>
@@ -116,7 +140,7 @@ const TransactionsList = () => {
                         >
                             <Table
                             columns={columns}
-                            dataSource={[]}
+                            dataSource={transactions}
                             />
                         </Modal>
                 </List.Item>

@@ -125,7 +125,7 @@ const ActiveLoansPage = () => {
     });
   return (
     <>
-    <div style={{ margin: '20px', justifyContent:'center'}}>
+    <div style={{ margin: '20px', justifyContent:'center',borderRadius:'15px'}}>
       <h1>Active Loans</h1>
       <Table
         columns={columns}
