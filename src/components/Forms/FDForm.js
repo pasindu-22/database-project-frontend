@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { Form, Input, Button, DatePicker, Select, InputNumber, message } from 'antd';
 import axios from 'axios';
 import moment from 'moment';
@@ -9,7 +8,6 @@ const FixedDepositForm = () => {
   const [form] = Form.useForm();
 
   const periodMapping = {
-    '3 months': 3,
     '6 months': 6,
     '1 year': 12,
     '3 years': 36,
@@ -68,7 +66,6 @@ const FixedDepositForm = () => {
         rules={[{ required: true, message: 'Please select Period!' }]}
       >
         <Select placeholder="Select Period">
-          <option value="3 months">3 months</option>
           <Option value="6 months" >6 months</Option>
           <Option value="1 year">1 year</Option>
           <Option value="3 years">3 years</Option>

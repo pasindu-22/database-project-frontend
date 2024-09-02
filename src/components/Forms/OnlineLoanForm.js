@@ -1,5 +1,5 @@
 import React from 'react';
-import LoanApplicationForm from './BranchLoanForm';
+import LoanApplicationForm from './LoanForm';
 
 const OnlineLoanForm = () => {
   return (

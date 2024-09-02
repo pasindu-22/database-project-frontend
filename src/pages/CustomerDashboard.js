@@ -1,7 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import SideMenu from '../components/Layout/CustomerSideMenu';
-import CustomerRoutes from '../routes/CustomerRoutes';
 import CustomerForm from '../components/Forms/CustomerForm';
 import Header from '../components/Layout/Header';
 import OnlineLoanForm from '../components/Forms/OnlineLoanForm';

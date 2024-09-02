@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Layout, List, Card, Typography, Spin } from 'antd';
 import axios from 'axios';
-import { CustomerContext } from '../contexts/CustomerContext';
 import { useAuth } from '../contexts/AuthContext';
 
 const { Header, Content } = Layout;

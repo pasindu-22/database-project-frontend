@@ -1,128 +1,143 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { DownOutlined } from '@ant-design/icons';
 import { Badge, Dropdown, Space, Table } from 'antd';
-const items = [
-  {
-    key: '1',
-    label: 'Action 1',
-  },
-  {
-    key: '2',
-    label: 'Action 2',
-  },
-];
+import { useAuth } from '../contexts/AuthContext';
+import axios from 'axios';
+
 const ActiveLoansPage = () => {
-  const expandedRowRender = () => {
-    const columns = [
+  const { details } = useAuth();
+  const [loanData, setLoanData] = useState([]);
+  const [installmentData,setInstallmentData ] = useState({});
+  const [expandedRowKeys, setExpandedRowKeys] = useState([]);
+
+  useEffect( () => {
+    const fetchLoanData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3001/api/loans/customer/${details.Customer_ID}`);
+        setLoanData(response.data)
+      } catch(error) {
+        console.error("Error occured while loading");
+      } finally {
+
+      }
+  };
+
+    if (details && details.Customer_ID) {
+      fetchLoanData();
+    } else {
+      console.error("Error occcured");
+    }
+
+  },[details,setLoanData]);
+
+  // Expanding row render.
+
+  const fetchLoanInstallements = async (loanID) => {
+      try {
+        const response =  await axios.get(`http://localhost:3001/api/loanInstallments/loan/${loanID}`);
+        setInstallmentData((prevData) => ({
+          ...prevData,
+          [loanID]: response.data,
+        }));
+        console.log(installmentData);
+      } catch(error) {
+        console.error("Error Occured");
+      }
+    };
+
+  useEffect( () => {
+    if (expandedRowKeys.length >0) {
+      const loanID = expandedRowKeys[expandedRowKeys.length - 1];
+      fetchLoanInstallements(loanID);
+    }
+  }, [expandedRowKeys]);
+
+  const expandedRowRender = (record) => {
+      const columns = [
       {
-        title: 'Date',
-        dataIndex: 'date',
-        key: 'date',
+        title: 'Installment ID',
+        dataIndex: 'Installment_ID',
+        key: 'installment_id',
       },
       {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
+        title: 'Transaction ID',
+        dataIndex: 'Transaction_ID',
+        key: 'transaction_id',
       },
       {
-        title: 'Status',
-        key: 'state',
+        title: 'Due Date',
+        dataIndex: 'Due_Date',
+        key: 'due_date',
         render: () => <Badge status="success" text="Finished" />,
       },
       {
-        title: 'Upgrade Status',
-        dataIndex: 'upgradeNum',
-        key: 'upgradeNum',
+        title: 'Value',
+        dataIndex: 'Value',
+        key: 'value',
       },
       {
         title: 'Action',
         key: 'operation',
         render: () => (
           <Space size="middle">
-            <a>Pause</a>
-            <a>Stop</a>
-            <Dropdown
-              menu={{
-                items,
-              }}
-            >
-              <a>
-                More <DownOutlined />
-              </a>
-            </Dropdown>
+            <button>Pay</button>
           </Space>
         ),
       },
     ];
-    const data = [];
-    for (let i = 0; i < 3; ++i) {
-      data.push({
-        key: i.toString(),
-        date: '2014-12-24 23:12:00',
-        name: 'This is production name',
-        upgradeNum: 'Upgraded: 56',
-      });
-    }
-    return <Table columns={columns} dataSource={data} pagination={false} />;
+    return (
+      <Table
+        columns={columns}
+        dataSource={installmentData[record.Loan_ID] || []}
+        pagination={false}
+        rowKey="Installment_ID"
+      />
+    );
+    // return <Table columns={columns} dataSource={installmentData} pagination={false} />;
   };
   const columns = [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: 'Loan ID',
+      dataIndex: 'Loan_ID',
+      key: 'loan_id',
     },
     {
-      title: 'Platform',
-      dataIndex: 'platform',
-      key: 'platform',
+      title: 'Branch ID',
+      dataIndex: 'Branch_ID',
+      key: 'branch_id',
     },
     {
-      title: 'Version',
-      dataIndex: 'version',
-      key: 'version',
+      title: 'Customer ID',
+      dataIndex: 'Customer_ID',
+      key: 'Customer_ID',
     },
     {
-      title: 'Upgraded',
-      dataIndex: 'upgradeNum',
-      key: 'upgradeNum',
+      title: 'Loan Period',
+      dataIndex: 'LoanPeriod',
+      key: 'loan_period',
     },
     {
-      title: 'Creator',
-      dataIndex: 'creator',
+      title: 'Intereset Rate',
+      dataIndex: 'InterestRate',
       key: 'creator',
     },
     {
       title: 'Date',
-      dataIndex: 'createdAt',
-      key: 'createdAt',
+      dataIndex: 'Date',
+      key: 'date',
+    },
+    {
+      title: 'Loan Value',
+      dataIndex: 'LoanValue',
+      key: 'value',
     },
     {
       title: 'Action',
       key: 'operation',
-      render: () => <a>Publish</a>,
+      render: () => <button>Pay</button>,
     },
   ];
-  const data = [];
-  for (let i = 0; i < 3; ++i) {
-    data.push({
-      key: i.toString(),
-      name: 'Screen',
-      platform: 'iOS',
-      version: '10.3.4.5654',
-      upgradeNum: 500,
-      creator: 'Jack',
-      createdAt: '2014-12-24 23:12:00',
-    });
-  }
-  data.push({
-    key: '3',
-    name: 'Sunshine',
-    platform: 'iOS',
-    version: '10.3.4.5654',
-    upgradeNum: 500,
-    creator: 'Jack',
-    createdAt: '2014-12-24 23:12:00',
-    });
+
   return (
     <>
     <div style={{ margin: '20px', justifyContent:'center',borderRadius:'15px'}}>
@@ -131,10 +146,14 @@ const ActiveLoansPage = () => {
         columns={columns}
         expandable={{
           expandedRowRender,
-          defaultExpandedRowKeys: ['0'],
+          onExpand: (expanded, record) => {
+            setExpandedRowKeys(expanded ? [record.Loan_ID] : []);
+          },
+          expandedRowKeys,
         }}
         style={{ margin: '20px' }}
-        dataSource={data}
+        dataSource={loanData}
+        rowKey="Loan_ID"
       />
     </div>
     </>

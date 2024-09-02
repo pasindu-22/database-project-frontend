@@ -1,5 +1,5 @@
 import React from 'react';
-import BranchLoanForm from '../components/Forms/BranchLoanForm';
+import BranchLoanForm from '../components/Forms/LoanForm';
 
 const LoanApplicationPage = () => {
   return (

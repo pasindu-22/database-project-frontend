@@ -7,13 +7,13 @@ import { CustomerContext } from '../../contexts/CustomerContext';
 const { Header, Content } = Layout;
 
 const SearchCustomer = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [customerID, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { setCustomerId } = useContext(CustomerContext);
 
   const handleSearch = async () => {
-    if (!searchTerm) {
+    if (!customerID) {
       message.error('Please enter a customer ID or account number');
       return;
     }
@@ -21,7 +21,7 @@ const SearchCustomer = () => {
     setLoading(true);
 
     try {
-        const response = await axios.get(`http://localhost:3001/api/customers/${searchTerm}`);
+        const response = await axios.get(`http://localhost:3001/api/customers/${customerID}`);
 
       if (response.status === 200) {
         message.success('Customer found!');
@@ -48,7 +48,7 @@ const SearchCustomer = () => {
           <Form.Item>
             <Input
               placeholder="Enter Customer ID or Account Number"
-              value={searchTerm}
+              value={customerID}
               onChange={e => setSearchTerm(e.target.value)}
               style={{ width: 300 }}
             />
