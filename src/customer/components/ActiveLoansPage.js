@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import { DownOutlined } from '@ant-design/icons';
 import { Badge, Dropdown, Space, Table } from 'antd';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 import axios from 'axios';
 
 const ActiveLoansPage = () => {

@@ -11,8 +11,8 @@ const items = [
         Type: 'group'
     },
     {
-          key: '/customer/dashboard',
-          label: 'Dashboard',
+          key: '/customer/home',
+          label: 'Home',
           icon: <GroupOutlined />,
           
     },
