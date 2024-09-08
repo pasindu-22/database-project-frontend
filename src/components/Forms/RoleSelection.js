@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Card, Typography, Row, Col } from 'antd';
 import LoginModal from '../Modals/LoginModal';
 import '../../styles/RoleSelection.css';
-import backgroundImage from '../Layout/SL-020622-4930-40.jpg';
+import backgroundImage from '../Layout/entryPic.jpg';
 
 const { Title } = Typography;
 
@@ -29,7 +29,7 @@ const RoleSelection = ({ onRoleSelect }) => {
       backgroundImage: `url(${backgroundImage})`,
       backgroundSize: 'cover', // Optional: to cover the entire div
       backgroundPosition: 'center', // Optional: to center the image
-      filter: 'brightness(%)', // Optional: to darken the image
+      filter: 'brightness(90%)', // Optional: to darken the image
       // background: 'linear-gradient(25deg, rgba(120, 19, 189, 1), rgba(110, 216, 230, 1))'
     }}>
       <Card
