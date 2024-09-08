@@ -1,26 +1,29 @@
-import React, { useState } from 'react';
 import { Form, Input, Button, DatePicker, Select, InputNumber, message } from 'antd';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import moment from 'moment';
+import { useAuth } from '../../contexts/AuthContext';
 
 const { Option } = Select;
 
-const FixedDepositForm = () => {
-  const [form] = Form.useForm();
+const FixedDepositForm = ({userType}) => {    // Prop for conditionally render account info based on user type.
+  const [form] = Form.useForm();              
+  const [accounts, setAccounts] = useState([]);            // State to store account data
+  const {details} = useAuth();        // Get user details from AuthContext
 
-  const periodMapping = {
-    '3 months': 3,
+  const periodMapping = {       // Period mapping for dropdown
     '6 months': 6,
     '1 year': 12,
     '3 years': 36,
   };
   
-  const onFinish = async (values) => {
+  const onFinish = async (values) => {            // Function to control form submission(Send data to backend).
     try {
       const response = await axios.post('http://localhost:3001/api/fixedDeposits/', {
         ...values,
         StartDate: values.StartDate.format('YYYY-MM-DD'), // Format date to string
         Period: periodMapping[values.Period], // Map period to integer
+        Customer_ID:details.Customer_ID,
       });
       message.success('Fixed Deposit created successfully!');
       console.log(response.data);
@@ -29,6 +32,20 @@ const FixedDepositForm = () => {
       console.error(error);
     }
   };
+
+  useEffect(() => {     // Fetch account data after component mount to show in dropdown. 
+    const fetchAccountData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3001/api/accounts/customer/${details.Customer_ID}`);
+        setAccounts(response.data);
+      } catch (error) {
+        console.error("There was an error fetching the account data!", error);
+      }
+    };
+
+    fetchAccountData();
+    
+  }, [details.Customer_ID]);
  
   return (
     <Form
@@ -59,7 +76,17 @@ const FixedDepositForm = () => {
         name="Account_ID"
         rules={[{ required: true, message: 'Please input Account ID!' }]}
       >
-        <Input placeholder="Enter Account ID" />
+        {userType === 'customer' ? (
+        <Select placeholder="Select Account ID">
+          {accounts.map(account => (
+            <Option key={account.Account_ID} value={account.Account_ID} label={`${account.Account_ID}`}>
+              {account.Account_ID} - Balance: Rs.{account.Balance}
+            </Option>
+          ))}
+        </Select>
+        ) : (
+          <Input placeholder="Enter Account ID"/>
+        )}
       </Form.Item>
 
       <Form.Item
@@ -68,7 +95,6 @@ const FixedDepositForm = () => {
         rules={[{ required: true, message: 'Please select Period!' }]}
       >
         <Select placeholder="Select Period">
-          <option value="3 months">3 months</option>
           <Option value="6 months" >6 months</Option>
           <Option value="1 year">1 year</Option>
           <Option value="3 years">3 years</Option>

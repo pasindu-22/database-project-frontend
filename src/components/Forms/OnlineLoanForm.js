@@ -1,9 +1,9 @@
 import React from 'react';
-import LoanApplicationForm from './BranchLoanForm';
+import LoanForm from './LoanForm';
 
 const OnlineLoanForm = () => {
   return (
-    <LoanApplicationForm isCustomerEditable={false} />
+    <LoanForm isCustomerEditable={false} />
   );
 };
 

@@ -101,7 +101,7 @@ const TransactionsList = () => {
           key: 'to',
         },
         {
-            title: 'Debit/Credit',
+            title: 'Note',
             dataIndex: 'Type',
             key: 'type',
         },

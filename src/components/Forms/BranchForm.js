@@ -18,7 +18,7 @@ const onFinishFailed = (errorInfo) => {
   console.log('Failed:', errorInfo);
 };
 
-const BranchForm = () => (
+const BranchForm = () => {
   <div justify="center">
   <Form 
     name="basic"
@@ -103,6 +103,6 @@ const BranchForm = () => (
     </Form.Item>
   </Form>
   </div>
-);
+};
 
 export default BranchForm;

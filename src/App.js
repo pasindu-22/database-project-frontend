@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import "antd/dist/reset.css";
 import './App.css';
-import { CustomerProvider } from './contexts/CustomerContext';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { useAuth } from './contexts/AuthContext';
 import RoleSelection from './components/Forms/RoleSelection';
-import EmployeeDashboard from './pages/EmployeeDashboard';
-import CustomerDashboard from './pages/CustomerDashboard';
+import EmployeeDashboard from './manager/ManagerDashboard';
+import CustomerDashboard from './customer/CustomerDashboard';
 
 function App() {
   const { user } = useAuth();

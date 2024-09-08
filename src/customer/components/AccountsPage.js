@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Layout, List, Card, Typography, Spin } from 'antd';
 import axios from 'axios';
-import { CustomerContext } from '../contexts/CustomerContext';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
@@ -62,7 +61,7 @@ const AccountPageCustomer = () => {
       <Header style={{ background: '#b7dcfa', padding: 0, textAlign: 'center' }}>
         <Title level={2}>Your Accounts</Title>
       </Header>
-      <Content style={{ background: '#b7dcfa', padding: '50px' ,margin:'auto'}}>
+      <Content style={{ background: '#b7dcfa', padding: '0px' ,margin:'auto'}}>
         <List
           grid={{ gutter: 16, column: 1 }}
           dataSource={accountData}

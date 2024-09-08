@@ -6,7 +6,7 @@ import './AdminForm.css';
 const AdminForm = () => {
   const [form] = Form.useForm();
 
-  const handleSubmit = async (values) => {
+  const onFinish = async (values) => {
     try {
       const response = await axios.post('http://localhost:3001/api/managers/', values);
       console.log(response.data);
@@ -22,7 +22,7 @@ const AdminForm = () => {
     <Form
       form={form}
       className='form-container'
-      onFinish={handleSubmit}
+      onFinish={onFinish}
       layout="vertical"
     >
       <Form.Item

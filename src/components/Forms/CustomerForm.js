@@ -38,12 +38,10 @@ const CustomerForm = () => {
   const [form] = Form.useForm();
 
   const onFinish = async(values) => {
-    console.log('Success:', values);
     const { Name, NIC, Address ,username,password} = values;
     const customerData = { Name, NIC, Address, username, password };
     try {
       const response = await axios.post('http://localhost:3001/api/customers/',  customerData );
-      console.log(response.data);
       alert('Customer created successfully!');
     } catch (error) {
       console.error('There was an error creating the user!', error);
@@ -62,6 +60,7 @@ const CustomerForm = () => {
         padding: 20,
       }}
       scrollToFirstError
+      autoComplete='false'
     >
       <Form.Item
         name="Name"
