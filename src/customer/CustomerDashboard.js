@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import SideMenu from '../components/Layout/CustomerSideMenu';
+import SideMenu from './components/CustomerSideMenu';
 import CustomerForm from '../components/Forms/CustomerForm';
 import Header from '../components/Layout/Header';
 import OnlineLoanForm from '../components/Forms/OnlineLoanForm';
@@ -9,6 +9,7 @@ import TransactionForm from './components/TransactionForm';
 import AccountPageCustomer from './components/AccountsPage';
 import ActiveLoansPage from './components/ActiveLoansPage';
 import TransactionList from '../components/Lists/TransactionsList';
+import InfoUpdate from './components/InfoUpdate';
 
 const CustomerDashboard = () => {
   return (
@@ -31,6 +32,7 @@ const CustomerDashboard = () => {
           <Route path="/customer/transaction/new" element={<TransactionForm/>}/>
           <Route path="/customer/loan/view/ongoing" element={<ActiveLoansPage/>} />
           <Route path="/customer/transaction/view" element={<TransactionList/>}/>
+          <Route path="/customer/change/credentials" element={<InfoUpdate/>}/>
         </Routes> 
       </div> 
     </div>

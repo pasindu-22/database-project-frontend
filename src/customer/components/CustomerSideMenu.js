@@ -91,21 +91,21 @@ const items = [
     icon: <SettingOutlined />,
     children: [
       {
-        key: '/customer/change/',
+        key: '/customer/change/credentials',
         label: 'Change',
         icon: <UserAddOutlined />,
-        children: [
-          {
-            key: '/customer/change/password',
-            label: 'My Password',
-            icon: <ToolOutlined />,
-          },
-          {
-            key: '/customer/change/username',
-            label: 'My Username',
-            icon: <TeamOutlined />,
-          },
-        ],
+        // children: [
+        //   {
+        //     key: '/customer/change/password',
+        //     label: 'My Password',
+        //     icon: <ToolOutlined />,
+        //   },
+        //   {
+        //     key: '/customer/change/username',
+        //     label: 'My Username',
+        //     icon: <TeamOutlined />,
+        //   },
+        // ],
       },
       {
         key: '/app/system-management/logs',
