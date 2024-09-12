@@ -61,7 +61,7 @@ const BranchList = () => {
 
     useEffect(() => {
         // Fetch data from the backend using Axios
-        axios.get('http://localhost:3001/api/admins/branches')
+        axios.get('http://localhost:3001/api/branches/')
             .then(response => {
                 setData(response.data);
             })

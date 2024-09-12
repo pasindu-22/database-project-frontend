@@ -50,7 +50,7 @@ const TransactionForm = () => {
           { type: 'number', message: 'From Account must be an integer!' }
         ]}
       >
-        <InputNumber placeholder="Enter From Account" />
+        <InputNumber placeholder="Enter From Account" styles={{width: '100%'}}/>
       </Form.Item>
 
       <Form.Item
