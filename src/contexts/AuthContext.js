@@ -67,7 +67,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     setDetails(null); // Clear manager details on logout
     localStorage.removeItem('user'); // Ensure user is removed from localStorage
-    navigate('/role-selection');
+    navigate('/customer-login');
   };
 
   const redirectToRoleBasedRoute = (role) => {
