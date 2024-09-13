@@ -6,6 +6,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
+import CustomerLogin from './customer/components/CustomerLogin';
+import ManagerLogin from './manager/components/ManagerLogin';
+import EmployeeLogin from './employee/EmployeeLogin';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,7 +16,10 @@ root.render(
     <BrowserRouter>
     <AuthProvider>
       <Routes>
-        <Route path="/" element={<Navigate to="/role-selection" />} />
+        <Route path="/" element={<Navigate to="/customer-login" />} />
+        <Route path="/customer-login" element={<CustomerLogin />} />
+        <Route path="/manager-login" element={<ManagerLogin />} />
+        <Route path="/employee-login" element={<EmployeeLogin />} />
         <Route path="/*" element={<App />} />
       </Routes>
       </AuthProvider>
