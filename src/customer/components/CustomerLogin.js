@@ -12,14 +12,15 @@ const CustomerLogin = () => {
   const [loading, setLoading] = useState(false);
   const [otpModalVisible, setOtpModalVisible] = useState(false);
   const [otp, setOtp] = useState('');
-  const [customerID, setCustomerID] = useState('');
+  const [Customer_ID, setCustomerID] = useState('');
 
   const handleLogin = async (values) => {
     setLoading(true);
     try {
       const response = await axios.post(`http://localhost:3001/api/customers/login`, values);
-      if (response.data.success) {
-        setCustomerID(response.data.customerId);
+      if (response.data.message) {
+        setCustomerID(response.data.Customer_ID);
+        console.log(response.data.Customer_ID, Customer_ID)
         message.success('Succefull Verification, please enter the OTP sent to your email.');
         setOtpModalVisible(true);
       } else {
@@ -34,8 +35,8 @@ const CustomerLogin = () => {
 
   const handleOtpSubmit = async () => {
     try {
-      const response = await axios.post(`http://localhost:3001/api/customers/verify-otp`, { customerID, otp });
-      if (response.data.success) {
+      const response = await axios.post(`http://localhost:3001/api/customers/verify-otp`, { Customer_ID , otp });
+      if (response.data.message = "Login successful") {
         login({ ...response.data, role: 'customer' });
         message.success('OTP verified successfully');
         setOtpModalVisible(false);
