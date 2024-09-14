@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Card, Typography, Form, Input, message } from 'antd';
 import axios from 'axios';
 import { useAuth } from '../../contexts/AuthContext';
-import '../../styles/RoleSelection.css';
+import '../../styles/Login.css';
 import backgroundImage from '../../components/Layout/entryPic.jpg';
 
 const { Title } = Typography;
@@ -27,7 +27,9 @@ const CustomerLogin = () => {
   };
 
   return (
-    <div style={{
+    <div 
+        className="animated-background"
+        style={{
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -38,6 +40,7 @@ const CustomerLogin = () => {
         filter: 'brightness(90%)', // Optional: to darken the image
       }}>
     <Card
+      className='animated-form'
       title={<Title level={2} style={{ textAlign: 'center' }}>Customer Login</Title>}
       bordered={false}
       style={{ width: 400, boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.1)', backgroundColor: 'lightsteelblue' }}

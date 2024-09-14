@@ -1,0 +1,42 @@
+.fade-in {
+    opacity: 0;
+    transition: opacity 1s ease-in;
+  }
+  
+  .fade-in.visible {
+    opacity: 1;
+  }
+
+  /* Animation for background sliding from the bottom */
+@keyframes slideInBackground {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation for login form sliding from the top */
+@keyframes slideInForm {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Apply the background animation */
+.animated-background {
+  animation: slideInBackground 1s ease-in-out;
+}
+
+/* Apply the form animation */
+.animated-form {
+  animation: slideInForm 2s ease-in-out;
+}
