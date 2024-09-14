@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Card, Typography, Form, Input, message } from 'antd';
+import { Button, Card, Typography, Form, Input, message, Modal } from 'antd';
 import axios from 'axios';
 import { useAuth } from '../../contexts/AuthContext';
 import '../../styles/Login.css';
@@ -10,19 +10,40 @@ const { Title } = Typography;
 const CustomerLogin = () => {
   const { login } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [otpModalVisible, setOtpModalVisible] = useState(false);
+  const [otp, setOtp] = useState('');
+  const [customerID, setCustomerID] = useState('');
 
   const handleLogin = async (values) => {
     setLoading(true);
     try {
       const response = await axios.post(`http://localhost:3001/api/customers/login`, values);
-      login({ ...response.data, role: 'customer' });
-      console.log('Cookies:', document.cookie); // Log cookies from the browser
-      console.log('Login response:', response.data);
-      message.success('Login successful');
+      if (response.data.success) {
+        setCustomerID(response.data.customerId);
+        message.success('Succefull Verification, please enter the OTP sent to your email.');
+        setOtpModalVisible(true);
+      } else {
+        message.error('Verify failed');
+      }
     } catch (error) {
-      message.error('Login failed');
+      message.error('Verify failed');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleOtpSubmit = async () => {
+    try {
+      const response = await axios.post(`http://localhost:3001/api/customers/verify-otp`, { customerID, otp });
+      if (response.data.success) {
+        login({ ...response.data, role: 'customer' });
+        message.success('OTP verified successfully');
+        setOtpModalVisible(false);
+      } else {
+        message.error('Invalid OTP');
+      }
+    } catch (error) {
+      message.error('OTP verification failed');
     }
   };
 
@@ -65,6 +86,27 @@ const CustomerLogin = () => {
         </Form.Item>
       </Form>
     </Card>
+
+    <Modal
+      title="Enter OTP Sent to Your Email"
+      visible={otpModalVisible}
+      onOk={handleOtpSubmit}
+      onCancel={() => setOtpModalVisible(false)}
+    >
+      <Form>
+        <Form.Item
+          name="otp"
+          rules={[{ required: true, message: 'Please enter the OTP' }]}
+        >
+          <Input
+            placeholder="OTP"
+            value={otp}
+            onChange={(e) => setOtp(e.target.value)}
+          />
+        </Form.Item>
+      </Form>
+    </Modal>
+
     </div>
   );
 };
