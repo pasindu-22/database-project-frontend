@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Layout, List, Card, Typography, Spin } from 'antd';
-import axios from 'axios';
+// import axios from 'axios';
+import axiosInstance from '../../utils/axiosInstance';
+import useAxiosInterceptor from '../../utils/useAxiosInterceptor';
 import { useAuth } from '../../contexts/AuthContext';
 
 const { Header, Content } = Layout;
@@ -11,10 +13,12 @@ const AccountPageCustomer = () => {
   const [accountData, setAccountData] = useState([]);
   const { details } = useAuth();
 
+  useAxiosInterceptor();  // USe this custome hook to handle session expiration
+
   useEffect(() => {
     const fetchAccountData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/accounts/customer/${details.Customer_ID}`);
+        const response = await axiosInstance.get(`http://localhost:3001/api/accounts/customer/${details.Customer_ID}`);
         setAccountData(response.data);
       } catch (error) {
         console.error("There was an error fetching the account data!", error);
