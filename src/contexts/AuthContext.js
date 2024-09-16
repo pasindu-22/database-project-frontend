@@ -1,6 +1,8 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import axiosInstance from '../utils/axiosInstance'; // Import the configured Axios instance
+
 
 const AuthContext = createContext();
 
@@ -50,7 +52,7 @@ export const AuthProvider = ({ children }) => {
           throw new Error('Invalid role');
       }
 
-      const response = await axios.get(endpoint);
+      const response = await axiosInstance.get(endpoint);
       setDetails(response.data);
       console.log(`${role} details:`, response.data);
     } catch (error) {
