@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Card, Typography, Form, Input, message, Modal } from 'antd';
-import axios from 'axios';
+import axiosInstance from '../../utils/axiosInstance'; // Import the configured Axios instance
+// import axios from 'axios';
 import { useAuth } from '../../contexts/AuthContext';
 import '../../styles/Login.css';
 import backgroundImage from '../../components/Layout/entryPic.jpg';
@@ -17,17 +18,17 @@ const CustomerLogin = () => {
   const handleLogin = async (values) => {
     setLoading(true);
     try {
-      const response = await axios.post(`http://localhost:3001/api/customers/login`, values);
+      const response = await axiosInstance.post(`http://localhost:3001/api/customers/login`, values);
       if (response.data.message) {
         setCustomerID(response.data.Customer_ID);
         console.log(response.data.Customer_ID, Customer_ID)
         message.success('Succefull Verification, please enter the OTP sent to your email.');
         setOtpModalVisible(true);
       } else {
-        message.error('Verify failed');
+        message.error('Issue with username or password');
       }
     } catch (error) {
-      message.error('Verify failed');
+      message.error('Request failed');
     } finally {
       setLoading(false);
     }
@@ -35,8 +36,8 @@ const CustomerLogin = () => {
 
   const handleOtpSubmit = async () => {
     try {
-      const response = await axios.post(`http://localhost:3001/api/customers/verify-otp`, { Customer_ID , otp });
-      if (response.data.message = "Login successful") {
+      const response = await axiosInstance.post(`http://localhost:3001/api/customers/verify-otp`, { Customer_ID , otp });
+      if (response.data.message) {
         login({ ...response.data, role: 'customer' });
         message.success('OTP verified successfully');
         setOtpModalVisible(false);

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Card ,Typography,Layout, Spin, List, Modal, Table, Button} from 'antd';
 import { useAuth } from '../../contexts/AuthContext';
-import axios from 'axios';
+// import axios from 'axios';
+import axiosInstance from '../../utils/axiosInstance';
+import useAxiosInterceptor from '../../utils/useAxiosInterceptor';
 
 const {Header,Content} = Layout;
 const {Title} = Typography;
@@ -14,12 +16,15 @@ const TransactionsList = () => {
     const [transactions, setTransactions] = useState([]);
     const [isModalVisible,setIsModalVisible] = useState(false);
     const {details} = useAuth();
-
+    
+    //  This listens for 401 errors and redirects to the login page
+    useAxiosInterceptor();  // USe this custome hook to handle session expiration
+    
     useEffect(() => {
         const fetchAccountData = async () => {
             // code goes here
             try {
-              const response = await axios.get(`http://localhost:3001/api/accounts/customer/${details.Customer_ID}`);
+              const response = await axiosInstance.get(`http://localhost:3001/api/accounts/customer/${details.Customer_ID}`);
               setAccountData(response.data);
             } catch (error) {
                console.error("There was an error fetching the account data!", error);
@@ -39,7 +44,7 @@ const TransactionsList = () => {
       const fetchTransactions = async () => {
         if (accountID) {
           try {
-            const response = await axios.get(`http://localhost:3001/api/transactions/byAccount/${accountID}`);
+            const response = await axiosInstance.get(`http://localhost:3001/api/transactions/byAccount/${accountID}`);
             console.log(response.data);
             setTransactions(response.data);
           } catch (error) {
