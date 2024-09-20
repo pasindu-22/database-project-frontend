@@ -1,6 +1,6 @@
 import { Form, Input, Button, DatePicker, Select, InputNumber, message } from 'antd';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../utils/axiosInstance';
 import moment from 'moment';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -19,7 +19,7 @@ const FixedDepositForm = ({userType}) => {    // Prop for conditionally render a
   
   const onFinish = async (values) => {            // Function to control form submission(Send data to backend).
     try {
-      const response = await axios.post('http://localhost:3001/api/fixedDeposits/', {
+      const response = await axiosInstance.post('http://localhost:3001/api/fixedDeposits/', {
         ...values,
         StartDate: values.StartDate.format('YYYY-MM-DD'), // Format date to string
         Period: periodMapping[values.Period], // Map period to integer
@@ -36,7 +36,7 @@ const FixedDepositForm = ({userType}) => {    // Prop for conditionally render a
   useEffect(() => {     // Fetch account data after component mount to show in dropdown. 
     const fetchAccountData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/accounts/customer/${details.Customer_ID}`);
+        const response = await axiosInstance.get(`http://localhost:3001/api/accounts/customer/${details.Customer_ID}`);
         setAccounts(response.data);
       } catch (error) {
         console.error("There was an error fetching the account data!", error);

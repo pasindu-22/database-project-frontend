@@ -62,7 +62,7 @@ const AccountPageCustomer = () => {
 
   return (
     <Layout style={{ minHeight: '100vh' , borderRadius:'20'}}>
-      <Header style={{ background: '#b7dcfa', padding: 0, textAlign: 'center' }}>
+      <Header style={{ background: '#b7dcfa', padding: '0px', textAlign: 'center' }}>
         <Title level={2}>Your Accounts</Title>
       </Header>
       <Content style={{ background: '#b7dcfa', padding: '0px' ,margin:'auto'}}>

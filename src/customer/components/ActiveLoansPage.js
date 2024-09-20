@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import { Badge, Dropdown, Space, Table } from 'antd';
+import { Badge, Space, Table } from 'antd';
 import { useAuth } from '../../contexts/AuthContext';
-import axios from 'axios';
+import axiosInstance from '../../utils/axiosInstance';
 
 const ActiveLoansPage = () => {
   const { details } = useAuth();
@@ -12,7 +12,7 @@ const ActiveLoansPage = () => {
   useEffect( () => {
     const fetchLoanData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/loans/customer/${details.Customer_ID}`);
+        const response = await axiosInstance.get(`http://localhost:3001/api/loans/customer/${details.Customer_ID}`);
         setLoanData(response.data)
       } catch(error) {
         console.error("Error occured while loading");
@@ -33,7 +33,7 @@ const ActiveLoansPage = () => {
 
   const fetchLoanInstallements = async (loanID) => {
       try {
-        const response =  await axios.get(`http://localhost:3001/api/loanInstallments/loan/${loanID}`);
+        const response =  await axiosInstance.get(`http://localhost:3001/api/loanInstallments/loan/${loanID}`);
         setInstallmentData((prevData) => ({
           ...prevData,
           [loanID]: response.data,

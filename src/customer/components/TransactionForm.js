@@ -1,6 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import { Form, Input, Button, DatePicker, Select, message, InputNumber } from 'antd';
-import axios from 'axios';
+// import axios from 'axios';
+import axiosInstance from '../../utils/axiosInstance'
 import { useAuth } from '../../contexts/AuthContext';
 
 const { Option } = Select;
@@ -19,7 +20,7 @@ const TransactionForm = () => {
       Type: values.Type,
     };
 
-    axios.post('http://localhost:3001/api/transactions/', transactionData)
+    axiosInstance.post('http://localhost:3001/api/transactions/', transactionData)
       .then((response) => {
         const { Transaction_ID } = response.data;
         message.success(`Transaction successful! Transaction ID: ${Transaction_ID}`);
@@ -33,7 +34,7 @@ const TransactionForm = () => {
   useEffect(() => {     // Fetch account data after component mount to show in dropdown. 
     const fetchAccountData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/accounts/customer/${details.Customer_ID}`);
+        const response = await axiosInstance.get(`http://localhost:3001/api/accounts/customer/${details.Customer_ID}`);
         setAccounts(response.data);
       } catch (error) {
         console.error("There was an error fetching the account data!", error);

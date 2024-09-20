@@ -10,6 +10,7 @@ import AccountPageCustomer from './components/AccountsPage';
 import ActiveLoansPage from './components/ActiveLoansPage';
 import TransactionList from '../components/Lists/TransactionsList';
 import InfoUpdate from './components/InfoUpdate';
+import HomePage from './components/HomePage';
 
 const CustomerDashboard = () => {
   return (
@@ -25,7 +26,7 @@ const CustomerDashboard = () => {
         <Routes>
           <Route path="/customer/accounts/fd/new" element={<FixedDepositForm userType="customer"/>}/>
           <Route path="/customer/loan/new" element={<OnlineLoanForm/>}/>
-          <Route path="/customer/home" element={<div> Welcome User</div>} />
+          <Route path="/customer/home" element={<HomePage/>} />
           <Route path="/customers/individual/new" element={<CustomerForm />} />
           <Route path="/customers/business/new" element={<CustomerForm />} />
           <Route path="customer/accounts/view" element={<AccountPageCustomer/>} />
