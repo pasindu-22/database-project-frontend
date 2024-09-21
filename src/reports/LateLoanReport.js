@@ -1,164 +1,120 @@
-import React, { useRef, useState } from 'react';
-import { SearchOutlined } from '@ant-design/icons';
-import { Button, Input, Space, Table } from 'antd';
-import Highlighter from 'react-highlight-words';
-const data = [
-  {
-    key: '1',
-    name: 'Late Loan 1',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-  },
-  {
-    key: '2',
-    name: 'Late Loan 2',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-  },
-  {
-    key: '3',
-    name: 'Late Loan 3',
-    age: 32,
-    address: 'Sydney No. 1 Lake Park',
-  },
-  {
-    key: '4',
-    name: 'Jim Red',
-    age: 32,
-    address: 'London No. 2 Lake Park',
-  },
-];
+import React, { useEffect, useState } from 'react';
+import { Badge, Space, Table, Button, message, Modal } from 'antd';
+import { useAuth } from '../contexts/AuthContext';
+import axiosInstance from '../utils/axiosInstance';
+import useAxiosInterceptor from '../utils/useAxiosInterceptor';
+
 const LateLoanReport = () => {
-  const [searchText, setSearchText] = useState('');
-  const [searchedColumn, setSearchedColumn] = useState('');
-  const searchInput = useRef(null);
-  const handleSearch = (selectedKeys, confirm, dataIndex) => {
-    confirm();
-    setSearchText(selectedKeys[0]);
-    setSearchedColumn(dataIndex);
-  };
-  const handleReset = (clearFilters) => {
-    clearFilters();
-    setSearchText('');
-  };
-  const getColumnSearchProps = (dataIndex) => ({
-    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
-      <div
-        style={{
-          padding: 8,
-        }}
-        onKeyDown={(e) => e.stopPropagation()}
-      >
-        <Input
-          ref={searchInput}
-          placeholder={`Search ${dataIndex}`}
-          value={selectedKeys[0]}
-          onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
-          style={{
-            marginBottom: 8,
-            display: 'block',
-          }}
-        />
-        <Space>
-          <Button
-            type="primary"
-            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
-            icon={<SearchOutlined />}
-            size="small"
-            style={{
-              width: 90,
-            }}
-          >
-            Search
-          </Button>
-          <Button
-            onClick={() => clearFilters && handleReset(clearFilters)}
-            size="small"
-            style={{
-              width: 90,
-            }}
-          >
-            Reset
-          </Button>
-          <Button
-            type="link"
-            size="small"
-            onClick={() => {
-              confirm({
-                closeDropdown: false,
-              });
-              setSearchText(selectedKeys[0]);
-              setSearchedColumn(dataIndex);
-            }}
-          >
-            Filter
-          </Button>
-          <Button
-            type="link"
-            size="small"
-            onClick={() => {
-              close();
-            }}
-          >
-            close
-          </Button>
-        </Space>
-      </div>
-    ),
-    filterIcon: (filtered) => (
-      <SearchOutlined
-        style={{
-          color: filtered ? '#1677ff' : undefined,
-        }}
-      />
-    ),
-    onFilter: (value, record) =>
-      record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
-    onFilterDropdownOpenChange: (visible) => {
-      if (visible) {
-        setTimeout(() => searchInput.current?.select(), 100);
+  const { details } = useAuth();
+  const [loanData, setLoanData] = useState([]);
+  const [customerDetails, setCustomerDetails] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  // useAxiosInterceptor(); // Use this custom hook to handle session expiration
+  
+  useEffect(() => {
+    const fetchLateLoans = async () => {
+      try {
+        const response = await axiosInstance.get(`http://localhost:3001/api/loanInstallments/late/${details.Manager_ID}`);
+        setLoanData(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error occurred while loading late loans");
       }
-    },
-    render: (text) =>
-      searchedColumn === dataIndex ? (
-        <Highlighter
-          highlightStyle={{
-            backgroundColor: '#ffc069',
-            padding: 0,
-          }}
-          searchWords={[searchText]}
-          autoEscape
-          textToHighlight={text ? text.toString() : ''}
-        />
-      ) : (
-        text
-      ),
-  });
+    };
+
+    if (details && details.Manager_ID) {
+      fetchLateLoans();
+    } else {
+      console.error("Manager ID not found");
+    }
+  }, [details]);
+
+  const fetchCustomerDetails = async (loanID) => {
+    try {
+      const response = await axiosInstance.get(`http://localhost:3001/api/customers/by-loan/${loanID}`);
+      setCustomerDetails(response.data);
+      setIsModalVisible(true);
+    } catch (error) {
+      console.error("Error occurred while loading customer details");
+    }
+  };
+
+  const handleRemind = (installmentID) => {
+    // Implement the remind functionality here
+    message.success(`Reminder sent for installment ID: ${installmentID}`);
+  };
+
   const columns = [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
-      width: '30%',
-      ...getColumnSearchProps('name'),
+      title: 'Loan ID',
+      dataIndex: 'Loan_ID',
+      key: 'loan_id',
+      render: (text, record) => (
+        <Button type="link" onClick={() => fetchCustomerDetails(record.Loan_ID)}>
+          {text}
+        </Button>
+      ),
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
-      width: '20%',
-      ...getColumnSearchProps('age'),
+      title: 'Due Date',
+      dataIndex: 'Due_Date',
+      key: 'due_date',
+      render: (text) => <Badge status="error" text={text} />,
     },
     {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
-      ...getColumnSearchProps('address'),
-      sorter: (a, b) => a.address.length - b.address.length,
-      sortDirections: ['descend', 'ascend'],
+      title: 'Value',
+      dataIndex: 'Value',
+      key: 'value',
+    },
+    {
+      title: 'Action',
+      key: 'operation',
+      render: (text, record) => (
+        <Space size="middle">
+          <Button type="primary" onClick={() => handleRemind(record.Installment_ID)}>Remind</Button>
+        </Space>
+      ),
     },
   ];
-  return <Table columns={columns} dataSource={data} />;
+
+  return (
+    <div style={{ margin: '20px', justifyContent: 'center', borderRadius: '15px' }}>
+      <h1>Late Loans</h1>
+      <Table
+        columns={columns}
+        style={{ margin: '20px' }}
+        dataSource={loanData}
+        rowKey="Installment_ID"
+      />
+      <Modal
+        title="Customer Details"
+        visible={isModalVisible}
+        onCancel={() => setIsModalVisible(false)}
+        footer={[
+          <Button key="notify" type="primary" onClick={() => handleRemind(customerDetails?.Installment_ID)}>
+            Notify
+          </Button>,
+          <Button key="close" onClick={() => setIsModalVisible(false)}>
+            Close
+          </Button>,
+        ]}
+      >
+        {customerDetails && (
+          <div>
+            <p><strong>Customer ID:</strong> {customerDetails.Customer_ID}</p>
+            <p><strong>Customer Name:</strong> {customerDetails.Name}</p>
+            <p><strong>Loan ID:</strong> {customerDetails.loan.Loan_ID}</p>
+            <p><strong>Branch ID:</strong> {customerDetails.loan.Branch_ID}</p>
+            <p><strong>Loan Period:</strong> {customerDetails.loan.LoanPeriod}</p>
+            <p><strong>Interest Rate:</strong> {customerDetails.loan.InterestRate}</p>
+            <p><strong>Date:</strong> {customerDetails.loan.Date}</p>
+            <p><strong>Loan Value:</strong> {customerDetails.loan.LoanValue}</p>
+          </div>
+        )}
+      </Modal>
+    </div>
+  );
 };
+
 export default LateLoanReport;

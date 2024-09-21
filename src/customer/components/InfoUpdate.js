@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Form, Input, Space , message} from 'antd';
-import axios from 'axios';
+import axiosInstance from '../../utils/axiosInstance';
 import {useAuth} from '../../contexts/AuthContext';
 
 const SubmitButton = ({ form, children }) => {
@@ -30,7 +30,7 @@ const InfoUpdate = () => {
 
   const handleLogin = async (values) => {
     try {
-      const response = await axios.put(`http://localhost:3001/api/customers/${details.Customer_ID}`, values);
+      const response = await axiosInstance.put(`http://localhost:3001/api/customers/${details.Customer_ID}`, values);
       console.log('Login response:', response.data);
       message.success('Login successful');
     } catch (error) {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Layout, List, Card, Typography, Spin, Table,Modal, Button } from 'antd';
-import axios from 'axios';
+import axiosInstance from '../../utils/axiosInstance';
 import { CustomerContext } from '../../contexts/CustomerContext';
 
 const { Header, Content } = Layout;
@@ -17,7 +17,7 @@ const AccountPage = () => {
   useEffect(() => {
     const fetchAccountData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/accounts/customer/${customerId}`);
+        const response = await axiosInstance.get(`http://localhost:3001/api/accounts/customer/${customerId}`);
         setAccountData(response.data);
       } catch (error) {
         console.error("There was an error fetching the account data!", error);
@@ -37,7 +37,7 @@ const AccountPage = () => {
     const fetchTransactions = async () => {
       if (accountID.length) {
         try {
-          const response = await axios.get(`http://localhost:3001/api/transactions/byAccount/${accountID}`);
+          const response = await axiosInstance.get(`http://localhost:3001/api/transactions/byAccount/${accountID}`);
           console.log(response.data);
           setTransactions(response.data);
         } catch (error) {

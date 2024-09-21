@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, DatePicker, Select, Modal, message } from 'antd';
-import axios from 'axios';
+import axiosInstance from '../../utils/axiosInstance';
 import moment from 'moment';
 
 const { Option } = Select;
@@ -15,7 +15,7 @@ const SavingsAccountForm = () => {
     values.OpeningDate = moment(values.OpeningDate).format('YYYY-MM-DD');
 
     // Send data to the backend using Axios
-    axios.post('http://localhost:3001/api/accounts/', values)
+    axiosInstance.post('http://localhost:3001/api/accounts/', values)
       .then(response => {
         setAccountDetails(response.data);
         setModalVisible(true);
