@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Card, Typography, Form, Input, message } from 'antd';
 import axios from 'axios';
-import { useAuth } from './../contexts/AuthContext';
-import backgroundImage from './../components/Layout/entryPic.jpg';
+import { useAuth } from '../../contexts/AuthContext';
+import backgroundImage from './../../components/Layout/entryPic.jpg';
 
 const { Title } = Typography;
 

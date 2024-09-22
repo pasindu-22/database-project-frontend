@@ -8,7 +8,7 @@ import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import CustomerLogin from './customer/components/CustomerLogin';
 import ManagerLogin from './manager/components/ManagerLogin';
-import EmployeeLogin from './employee/EmployeeLogin';
+import EmployeeLogin from './employee/components/EmployeeLogin';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

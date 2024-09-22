@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Input, Button, Form, message, Layout } from 'antd';
-import axios from 'axios';
+import axiosInstance from '../../utils/axiosInstance';
 import { useNavigate } from 'react-router-dom';
 import { CustomerContext } from '../../contexts/CustomerContext';
 
@@ -21,7 +21,7 @@ const SearchCustomer = () => {
     setLoading(true);
 
     try {
-        const response = await axios.get(`http://localhost:3001/api/customers/${customerID}`);
+        const response = await axiosInstance.get(`http://localhost:3001/api/customers/${customerID}`);
 
       if (response.status === 200) {
         message.success('Customer found!');
@@ -31,7 +31,7 @@ const SearchCustomer = () => {
         message.error('Customer not found.');
       }
     } catch (error) {
-      console.error('There was an error searching for the customer!', error);
+      console.error('An error searching for the customer!', error);
       message.error('An error occurred while searching. Please try again.');
     }
 
