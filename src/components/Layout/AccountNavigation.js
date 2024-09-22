@@ -63,7 +63,6 @@ const CustomerNavigation = () => {
     borderRadius: '10px',
   }} 
   defaultSelectedKeys={'profile/details'}
-  defaultOpenKeys={'profile/details'}
   />
 );
 };

@@ -1,19 +1,17 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from '../components/Layout/Header';
-import SideMenu from './components/ManagerSideMenu';
-import AuthRoutes from './routes/AuthRoutes';
-import ManagementRoutes from './routes/ManagementRoutes';
-import AppRoutes from './routes/AppRoutes';
-import CustomerRoutes from './routes/CustomerRoutes';
+import EmployeeSideMenu from './components/EmployeeSideMenu';
+import AuthRoutes from '../manager/routes/AuthRoutes';
+import ManagementRoutes from '../manager/routes/ManagementRoutes';
+import AppRoutes from '../manager/routes/AppRoutes';
+import CustomerRoutes from '../manager/routes/CustomerRoutes';
 import CustomerForm from '../components/Forms/CustomerForm';
 import SearchCustomer from '../components/Forms/SearchCustomer';
 import WithAccountNavigation from '../components/Layout/WithAccountNavigation';
-import TransactionReport from '../reports/TransactionReport';
 import { CustomerProvider } from '../contexts/CustomerContext';
-import LateLoanReport from '../reports/LateLoanReport';
 
-const ManagerDashboard = () => {
+const EmployeeDashboard = () => {
   return (
     <CustomerProvider>
     <div style={{ display: "flex", flexDirection: "column", flex: 1, height: "100vh", background: "#b7dcfa" }}>
@@ -22,7 +20,7 @@ const ManagerDashboard = () => {
       </div>
       <div style={{ display: "flex", flexDirection: "row", flex: 1, backgroundColor: "#b7dcfa",marginTop: "64px" }}>
         <div style={{ position: "fixed", top: "64px", height: "calc(100vh - 64px)", zIndex: 1000 }}>
-          <SideMenu />
+          <EmployeeSideMenu />
         </div>
         <div style={{ flex: 1, marginLeft: "260px", overflowY: "auto", height: "calc(100vh - 64px)"}}>
           <Routes>
@@ -30,8 +28,6 @@ const ManagerDashboard = () => {
             <Route path="/management/*" element={<ManagementRoutes />} />
             <Route path="/customers/new" element={<CustomerForm />} />
             <Route path="/customers/search" element={<SearchCustomer />} />
-            <Route path='/app/reports/transactions' element={<TransactionReport/>}/>
-            <Route path='/app/reports/lateloans' element={<LateLoanReport/>}/>
             <Route path="/customers/*" element={<WithAccountNavigation><CustomerRoutes /></WithAccountNavigation>} />
             <Route path="/app/*" element={<AppRoutes />} />
           </Routes>
@@ -42,4 +38,4 @@ const ManagerDashboard = () => {
   );
 };
 
-export default ManagerDashboard;
+export default EmployeeDashboard;
