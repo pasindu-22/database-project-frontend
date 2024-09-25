@@ -14,7 +14,7 @@ const LoanApplicationForm = (isCustomerEditable) => {
 
     values.Date = moment(values.Date).format('YYYY-MM-DD');
     values.Branch_ID = parseInt(values.Branch_ID, 10);
-    values.Customer_ID = parseInt(values.Customer_ID, 10);
+    values.Customer_ID = parseInt(values.Customer_ID, 10); 
     console.log('Form values:', values);
 
     // Send form data to the backend
@@ -30,12 +30,12 @@ const LoanApplicationForm = (isCustomerEditable) => {
   };
 
   return (
-    <Form
+    <Form 
       form={form}
       layout="vertical"
       onFinish={onFinish}
       initialValues={{
-        Approved: false,  // Default value for Approved
+        Approved: 0,  // Default value for Approved
         Customer_ID: details.Customer_ID, // Set initial value from context if not editable
       }}
       style={{
@@ -116,12 +116,10 @@ const LoanApplicationForm = (isCustomerEditable) => {
       <Form.Item
         name="Approved"
         label="Approval Status"
-        valuePropName="checked"
         rules={[{ required: true, message: 'Please select the approval status!' }]}
       >
         <Select placeholder="Select Approval Status">
-          {/* <Option value={'appro'}>Approved</Option> */}
-          <Option value={'pending'}>Pending</Option>
+          <Option value={0}>Pending</Option>
         </Select>
       </Form.Item>
 

@@ -41,11 +41,24 @@ const PendingLoansPage = () => {
     // Send data to the backend using Axios
     axios.post(`http://localhost:3001/api/loanapplications/${Application_Id}/approve`, postData)
       .then(response => {
-        message.success(`Application ${Application_Id} ${Approved} successfully!`);
+        const getApprovalStatus = (approvedValue) => {
+          switch (approvedValue) {
+            case 0:
+              return 'Pending';
+            case 1:
+              return 'Approved';
+            case -1:
+              return 'Rejected';
+            default:
+              return 'Unknown';
+          }
+        };
+        
+        message.success(`Application ${Application_Id} ${getApprovalStatus(Approved)} successfully!`);
         // Update the local state to reflect the action
         setData(prevData =>
           prevData.map(item =>
-            item.Application_ID === Application_Id ? { ...item, Approved: Approved === 'approved' ? 'approved' : 'rejected' } : item
+            item.Application_ID === Application_Id ? { ...item, Approved: Approved === 'approved' ? 1 : -1 } : item
           )
         );
       })
@@ -95,8 +108,8 @@ const PendingLoansPage = () => {
       dataIndex: 'Approved',
       key: 'approved',
       render: status => (
-        <Tag color={status === 'pending' ? 'orange' : status === 'approved' ? 'green' : 'red'}>
-          {status === 'pending' ? 'Pending' : status === 'approved' ? 'Approved' : 'Rejected'}
+        <Tag color={status === 0 ? 'orange' : status === 1 ? 'green' : 'red'}>
+          {status === 0 ? 'Pending' : status === 1 ? 'Approved' : 'Rejected'}
         </Tag>
       ),
     },
@@ -110,10 +123,10 @@ const PendingLoansPage = () => {
       key: 'action',
       render: (text, record) => (
         <Space size="middle">
-          <Button type="primary" onClick={() => handleAction(record.Application_ID, 'approved')} >
+          <Button type="primary" onClick={() => handleAction(record.Application_ID, 1)} >
             Approve
           </Button>
-          <Button type="danger" onClick={() => handleAction(record.Application_ID, 'rejected')} >
+          <Button type="danger" onClick={() => handleAction(record.Application_ID, -1)} >
             Reject
           </Button>
         </Space>
