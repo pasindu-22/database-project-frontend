@@ -106,20 +106,19 @@ const LoanApplicationForm = (isCustomerEditable) => {
         name="LoanType"
         label="Loan Type"
         rules={[{ required: true, message: 'Please select the loan type!' }]}
+        initialValue={'Normal'}
       >
-        <Select placeholder="Select Loan Type">
-          <Option value="Online">Online</Option>
-          <Option value="Normal">Normal</Option>
-        </Select>
+        <input disabled />
       </Form.Item>
 
       <Form.Item
         name="Approved"
         label="Approval Status"
         rules={[{ required: true, message: 'Please select the approval status!' }]}
+        initialValue={0}
       >
         <Select placeholder="Select Approval Status">
-          <Option value={0}>Pending</Option>
+          <Option value={0} disabled>Pending</Option>
         </Select>
       </Form.Item>
 
