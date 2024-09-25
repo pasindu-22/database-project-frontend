@@ -58,7 +58,7 @@ const PendingLoansPage = () => {
         // Update the local state to reflect the action
         setData(prevData =>
           prevData.map(item =>
-            item.Application_ID === Application_Id ? { ...item, Approved: Approved === 'approved' ? 1 : -1 } : item
+            item.Application_ID === Application_Id ? { ...item, Approved: Approved === 1 ? 1 : -1 } : item
           )
         );
       })
