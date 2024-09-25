@@ -63,7 +63,7 @@ const ActiveLoansPage = () => {
 
   const handleOk = async (values) => {
     try {
-      const response = await axiosInstance.post(`http://localhost:3001/api/payments`, {
+      const response = await axiosInstance.post(`http://localhost:3001/api/loanInstallments/pay/${selectedInstallment.Installment_ID}`, {
         accountID: values.accountID,
         installmentID: selectedInstallment.Installment_ID,
         amount: selectedInstallment.Value,
