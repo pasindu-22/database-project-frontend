@@ -11,6 +11,7 @@ import ActiveLoansPage from './components/ActiveLoansPage';
 import TransactionList from '../components/Lists/TransactionsList';
 import InfoUpdate from './components/InfoUpdate';
 import HomePage from './components/HomePage';
+import PendingLoans from './components/PendingLoans';
 
 const CustomerDashboard = () => {
   return (
@@ -32,6 +33,7 @@ const CustomerDashboard = () => {
           <Route path="customer/accounts/view" element={<AccountPageCustomer/>} />
           <Route path="/customer/transaction/new" element={<TransactionForm/>}/>
           <Route path="/customer/loan/view/ongoing" element={<ActiveLoansPage/>} />
+          <Route path="/customer/loan/view/pending" element={<PendingLoans/>} />
           <Route path="/customer/transaction/view" element={<TransactionList/>}/>
           <Route path="/customer/change/credentials" element={<InfoUpdate/>}/>
         </Routes> 

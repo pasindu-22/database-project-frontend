@@ -68,6 +68,7 @@ const ActiveLoansPage = () => {
         installmentID: selectedInstallment.Installment_ID,
         amount: selectedInstallment.Value,
       });
+      console.log(response);
       if (response.status === 200) {
         message.success("Payment successful");
         setIsModalVisible(false);
@@ -94,12 +95,16 @@ const ActiveLoansPage = () => {
         title: 'Transaction ID',
         dataIndex: 'Transaction_ID',
         key: 'transaction_id',
+        render: (text) => text ? text : <Badge status="error" text="Not Paid" />,
       },
       {
         title: 'Due Date',
-        dataIndex: 'Due_Date',
+        dataIndex: 'DueDate',
         key: 'due_date',
-        // render: (text) => <Badge status="error" text={text} />,
+        render: (text) => {
+          const localDate = new Date(text).toLocaleDateString();
+          return localDate;
+        },
       },
       {
         title: 'Value',
@@ -156,6 +161,10 @@ const ActiveLoansPage = () => {
       title: 'Date',
       dataIndex: 'Date',
       key: 'date',
+      render: (text) => {
+        const localDate = new Date(text).toLocaleDateString();
+        return localDate ;
+      },
     },
     {
       title: 'Loan Value',
@@ -202,7 +211,7 @@ const ActiveLoansPage = () => {
             <Select placeholder="Select an account">
               {accounts.map((account) => (
                 <Option key={account.Account_ID} value={account.Account_ID}>
-                  {account.Account_Name}
+                  {account.Account_ID } - Balance: {account.Balance}
                 </Option>
               ))}
             </Select>
@@ -210,8 +219,16 @@ const ActiveLoansPage = () => {
           <Form.Item
             name="amount"
             label="Amount"
+            initialValue={selectedInstallment?.Value}
+            >
+              <Input disabled />
+          </Form.Item>
+          <Form.Item
+            name="installmentID"
+            initialValue={selectedInstallment?.Installment_ID}
+            hidden
           >
-            <Input value={selectedInstallment?.Value} disabled />
+            <Input />
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit">
