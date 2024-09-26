@@ -32,36 +32,36 @@ const AccountPageCustomer = () => {
     } else {
       setLoading(false);
     }
-  }, [details.Customer_ID]);
+  }, [details.Customer_ID, details]);
 
   if (loading) {
     return (
-      <Layout style={{ minHeight: '100vh' }}>
+      <div style={{ minHeight: '100vh' }}>
         <Header style={{ background: '#A9A9A9', padding: 0, textAlign: 'center' }}>
-          <Title level={2}>Customer Accounts</Title>
+          <Title level={2}>Your Accounts</Title>
         </Header>
         <Content style={{ background: '#A9A9A9', padding: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <Spin size="large"/>
         </Content>
-      </Layout>
+      </div>
     );
   }
 
   if (accountData.length === 0) {
     return (
-      <Layout style={{ minHeight: '100vh' }}>
+      <div style={{ minHeight: '100vh' }}>
         <Header style={{ background: '#A9A9A9', padding: 0, textAlign: 'center' }}>
-          <Title level={2}>Customer Accounts</Title>
+          <Title level={2}>Your Accounts</Title>
         </Header>
         <Content style={{ background: '#A9A9A9', padding: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <p>No account data found</p>
         </Content>
-      </Layout>
+      </div>
     );
   }
 
   return (
-    <Layout style={{ minHeight: '100vh' , borderRadius:'20'}}>
+    <div style={{ padding: '40px'}}>
       <Header style={{ background: '#b7dcfa', padding: '0px', textAlign: 'center' }}>
         <Title level={2}>Your Accounts</Title>
       </Header>
@@ -82,7 +82,7 @@ const AccountPageCustomer = () => {
           )}
         />
       </Content>
-    </Layout>
+    </div>
   );
 };
 
