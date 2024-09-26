@@ -44,7 +44,7 @@ const TransactionForm = () => {
       <Form.Item
         name="FromAccount"
         label="From Account"
-        style={{width: '100%'}}
+        style={{ width: '100%' }}
         rules={[
           { required: true, message: 'Please input the From Account!' },
           { type: 'number', message: 'From Account must be an integer!' }

@@ -26,7 +26,7 @@ const SearchCustomer = () => {
       if (response.status === 200) {
         message.success('Customer found!');
         setCustomerId(response.data.Customer_ID); // Store customer ID in context
-        navigate(`/customers/${response.data.Customer_ID}`); // Redirect to customer menu
+        navigate(`/customers/${response.data.Customer_ID}/profile/details`); // Redirect to customer menu
       } else {
         message.error('Customer not found.');
       }

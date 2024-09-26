@@ -32,7 +32,7 @@ const AccountPageCustomer = () => {
     } else {
       setLoading(false);
     }
-  }, [details.Customer_ID]);
+  }, [details.Customer_ID, details]);
 
   if (loading) {
     return (
@@ -61,7 +61,7 @@ const AccountPageCustomer = () => {
   }
 
   return (
-    <Layout style={{ minHeight: '100vh' , borderRadius:'20'}}>
+    <div style={{ minHeight: '100vh' , borderRadius:'20'}}>
       <Header style={{ background: '#b7dcfa', padding: '0px', textAlign: 'center' }}>
         <Title level={2}>Your Accounts</Title>
       </Header>
@@ -82,7 +82,7 @@ const AccountPageCustomer = () => {
           )}
         />
       </Content>
-    </Layout>
+    </div>
   );
 };
 

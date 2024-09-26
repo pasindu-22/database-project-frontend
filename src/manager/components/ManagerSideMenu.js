@@ -167,6 +167,7 @@ const SideMenu = () => {
       onClick={onClick}
       style={{
         width: 256,
+        height: '100%',
         backgroundColor: 'whitesmoke',
         borderRadius: '15px 15px 15px 15px',
         background: 'linear-gradient(25deg, rgba(248, 248, 248, 1), rgba(150, 216, 230, 1))',
