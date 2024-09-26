@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Button, Card, Typography, Form, Input, message } from 'antd';
-import axios from 'axios';
+import { Button, Card, Typography, Form, Input, message, Modal } from 'antd';
+import axiosInstance from '../../utils/axiosInstance';
 import { useAuth } from '../../contexts/AuthContext';
 import backgroundImage from './../../components/Layout/entryPic.jpg';
 
@@ -9,19 +9,41 @@ const { Title } = Typography;
 const EmployeeLogin = () => {
   const { login } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [otpModalVisible, setOtpModalVisible] = useState(false);
+  const [otp, setOtp] = useState('');
+  const [Employee_ID, setManagerID] = useState('');
 
   const handleLogin = async (values) => {
     setLoading(true);
     try {
-      const response = await axios.post(`http://localhost:3001/api/employees/login`, values);
-      login({ ...response.data, role: 'employee' });
-      console.log('Cookies:', document.cookie); // Log cookies from the browser
-      console.log('Login response:', response.data);
-      message.success('Login successful');
+      const response = await axiosInstance.post(`http://localhost:3001/api/employees/login`, values);
+      if (response.data.message) {
+        setManagerID(response.data.Employee_ID);
+        console.log(response.data.Employee_ID, Employee_ID)
+        message.success('Succefull Verification, please enter the OTP sent to your email.');
+        setOtpModalVisible(true);
+      } else {
+        message.error('Issue with username or password');
+      }
     } catch (error) {
-      message.error('Login failed');
+      message.error('Request failed');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleOtpSubmit = async () => {
+    try {
+      const response = await axiosInstance.post(`http://localhost:3001/api/employees/verify-otp`, { Employee_ID , otp });
+      if (response.data.message) {
+        login({ ...response.data, role: 'employee' });
+        message.success('OTP verified successfully');
+        setOtpModalVisible(false);
+      } else {
+        message.error('Invalid OTP');
+      }
+    } catch (error) {
+      message.error('OTP verification failed');
     }
   };
 
@@ -61,6 +83,27 @@ const EmployeeLogin = () => {
         </Form.Item>
       </Form>
     </Card>
+
+    <Modal
+      title="Enter OTP Sent to Your Email"
+      visible={otpModalVisible}
+      onOk={handleOtpSubmit}
+      onCancel={() => setOtpModalVisible(false)}
+    >
+      <Form>
+        <Form.Item
+          name="otp"
+          rules={[{ required: true, message: 'Please enter the OTP' }]}
+        >
+          <Input
+            placeholder="OTP"
+            value={otp}
+            onChange={(e) => setOtp(e.target.value)}
+          />
+        </Form.Item>
+      </Form>
+    </Modal>
+
     </div>
   );
 };
