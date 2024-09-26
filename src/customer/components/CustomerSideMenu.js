@@ -153,6 +153,8 @@ const SideMenu = () => {
         width: 256,
         backgroundColor: 'lightg',
         borderRadius: '15px 15px 15px 15px',
+        margin: '0px 0px 5px 5px',       
+        height: '99.5%',
       }}
       selectedKeys={[location.pathname]}
       openKeys={openKeys}

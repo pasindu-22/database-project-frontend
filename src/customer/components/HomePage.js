@@ -1,11 +1,99 @@
-import React,{useState,useEffect} from 'react';
-import { Button } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Button, Descriptions, Statistic, Row, Col } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
+  const details = JSON.parse(localStorage.getItem('details'));
+  console.log('Details:', details);
+  const contentStyle = {
+    margin: 0,
+    width: '100%',
+    // height: '160px',
+    color: '#fff',
+    // lineHeight: '160px',
+    textAlign: 'center',
+    background: '#364d79',
+  };
+  const items = [
+    {
+      label: 'Name',
+      children: details.Name,
+    },
+    {
+      label: 'NIC',
+      children: details.NIC,
+    },
+
+    {
+      label: 'Address',
+      children: details.Address,
+    },
+    {
+      label: 'Accounts',
+      span: {
+        xs: 1,
+        sm: 2,
+        md: 1,
+        lg: 1,
+        xl: 1,
+        xxl: 1,
+      },
+      children: (
+        <>
+          Data disk type: MongoDB
+          <br />
+          Database version: 3.4
+          <br />
+          Package: dds.mongo.mid
+        </>
+      ),
+    },
+    {
+      label: 'Fixed Deposits',
+      span: {
+        xs: 1,
+        sm: 2,
+        md: 1,
+        lg: 1,
+        xl: 1,
+        xxl: 1,
+      },
+      children: (
+        <>
+          Data disk type: MongoDB
+          <br />
+          Database version: 3.4
+          <br />
+          Package: dds.mongo.mid
+        </>
+      ),
+    },
+    {
+      label: 'Loans',
+      span: {
+        xs: 1,
+        sm: 2,
+        md: 1,
+        lg: 1,
+        xl: 1,
+        xxl: 1,
+      },
+      children: (
+        <>
+          CPU: 6 Core 3.5 GHz
+          <br />
+          Storage space: 10 GB
+          <br />
+          Replication factor: 3
+          <br />
+          Region: East China 1
+        </>
+      ),
+    },
+  ];
   const navigate = useNavigate();
   const [time, setTime] = useState(new Date().toLocaleTimeString());
-    const [greetings, setGreetings] = useState('');
+  const [greetings, setGreetings] = useState('');
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -26,7 +114,7 @@ const HomePage = () => {
     return () => clearInterval(timer);
   }, []);
 
-  
+
 
   const handleNewTransaction = () => {
     navigate('/customer/transaction/new');
@@ -38,41 +126,94 @@ const HomePage = () => {
 
 
   return (
-    <>
-    <div style={{display:'flex', justifyContent:'left',padding: '20px'}}>
-        <h1>Hey!</h1>
-        <h1>{greetings}</h1>
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
+        {/* <div style={{display:'flex', justifyContent:'left',padding: '20px'}}>
+          <h1>Hey!</h1>
+          <h1>{greetings}</h1>
+      </div> */}
+
+        {/* descriptions div */}
+        <div>
+          <Descriptions
+            title="Responsive Descriptions"
+            bordered
+            column={{
+              xs: 1,
+              sm: 2,
+              md: 3,
+              lg: 3,
+              xl: 3,
+              xxl: 3,
+            }}
+            style={
+              {
+                padding: '20px',
+                width: '100%',
+                backgroundColor: 'white',
+                borderRadius: '10px',
+              }}
+            items={items}
+          />
+        </div>
+
+      </div>
+
+
+
+
+      <div style={{ display: 'flex', justifyContent: 'space-between', padding: '20px' }}>
+        <Col span={7} style={{ backgroundColor: "white", padding: "20px", borderRadius: "15px" }}>
+          <Col span={12}>
+            <Statistic title="Active Users" value={112893} />
+          </Col>
+          <Col span={12}>
+            <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
+            <Button
+              style={{
+                marginTop: 16,
+              }}
+              type="primary"
+            >
+              Recharge
+            </Button>
+          </Col>
+        </Col>
+        <Col span={7} style={{ backgroundColor: "white", padding: "20px", borderRadius: "15px" }}>
+          <Col span={12}>
+            <Statistic title="Active Users" value={112893} />
+          </Col>
+          <Col span={12}>
+            <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
+            <Button
+              style={{
+                marginTop: 16,
+              }}
+              type="primary"
+            >
+              Recharge
+            </Button>
+          </Col>
+        </Col>
+        <Col span={7} style={{ backgroundColor: "white", padding: "20px", borderRadius: "15px" }}>
+          <Col span={12}>
+            <Statistic title="Active Users" value={112893} />
+          </Col>
+          <Col span={12}>
+            <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
+            <Button
+              style={{
+                marginTop: 16,
+              }}
+              type="primary"
+            >
+              Recharge
+            </Button>
+          </Col>
+        </Col>
+      </div>
     </div>
-    <div style={{display:'flex', justifyContent:'left',padding: '20px', flexDirection:'column'}}>
-    <div style={{ margin: '20px' }}>
-      <Button type="primary" onClick={handleNewTransaction} style={{
-        padding: '20px 40px',        // Increased padding for a larger button
-        fontSize: '24px',            // Larger font size
-        border: 'none',              // No border
-        borderRadius: '10px',        // Rounded corners
-        cursor: 'pointer',           // Pointer cursor on hover
-        width: '200px',              // Specific width
-        height: '80px'
-      }}>
-        New Transaction
-      </Button>
-      
-    </div>
-    <div style={{ margin: '20px' }}>
-      <Button type="primary" onClick={handleNewCustomer} style={{
-        padding: '20px 40px',        // Increased padding for a larger button
-        fontSize: '24px',            // Larger font size
-        border: 'none',              // No border
-        borderRadius: '10px',        // Rounded corners
-        cursor: 'pointer',           // Pointer cursor on hover
-        width: '200px',              // Specific width
-        height: '80px'
-      }}>
-        New Online Loan
-        </Button>
-    </div>
-    </div>
-    </>
+
   );
 };
 
