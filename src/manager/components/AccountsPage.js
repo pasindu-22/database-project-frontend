@@ -35,7 +35,7 @@ const AccountPage = () => {
 
   useEffect(() => {
     const fetchTransactions = async () => {
-      if (accountID) {
+      if (accountID.length) {
         try {
           const response = await axiosInstance.get(`http://localhost:3001/api/transactions/byAccount/${accountID}`);
           console.log(response.data);

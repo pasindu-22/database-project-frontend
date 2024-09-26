@@ -1,6 +1,8 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import axiosInstance from '../utils/axiosInstance'; // Import the configured Axios instance
+
 
 const AuthContext = createContext();
 
@@ -15,6 +17,8 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     if (user) {
       localStorage.setItem('user', JSON.stringify(user));
+      // console.log('User:', user);
+
       let id;
       switch (user.role) {
         case 'manager':
@@ -50,8 +54,9 @@ export const AuthProvider = ({ children }) => {
           throw new Error('Invalid role');
       }
 
-      const response = await axios.get(endpoint);
+      const response = await axiosInstance.get(endpoint);
       setDetails(response.data);
+      localStorage.setItem('details', JSON.stringify(response.data)); //
       console.log(`${role} details:`, response.data);
     } catch (error) {
       console.error(`Failed to fetch ${role} details:`, error);
@@ -79,7 +84,7 @@ export const AuthProvider = ({ children }) => {
         navigate('/app');
         break;
       case 'customer':
-        navigate('/customers');
+        navigate('/customer/home');
         break;
       default:
         navigate('/role-selection');
