@@ -20,7 +20,7 @@ const TransactionForm = () => {
       Type: values.Type,
     };
 
-    axiosInstance.post('http://localhost:3001/api/transactions/', transactionData)
+    axiosInstance.post('https://database-backend-g8-d3f914ee6287.herokuapp.com/api/transactions/', transactionData)
       .then((response) => {
         const { Transaction_ID } = response.data;
         message.success(`Transaction successful! Transaction ID: ${Transaction_ID}`);
@@ -34,7 +34,7 @@ const TransactionForm = () => {
   useEffect(() => {     // Fetch account data after component mount to show in dropdown. 
     const fetchAccountData = async () => {
       try {
-        const response = await axiosInstance.get(`http://localhost:3001/api/accounts/customer/${details.Customer_ID}`);
+        const response = await axiosInstance.get(`https://database-backend-g8-d3f914ee6287.herokuapp.com/api/accounts/customer/${details.Customer_ID}`);
         setAccounts(response.data);
       } catch (error) {
         console.error("There was an error fetching the account data!", error);

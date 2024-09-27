@@ -37,7 +37,7 @@ const ReportPage = () => {
 
     try {
       const response = await axiosInstance.post(
-        `http://localhost:3001/api/transactions/${reportType}Report/${details.Manager_ID}`,
+        `https://database-backend-g8-d3f914ee6287.herokuapp.com/api/transactions/${reportType}Report/${details.Manager_ID}`,
         {
           startDate: formattedStartDate,
           endDate: formattedEndDate,

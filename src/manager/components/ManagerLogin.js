@@ -17,7 +17,7 @@ const ManagerLogin = () => {
   const handleLogin = async (values) => {
     setLoading(true);
     try {
-      const response = await axiosInstance.post(`http://localhost:3001/api/managers/login`, values);
+      const response = await axiosInstance.post(`https://database-backend-g8-d3f914ee6287.herokuapp.com/api/managers/login`, values);
       if (response.data.message) {
         setManagerID(response.data.Manager_ID);
         console.log(response.data.Manager_ID, Manager_ID)
@@ -35,7 +35,7 @@ const ManagerLogin = () => {
 
   const handleOtpSubmit = async () => {
     try {
-      const response = await axiosInstance.post(`http://localhost:3001/api/managers/verify-otp`, { Manager_ID , otp });
+      const response = await axiosInstance.post(`https://database-backend-g8-d3f914ee6287.herokuapp.com/api/managers/verify-otp`, { Manager_ID , otp });
       if (response.data.message) {
         login({ ...response.data, role: 'manager' });
         message.success('OTP verified successfully');

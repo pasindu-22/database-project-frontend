@@ -24,7 +24,7 @@ const TransactionsList = () => {
         const fetchAccountData = async () => {
             // code goes here
             try {
-              const response = await axiosInstance.get(`http://localhost:3001/api/accounts/customer/${details.Customer_ID}`);
+              const response = await axiosInstance.get(`https://database-backend-g8-d3f914ee6287.herokuapp.com/api/accounts/customer/${details.Customer_ID}`);
               setAccountData(response.data);
             } catch (error) {
                console.error("There was an error fetching the account data!", error);
@@ -44,7 +44,7 @@ const TransactionsList = () => {
       const fetchTransactions = async () => {
         if (accountID.length) {
           try {
-            const response = await axiosInstance.get(`http://localhost:3001/api/transactions/byAccount/${accountID}`);
+            const response = await axiosInstance.get(`https://database-backend-g8-d3f914ee6287.herokuapp.com/api/transactions/byAccount/${accountID}`);
             console.log(response.data);
             setTransactions(response.data);
           } catch (error) {

@@ -18,7 +18,7 @@ const LoanApplicationForm = (isCustomerEditable) => {
     console.log('Form values:', values);
 
     // Send form data to the backend
-    axios.post('http://localhost:3001/api/loanApplications/', values)
+    axios.post('https://database-backend-g8-d3f914ee6287.herokuapp.com/api/loanApplications/', values)
       .then(response => {
         message.success('Loan application submitted successfully!');
         form.resetFields();

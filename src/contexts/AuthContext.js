@@ -42,13 +42,13 @@ export const AuthProvider = ({ children }) => {
       let endpoint;
       switch (role) {
         case 'manager':
-          endpoint = `http://localhost:3001/api/managers/${id}`;
+          endpoint = `https://database-backend-g8-d3f914ee6287.herokuapp.com/api/managers/${id}`;
           break;
         case 'employee':
-          endpoint = `http://localhost:3001/api/employees/${id}`;
+          endpoint = `https://database-backend-g8-d3f914ee6287.herokuapp.com/api/employees/${id}`;
           break;
         case 'customer':
-          endpoint = `http://localhost:3001/api/customers/${id}`;
+          endpoint = `https://database-backend-g8-d3f914ee6287.herokuapp.com/api/customers/${id}`;
           break;
         default:
           throw new Error('Invalid role');

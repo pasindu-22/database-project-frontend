@@ -5,7 +5,7 @@ import axios from 'axios';
 const onFinish = async (values) => {
   console.log('Success:', values);
   try {
-    const response = await axios.post('http://localhost:3001/api/branches/', values);
+    const response = await axios.post('https://database-backend-g8-d3f914ee6287.herokuapp.com/api/branches/', values);
     console.log(response.data);
     alert('Branch created successfully!');
   } catch (error) {

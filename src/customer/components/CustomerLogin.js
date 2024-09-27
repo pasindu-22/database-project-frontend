@@ -18,7 +18,7 @@ const CustomerLogin = () => {
   const handleLogin = async (values) => {
     setLoading(true);
     try {
-      const response = await axiosInstance.post(`http://localhost:3001/api/customers/login`, values);
+      const response = await axiosInstance.post(`https://database-backend-g8-d3f914ee6287.herokuapp.com/api/customers/login`, values);
       if (response.data.message) {
         setCustomerID(response.data.Customer_ID);
         console.log(response.data.Customer_ID, Customer_ID)
@@ -36,7 +36,7 @@ const CustomerLogin = () => {
 
   const handleOtpSubmit = async () => {
     try {
-      const response = await axiosInstance.post(`http://localhost:3001/api/customers/verify-otp`, { Customer_ID , otp });
+      const response = await axiosInstance.post(`https://database-backend-g8-d3f914ee6287.herokuapp.com/api/customers/verify-otp`, { Customer_ID , otp });
       if (response.data.message) {
         login({ ...response.data, role: 'customer' });
         message.success('OTP verified successfully');
