@@ -38,21 +38,22 @@ const PendingLoansPage = () => {
       Approved,
     };
 
+    const getApprovalStatus = (approvedValue) => {
+      switch (approvedValue) {
+        case 0:
+          return 'Pending';
+        case 1:
+          return 'Approved';
+        case -1:
+          return 'Reject';
+        default:
+          return 'Unknown';
+      }
+    };
+
     // Send data to the backend using Axios
     axios.post(`http://localhost:3001/api/loanapplications/${Application_Id}/approve`, postData)
       .then(response => {
-        const getApprovalStatus = (approvedValue) => {
-          switch (approvedValue) {
-            case 0:
-              return 'Pending';
-            case 1:
-              return 'Approved';
-            case -1:
-              return 'Rejected';
-            default:
-              return 'Unknown';
-          }
-        };
         
         message.success(`Application ${Application_Id} ${getApprovalStatus(Approved)} successfully!`);
         // Update the local state to reflect the action
@@ -63,7 +64,7 @@ const PendingLoansPage = () => {
         );
       })
       .catch(error => {
-        message.error(`Failed to ${Approved} application ${Application_Id}. Please try again.`);
+        message.error(`Failed to ${getApprovalStatus(Approved)} application ${Application_Id}. Please try again.`);
       });
   };
 

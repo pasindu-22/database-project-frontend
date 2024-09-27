@@ -55,12 +55,15 @@ const LateLoanReport = () => {
           {text}
         </Button>
       ),
-    },
+    }, 
     {
       title: 'Due Date',
-      dataIndex: 'Due_Date',
+      dataIndex: 'DueDate',
       key: 'due_date',
-      render: (text) => <Badge status="error" text={text} />,
+      render: (text) => {
+        const localDate = new Date(text).toLocaleString();
+        return <Badge status="error" text={localDate} />;
+      },
     },
     {
       title: 'Value',

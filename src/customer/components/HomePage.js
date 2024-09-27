@@ -1,10 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Descriptions, Statistic, Row, Col } from 'antd';
+import React, { useState, useEffect  } from 'react';
+import { Button, Descriptions, Statistic, Row, Col, Spin } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
-  const details = JSON.parse(localStorage.getItem('details'));
-  console.log('Details:', details);
+  const [details, setDetails] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedDetails = localStorage.getItem('details');
+    if (storedDetails) {
+      setDetails(JSON.parse(storedDetails));
+    }
+    setLoading(false);
+  }, []);
+
   const contentStyle = {
     margin: 0,
     width: '100%',
@@ -14,7 +24,7 @@ const HomePage = () => {
     textAlign: 'center',
     background: '#364d79',
   };
-  const items = [
+  const items = details ? [
     {
       label: 'Name',
       children: details.Name,
@@ -90,8 +100,7 @@ const HomePage = () => {
         </>
       ),
     },
-  ];
-  const navigate = useNavigate();
+  ] : [];
   const [time, setTime] = useState(new Date().toLocaleTimeString());
   const [greetings, setGreetings] = useState('');
 
@@ -124,6 +133,9 @@ const HomePage = () => {
     navigate('/customer/loan/new');
   };
 
+  if (loading) {
+    return <Spin size="large" />;
+  }
 
   return (
     <div>

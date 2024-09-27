@@ -33,7 +33,7 @@ const ManagerDashboard = () => {
             <Route path='/app/reports/transactions' element={<TransactionReport/>}/>
             <Route path='/app/reports/lateloans' element={<LateLoanReport/>}/>
             <Route path="/customers/*" element={<WithAccountNavigation><CustomerRoutes /></WithAccountNavigation>} />
-            <Route path="/app/*" element={<AppRoutes />} />
+            <Route path="/app/*" element={<AppRoutes/>}/>
           </Routes>
         </div>
       </div>

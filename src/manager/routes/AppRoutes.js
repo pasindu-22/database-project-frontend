@@ -4,6 +4,7 @@ import LoanApplicationPage from '../components/LoanApplicationPage';
 import AllLoanApplicationsPage from '../components/AllLoanApplicationsPage';
 import HomePage from '../components/HomePage';
 import TransactionForm from '../components/TransactionForm';
+import Events from '../components/Events';
 // import Home from '../components/Home';
 
 function AppRoutes() {
@@ -11,6 +12,7 @@ function AppRoutes() {
     <div>
     <Routes>
         <Route path="/home" element={<HomePage/>} />
+        <Route path="/events" element={<Events/>} />
         <Route path="/dashboard" element={<div>Dashboard</div>} />
         <Route path="/profile" element={<div>Profile</div>} />
         <Route path="/loans/individual" element={<LoanApplicationPage/>} />

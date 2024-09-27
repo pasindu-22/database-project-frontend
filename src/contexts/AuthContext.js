@@ -71,14 +71,14 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setUser(null);
     setDetails(null); // Clear manager details on logout
-    localStorage.removeItem('user'); // Ensure user is removed from localStorage
+    localStorage.removeItem('details'); // Ensure user is removed from localStorage
     navigate('/customer-login');
   };
 
   const redirectToRoleBasedRoute = (role) => {
     switch (role) {
       case 'manager':
-        navigate('/management');
+        navigate('/app/home');
         break;
       case 'employee':
         navigate('/app');
