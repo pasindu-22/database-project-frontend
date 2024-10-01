@@ -1,0 +1,82 @@
+/* General Sidebar Styles */
+.ant-menu {
+    background-color: #f0f2f5; /* Light background for modern look */
+    border-radius: 15px;
+    margin: 0 0 5px 5px;
+    height: 100%; /* Make sure the menu takes full height */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Subtle shadow for depth */
+  }
+  
+  /* Menu Item Styles */
+  .ant-menu-item {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333; /* Darker text for better contrast */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 8px; /* Rounded corners for items */
+    margin: 5px 10px; /* Spacing between items */
+  }
+  
+  .ant-menu-item:hover {
+    background-color: #1890ff !important; /* Highlight background */
+    color: white !important; /* Text color on hover */
+  }
+  
+  /* Active (Selected) Menu Item */
+  .ant-menu-item-selected {
+    background-color: #1890ff !important; /* Active item background */
+    color: white !important; /* White text for selected item */
+    font-weight: bold; /* Emphasize the selected item */
+  }
+  
+  /* Submenu Styles */
+  .ant-menu-submenu-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    border-radius: 8px;
+    margin: 5px 10px;
+  }
+  
+  .ant-menu-submenu:hover {
+    background-color: #e6f7ff; /* Lighter hover for submenus */
+  }
+  
+  /* Divider Styling */
+  .ant-menu-item-divider {
+    border-color: rgba(0, 0, 0, 0.1); /* Subtle divider color */
+    margin: 16px 0; /* Spacing around dividers */
+    border-width: 2px; /* Divider thickness */
+  }
+  
+  /* Icon Styling */
+  .ant-menu-item .anticon {
+    font-size: 18px; /* Larger icons */
+    margin-right: 12px; /* Space between icon and text */
+  }
+  
+  .ant-menu-item:hover .anticon {
+    color: red; /* Icon color change on hover */
+  }
+  
+  /* Custom Scrollbar */
+  .ant-menu {
+    overflow-y: auto; /* Enable scrolling if sidebar content exceeds height */
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: #1890ff #f0f2f5; /* Scrollbar color */
+  }
+  
+  .ant-menu::-webkit-scrollbar {
+    width: 6px; /* Width of scrollbar */
+  }
+  
+  .ant-menu::-webkit-scrollbar-thumb {
+    background-color: #1890ff; /* Scrollbar color */
+    border-radius: 4px; /* Rounded scrollbar */
+  }
+  
+  .ant-menu::-webkit-scrollbar-track {
+    background-color: #f0f2f5; /* Background of scrollbar track */
+  }
+  

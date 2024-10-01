@@ -11,7 +11,7 @@ const LateLoanReport = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   // useAxiosInterceptor(); // Use this custom hook to handle session expiration
-  
+   
   useEffect(() => {
     const fetchLateLoans = async () => {
       try {
@@ -47,14 +47,19 @@ const LateLoanReport = () => {
 
   const columns = [
     {
-      title: 'Loan ID',
-      dataIndex: 'Loan_ID',
-      key: 'loan_id',
+      title: 'Installment ID',
+      dataIndex: 'Installment_ID',
+      key: 'installment_id',
       render: (text, record) => (
         <Button type="link" onClick={() => fetchCustomerDetails(record.Loan_ID)}>
           {text}
         </Button>
       ),
+    },
+    {
+      title: 'Loan ID',
+      dataIndex: 'Loan_ID',
+      key: 'loan_id',
     }, 
     {
       title: 'Due Date',
@@ -75,7 +80,7 @@ const LateLoanReport = () => {
       key: 'operation',
       render: (text, record) => (
         <Space size="middle">
-          <Button type="primary" onClick={() => handleRemind(record.Installment_ID)}>Remind</Button>
+          <Button type="primary" onClick={() => handleRemind(record.Installment_ID)} disabled>Remind</Button>
         </Space>
       ),
     },
