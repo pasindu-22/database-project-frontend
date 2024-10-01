@@ -35,14 +35,13 @@ const Events = () => {
 
   return (
     <>
-    {/* Calendar for displaying events */}
-        <Row gutter={16} style={{ marginTop: '20px' }}>
-          <Col span={24}>
-            <Card title="Events" style={{ borderRadius: '10px' }}>
-              <Calendar dateCellRender={dateCellRender} />
-            </Card>
-          </Col>
-        </Row>
+      <Row gutter={16} style={{ marginTop: '20px' }}>
+        <Col span={24}>
+          <Card title="Events" style={{ borderRadius: '10px' }}>
+            <Calendar dateCellRender={dateCellRender} />
+          </Card>
+        </Col>
+      </Row>
     </>
   ); 
 }

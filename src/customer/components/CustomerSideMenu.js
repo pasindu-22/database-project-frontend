@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import {  LogoutOutlined, PieChartOutlined, ProfileOutlined, AppstoreOutlined, GroupOutlined, UserAddOutlined, SettingOutlined, AlertOutlined, TeamOutlined, ToolOutlined } from '@ant-design/icons';
-import { Menu, Modal } from 'antd';
+import {  LogoutOutlined, PieChartOutlined, ProfileOutlined, AppstoreOutlined, GroupOutlined, UserAddOutlined, SettingOutlined, AlertOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import { Menu, Modal, Button } from 'antd';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -112,11 +112,12 @@ const items = [
   },
 ];
 
-const SideMenu = () => {
+const SideMenu = ({ collapsed, toggleCollapsed }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { logout } = useAuth();
   const [openKeys, setOpenKeys] = useState([]);
+  // const [collapsed, setCollapsed] = useState(false);
 
   const onClick = (e) => {
     console.log('click ', e);
@@ -147,21 +148,27 @@ const SideMenu = () => {
   };
 
   return (
-    <Menu
-      onClick={onClick}
-      style={{
-        width: 256,
-        backgroundColor: 'lightg',
-        borderRadius: '15px 15px 15px 15px',
-        margin: '0px 0px 5px 5px',       
-        height: '99.5%',
-      }}
-      selectedKeys={[location.pathname]}
-      openKeys={openKeys}
-      onOpenChange={onOpenChange}
-      mode="inline"
-      items={items}
-    />
+    <div style={{ width: collapsed ? 80 : 256 }}>
+      <Button type="primary" onClick={toggleCollapsed} style={{ marginBottom: 16 }}>
+        {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+      </Button>
+      <Menu
+        onClick={onClick}
+        style={{
+          width: '100%',
+          backgroundColor: 'lightg',
+          borderRadius: '15px 15px 15px 15px',
+          margin: '0px 0px 5px 5px',       
+          height: '99.5%',
+        }}
+        selectedKeys={[location.pathname]}
+        openKeys={openKeys}
+        onOpenChange={onOpenChange}
+        mode="inline"
+        inlineCollapsed={collapsed}
+        items={items}
+      />
+    </div>
   );
 };
 

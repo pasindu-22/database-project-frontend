@@ -42,7 +42,7 @@ const TransactionsList = () => {
 
     useEffect(() => {
       const fetchTransactions = async () => {
-        if (accountID.length) {
+        if (accountID) {
           try {
             const response = await axiosInstance.get(`http://localhost:3001/api/transactions/byAccount/${accountID}`);
             console.log(response.data);
