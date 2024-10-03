@@ -91,8 +91,13 @@ const SavingsAccountForm = () => {
           name="Plan"
           label="Plan"
           rules={[{ required: true, message: 'Please enter the plan!' }]}
-        >
-          <Input placeholder="Enter Plan" />
+        > 
+          <Select>
+            <Option value="Children">Children</Option>
+            <Option value="Teen">Teen</Option>
+            <Option value="Adult">Adult</Option>
+            <Option value="Senior">Senior</Option>
+          </Select>
         </Form.Item>
 
         <Form.Item>
