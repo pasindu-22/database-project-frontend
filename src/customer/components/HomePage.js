@@ -1,231 +1,115 @@
-import React, { useState, useEffect  } from 'react';
-import { Button, Descriptions, Statistic, Row, Col, Spin } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Card, List, Spin, Row, Col, Typography, message } from 'antd';
+import { useAuth } from '../../contexts/AuthContext';
+import axiosInstance from '../../utils/axiosInstance';
+
+const { Title } = Typography;
 
 const HomePage = () => {
-  const [details, setDetails] = useState(null);
+  const { details } = useAuth(); // Correctly use the useAuth hook
+  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    const storedDetails = localStorage.getItem('details');
-    if (storedDetails) {
-      setDetails(JSON.parse(storedDetails));
+    if (details && details.Customer_ID) {
+      // Fetch the brief info once customerId is set
+      const fetchBriefInfo = async () => {
+        try {
+          const response = await axiosInstance.get(`/customers/brief-info/${details.Customer_ID}`);
+          setData(response.data);
+        } catch (error) {
+          message.error('Failed to fetch customer data');
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchBriefInfo();
     }
-    setLoading(false);
-  }, []);
-
-  const contentStyle = {
-    margin: 0,
-    width: '100%',
-    // height: '160px',
-    color: '#fff',
-    // lineHeight: '160px',
-    textAlign: 'center',
-    background: '#364d79',
-  };
-  const items = details ? [
-    {
-      label: 'Name',
-      children: details.Name,
-    },
-    {
-      label: 'NIC',
-      children: details.NIC,
-    },
-
-    {
-      label: 'Address',
-      children: details.Address,
-    },
-    {
-      label: 'Accounts',
-      span: {
-        xs: 1,
-        sm: 2,
-        md: 1,
-        lg: 1,
-        xl: 1,
-        xxl: 1,
-      },
-      children: (
-        <>
-          Data disk type: MongoDB
-          <br />
-          Database version: 3.4
-          <br />
-          Package: dds.mongo.mid
-        </>
-      ),
-    },
-    {
-      label: 'Fixed Deposits',
-      span: {
-        xs: 1,
-        sm: 2,
-        md: 1,
-        lg: 1,
-        xl: 1,
-        xxl: 1,
-      },
-      children: (
-        <>
-          Data disk type: MongoDB
-          <br />
-          Database version: 3.4
-          <br />
-          Package: dds.mongo.mid
-        </>
-      ),
-    },
-    {
-      label: 'Loans',
-      span: {
-        xs: 1,
-        sm: 2,
-        md: 1,
-        lg: 1,
-        xl: 1,
-        xxl: 1,
-      },
-      children: (
-        <>
-          CPU: 6 Core 3.5 GHz
-          <br />
-          Storage space: 10 GB
-          <br />
-          Replication factor: 3
-          <br />
-          Region: East China 1
-        </>
-      ),
-    },
-  ] : [];
-  const [time, setTime] = useState(new Date().toLocaleTimeString());
-  const [greetings, setGreetings] = useState('');
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      const currentTime = new Date();
-      setTime(currentTime.toLocaleTimeString());
-
-      const hours = currentTime.getHours();
-      if (hours < 12) {
-        setGreetings('  Good Morning!');
-      } else if (hours < 18) {
-        setGreetings('  Good Afternoon!');
-      } else {
-        setGreetings('  Good Evening!');
-      }
-    }, 1000);
-
-    // Cleanup interval on component unmount
-    return () => clearInterval(timer);
-  }, []);
-
-
-
-  const handleNewTransaction = () => {
-    navigate('/customer/transaction/new');
-  };
-
-  const handleNewCustomer = () => {
-    navigate('/customer/loan/new');
-  };
+  }, [details]);
 
   if (loading) {
-    return <Spin size="large" />;
+    return (
+      <Row justify="center" style={{ padding: '20px' }}>
+        <Spin size="large" />
+      </Row>
+    );
+  }
+
+  if (!data) {
+    return <div>No data available</div>;
   }
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
-        {/* <div style={{display:'flex', justifyContent:'left',padding: '20px'}}>
-          <h1>Hey!</h1>
-          <h1>{greetings}</h1>
-      </div> */}
-
-        {/* descriptions div */}
-        <div>
-          <Descriptions
-            title="Responsive Descriptions"
-            bordered
-            column={{
-              xs: 1,
-              sm: 2,
-              md: 3,
-              lg: 3,
-              xl: 3,
-              xxl: 3,
-            }}
-            style={
-              {
-                padding: '20px',
-                width: '100%',
-                backgroundColor: 'white',
-                borderRadius: '10px',
-              }}
-            items={items}
-          />
-        </div>
-
-      </div>
-
-
-
-
-      <div style={{ display: 'flex', justifyContent: 'space-between', padding: '20px' }}>
-        <Col span={7} style={{ backgroundColor: "white", padding: "20px", borderRadius: "15px" }}>
-          <Col span={12}>
-            <Statistic title="Active Users" value={112893} />
-          </Col>
-          <Col span={12}>
-            <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
-            <Button
-              style={{
-                marginTop: 16,
-              }}
-              type="primary"
-            >
-              Recharge
-            </Button>
-          </Col>
+    <div style={{ padding: '20px' }}>
+      <Title level={2}>Welcome, {data.user?.name}</Title>
+      
+      <Row gutter={16}>
+        {/* User Information Card */}
+        <Col span={8}>
+          <Card title="Customer Information" bordered={false}>
+            <p><strong>Name:</strong> {data.user?.Name}</p>
+            <p><strong>NIC:</strong> {data.user?.NIC}</p>
+            <p><strong>Address:</strong> {data.user?.Address}</p>
+          </Card>
         </Col>
-        <Col span={7} style={{ backgroundColor: "white", padding: "20px", borderRadius: "15px" }}>
-          <Col span={12}>
-            <Statistic title="Active Users" value={112893} />
-          </Col>
-          <Col span={12}>
-            <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
-            <Button
-              style={{
-                marginTop: 16,
-              }}
-              type="primary"
-            >
-              Recharge
-            </Button>
-          </Col>
+
+        {/* Accounts Information Card */}
+        <Col span={8}>
+          <Card title="Accounts" bordered={false}>
+            <List
+              itemLayout="horizontal"
+              dataSource={data.accounts}
+              renderItem={account => (
+                <List.Item>
+                  <List.Item.Meta
+                    title={`Account ID: ${account.Account_ID}`}
+                    description={`Balance: ${account.Balance}`}
+                  />
+                </List.Item>
+              )}
+            />
+          </Card>
         </Col>
-        <Col span={7} style={{ backgroundColor: "white", padding: "20px", borderRadius: "15px" }}>
-          <Col span={12}>
-            <Statistic title="Active Users" value={112893} />
-          </Col>
-          <Col span={12}>
-            <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
-            <Button
-              style={{
-                marginTop: 16,
-              }}
-              type="primary"
-            >
-              Recharge
-            </Button>
-          </Col>
+
+        {/* Loan Information Card */}
+        <Col span={8}>
+          <Card title="Loans" bordered={false}>
+            <List
+              itemLayout="horizontal"
+              dataSource={data.loans}
+              renderItem={loan => (
+                <List.Item>
+                  <List.Item.Meta
+                    title={`Loan ID: ${loan.Loan_ID}`}
+                    description={`Loan Value: ${loan.LoanValue}`}
+                  />
+                </List.Item>
+              )}
+            />
+          </Card>
         </Col>
-      </div>
+      </Row>
+
+      <Row gutter={16} style={{ marginTop: '20px' }}>
+        {/* Fixed Deposits Information Card */}
+        <Col span={8}>
+          <Card title="Fixed Deposits" bordered={false}>
+            <List
+              itemLayout="horizontal"
+              dataSource={data.fds}
+              renderItem={fd => (
+                <List.Item>
+                  <List.Item.Meta
+                    title={`FD ID: ${fd.FD_ID}`}
+                    description={`Amount: ${fd.Amount}`}
+                  />
+                </List.Item>
+              )}
+            />
+          </Card>
+        </Col>
+      </Row>
     </div>
-
   );
 };
 
