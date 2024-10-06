@@ -62,9 +62,10 @@ const ActiveLoansPage = () => {
   };
 
   const handleOk = async (values) => {
+    console.log('Received values:', values);
     try {
       const response = await axiosInstance.post(`http://localhost:3001/api/loanInstallments/pay/${selectedInstallment.Installment_ID}`, {
-        accountID: values.accountID,
+        accountId: String(values.accountID),
         installmentID: selectedInstallment.Installment_ID,
         amount: selectedInstallment.Value,
       });
