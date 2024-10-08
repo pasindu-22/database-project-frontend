@@ -12,22 +12,24 @@ const PendingLoansPage = () => {
 
   // Fetch data from backend API when component mounts
   useEffect(() => {
-    axios.get(`http://localhost:3001/api/loanapplications/${details.Manager_ID}/getAll`)
-      .then(response => {
-        if (Array.isArray(response.data)) {
-          setData(response.data); // Assuming the data is an array
-        } else {
-          console.error('Unexpected response format:', response.data);
-          message.error('Unexpected response format.');
-        }
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('Error fetching loan applications:', error);
-        message.error('Failed to fetch loan applications.');
-        setLoading(false);
-      });
-  }, []);   // Empty array means this effect runs only once after initial render
+    if (details && details.Manager_ID) {
+      axios.get(`http://localhost:3001/api/loanapplications/${details.Manager_ID}/getAll`)
+        .then(response => {
+          if (Array.isArray(response.data)) {
+            setData(response.data); // Assuming the data is an array
+          } else {
+            console.error('Unexpected response format:', response.data);
+            message.error('Unexpected response format.');
+          }
+          setLoading(false);
+        })
+        .catch(error => {
+          console.error('Error fetching loan applications:', error);
+          message.error('Failed to fetch loan applications.');
+          setLoading(false);
+        });
+    }
+  }, [details]);   // Empty array means this effect runs only once after initial render
 
   const handleAction = (Application_Id, Approved) => {
     // Prepare data to send to the backend

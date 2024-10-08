@@ -45,7 +45,7 @@ const FixedDepositForm = ({userType}) => {    // Prop for conditionally render a
 
     fetchAccountData();
     
-  }, [details.Customer_ID]);
+  }, [details]);
  
   return (
     <Form

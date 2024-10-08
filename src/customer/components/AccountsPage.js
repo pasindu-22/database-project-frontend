@@ -32,7 +32,7 @@ const AccountPageCustomer = () => {
     } else {
       setLoading(false);
     }
-  }, [details.Customer_ID, details]);
+  }, [details]);
 
   if (loading) {
     return (
