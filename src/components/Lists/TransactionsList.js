@@ -23,6 +23,11 @@ const TransactionsList = () => {
     useEffect(() => {
         const fetchAccountData = async () => {
             // code goes here
+
+            if (!details || !details.Customer_ID) {
+              setLoading(false);
+              return;
+            }
             try {
               const response = await axiosInstance.get(`http://localhost:3001/api/accounts/customer/${details.Customer_ID}`);
               setAccountData(response.data);
@@ -38,7 +43,7 @@ const TransactionsList = () => {
             setLoading(false);
         }
 
-    },[details.Customer_ID]);
+    },[details]);
 
     useEffect(() => {
       const fetchTransactions = async () => {

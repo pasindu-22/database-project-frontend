@@ -29,7 +29,7 @@ const TransactionForm = () => {
       .catch((error) => {
         message.error('Transaction failed. Please try again.');
       });
-  };
+  }; 
 
   useEffect(() => {     // Fetch account data after component mount to show in dropdown. 
     const fetchAccountData = async () => {
@@ -43,7 +43,7 @@ const TransactionForm = () => {
 
     fetchAccountData();
     
-  }, [details.Customer_ID]);
+  }, [details]);
 
   return (
     

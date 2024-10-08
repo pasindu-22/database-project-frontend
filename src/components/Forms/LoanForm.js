@@ -1,5 +1,5 @@
-import React from 'react';
-import { Form, Input, Button, Select, DatePicker, InputNumber, message } from 'antd';
+import React, { useEffect, useState} from 'react';
+import { Form, Input, Button, Select, DatePicker, Spin, InputNumber, message } from 'antd';
 import axios from 'axios';
 import moment from 'moment';
 import { useAuth } from '../../contexts/AuthContext';
@@ -9,6 +9,13 @@ const { Option } = Select;
 const LoanApplicationForm = (isCustomerEditable) => {
   const [form] = Form.useForm();
   const { details } = useAuth();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (details) {
+      setLoading(false);
+    }
+  }, [details]);
 
   const onFinish = (values) => {
 
@@ -28,6 +35,10 @@ const LoanApplicationForm = (isCustomerEditable) => {
         console.error('Error:', error);
       });
   };
+
+  if (loading) {
+    return <Spin size="large" />;
+  }
 
   return (
     <Form 
