@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Table, message , Tag} from 'antd';
+import { Table, message , Tag, Typography} from 'antd';
 import axios from 'axios';
 import { useAuth } from '../../contexts/AuthContext';
+// import Title from 'antd/es/skeleton/Title';
+
+const { Title } = Typography;
 
 const PendingLoans = () => {
   const [data, setData] = useState([]);
@@ -76,6 +79,8 @@ const PendingLoans = () => {
   ];
 
   return (
+    <div style={{ padding: '20px' }}>
+      <Title level={3} style={{ textAlign: 'center', marginBottom: '20px' }}>Loan History</Title>
     <Table
       columns={columns}
       dataSource={data}
@@ -83,6 +88,7 @@ const PendingLoans = () => {
       rowKey="id"
       pagination={{ pageSize: 10 }}
     />
+    </div>
   );
 };
 

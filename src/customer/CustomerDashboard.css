@@ -1,0 +1,38 @@
+/* CustomerDashboard.css */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100vh;
+  background: url('/media/pasindu/New Volume/MyProjects/DBModuleProject/project-frontend/public/jplenio.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+.dashboard-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.8); /* Optional: Add a semi-transparent background */
+}
+
+.dashboard-content {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  background-color: transparent; /* Make content background transparent */
+  margin-top: 64px;
+}
+
+.dashboard-sidebar {
+  position: fixed;
+  top: 80px;      /* Original value 64px */
+  height: calc(100vh - 64px);
+  z-index: 1000;
+}
+
+.dashboard-main {
+  flex: 1;
+  overflow-y: auto;
+  height: calc(100vh - 64px);
+}

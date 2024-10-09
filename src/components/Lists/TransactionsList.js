@@ -123,11 +123,9 @@ const TransactionsList = () => {
       ]
     
       return (
-        <Layout style={{ minHeight: '100vh' , borderRadius:'20'}}>
-          <Header style={{ background: '#b7dcfa', padding: 0, textAlign: 'center' }}>
-            <Title level={2}>Account Transactions</Title>
-          </Header>
-          <Content style={{ background: '#b7dcfa', padding: '50px'}}>
+        <div style={{ padding: '40px'}}>
+          <Title level={3} style={{ textAlign: 'center', marginBottom: '20px' }}>Account Transactions</Title>
+          <Content style={{  padding: '20px'}}>
             <List
               grid={{ gutter: 16, column: 1 }}
               dataSource={accountData}
@@ -136,6 +134,7 @@ const TransactionsList = () => {
                   <Card 
                     type="inner" 
                     title={`Account IDs: ${account.Account_ID}`} 
+                    style={{backgroundColor: 'rgba(224, 247, 250, 0.8)'}}
                     extra={<Button type='primary' onClick={() => showModal(account.Account_ID)}>Transactions</Button>}
 
                     >
@@ -157,7 +156,7 @@ const TransactionsList = () => {
               )}
             />
           </Content>
-        </Layout>
+        </div>
       );
 };
 export default TransactionsList;
