@@ -156,7 +156,7 @@ const SideMenu = ({ collapsed, toggleCollapsed }) => {
         onClick={onClick}
         style={{
           width: '100%',
-          backgroundColor: 'lightg',
+          backgroundColor: 'rgba(224, 247, 250, 0.8)' ,
           borderRadius: '15px 15px 15px 15px',
           margin: '0px 0px 5px 5px',       
           height: '99.5%',

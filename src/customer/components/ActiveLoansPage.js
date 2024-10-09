@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Badge, Space, Table, Button, Modal, Form, Select, Input, message } from 'antd';
+import { Badge, Space, Table, Button, Modal, Typography, Form, Select, Input, message } from 'antd';
 import { useAuth } from '../../contexts/AuthContext';
 import axiosInstance from '../../utils/axiosInstance';
 import useAxiosInterceptor from '../../utils/useAxiosInterceptor';
+// import Title from 'antd/es/skeleton/Title';
 
 const { Option } = Select;
+const { Title } = Typography;
 
 const ActiveLoansPage = () => {
   const { details } = useAuth();
@@ -177,7 +179,7 @@ const ActiveLoansPage = () => {
   return (
     <>
       <div style={{ margin: '20px', justifyContent: 'center', borderRadius: '15px' }}>
-        <h1>Active Loans</h1>
+        <Title level={3} style={{ textAlign: 'center', marginBottom: '20px' }}>Active Loans</Title>
         <Table
           columns={columns}
           expandable={{
@@ -192,7 +194,7 @@ const ActiveLoansPage = () => {
             },
             expandedRowKeys,
           }}
-          style={{ margin: '20px' }}
+          style={{ margin: '20px' ,width: '100%'}}
           dataSource={loanData}
           rowKey="Loan_ID"
         />

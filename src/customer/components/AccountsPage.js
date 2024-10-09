@@ -62,16 +62,18 @@ const AccountPageCustomer = () => {
 
   return (
     <div style={{ padding: '40px'}}>
-      <Header style={{ background: '#b7dcfa', padding: '0px', textAlign: 'center' }}>
-        <Title level={2}>Your Accounts</Title>
-      </Header>
-      <Content style={{ background: '#b7dcfa', padding: '0px' ,margin:'auto'}}>
+      <Title level={2} style={{ textAlign: 'center', marginBottom: '20px' }}>Your Accounts</Title>
+      
+      <Content style={{  padding: '0px' ,margin:'auto'}}>
         <List
           grid={{ gutter: 16, column: 1 }}
           dataSource={accountData}
           renderItem={account => (
             <List.Item>
-              <Card title={`Account ID: ${account.Account_ID}`}>
+              <Card 
+              title={`Account ID: ${account.Account_ID}`}
+              style={{backgroundColor: 'rgba(224, 247, 250, 0.8)'}}
+              >
                 <p>Branch ID: {account.Branch_ID}</p>
                 <p>Type: {account.Type}</p>
                 <p>Plan: {account.Plan}</p>
