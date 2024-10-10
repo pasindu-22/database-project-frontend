@@ -18,7 +18,6 @@ const OnlineLoanForm = () => {
       axios.get(`http://localhost:3001/api/fixedDeposits/customer/${customerId}`) 
         .then(response => {
           setFds(response.data);
-          console.log(response.data);
         })
         .catch(error => {
           console.error('There was an error fetching the FDs!', error);
@@ -29,7 +28,6 @@ const OnlineLoanForm = () => {
   const onFinish = async (values) => {
     try {
       const response = await axios.post('http://localhost:3001/api/loans/quick-loan/', { ...values, Customer_ID: customerId });
-      console.log(response.data);
       message.success('Loan created successfully!');
       form.resetFields();
     } catch (error) {

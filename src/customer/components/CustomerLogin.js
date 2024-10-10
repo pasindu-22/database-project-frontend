@@ -4,7 +4,7 @@ import axiosInstance from '../../utils/axiosInstance'; // Import the configured 
 // import axios from 'axios';
 import { useAuth } from '../../contexts/AuthContext';
 import '../../styles/Login.css';
-import backgroundImage from '../../components/Layout/entryPic.jpg';
+import backgroundImage from '../../components/Layout/view-city-square.jpg';
 
 const { Title } = Typography;
 

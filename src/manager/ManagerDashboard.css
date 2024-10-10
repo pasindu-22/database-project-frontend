@@ -1,0 +1,44 @@
+/* ManagerDashboard.css */
+
+/* Container for the entire dashboard */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100vh;
+  background: url('/media/pasindu/New Volume/MyProjects/DBModuleProject/project-frontend/src/manager/image12.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+/* Header styles */
+.dashboard-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* Content area styles */
+.dashboard-content {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  background-color: #b7dcfa;
+  margin-top: 64px;
+}
+
+/* Side menu styles */
+.dashboard-sidebar {
+  position: fixed;
+  top: 64px;
+  height: calc(100vh - 64px);
+  z-index: 1000;
+}
+
+/* Main content area styles */
+.dashboard-main {
+  flex: 1;
+  margin-left: 260px;
+  overflow-y: auto;
+  height: calc(100vh - 64px);
+}

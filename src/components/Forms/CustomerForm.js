@@ -1,6 +1,9 @@
 import React from 'react';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Typography } from 'antd';
 import axios from 'axios';
+// import Title from 'antd/es/skeleton/Title';
+
+const { Title } = Typography;
 
 const formItemLayout = {
   labelCol: {
@@ -50,107 +53,120 @@ const CustomerForm = () => {
   };
 
   return (
-    <Form
-      {...formItemLayout}
-      form={form}
-      name="customer_form"
-      onFinish={onFinish}
-      style={{
-        maxWidth: 600,
-        padding: 20,
-      }}
-      scrollToFirstError
-      autoComplete='false'
-    >
-      <Form.Item
-        name="Name"
-        label="Name"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your name!',
-            whitespace: true,
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
+    <div style={{ padding: '20px' }}>
+      <Title level={3} style={{ textAlign: 'center', marginBottom: '5px' }}>New Customer</Title>
+        <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
+          <Form
+            // {...formItemLayout}
+            form={form}
+            onFinish={onFinish}
+            style={{
+              width: '100%',
+              // maxWidth: '600px', // Set max-width for better form structure
+              margin: '0 auto',
+              padding: '20px',
+              backgroundColor: 'rgba(224, 247, 250, 0.8)', // Semi-transparent to show background image
+              borderRadius: '15px',
+              boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+            }}
+          >
+            <Form.Item
+              name="Name"
+              label="Name"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your name!',
+                  whitespace: true,
+                },
+              ]}
+              style={{ width: '100%' }}
+            >
+              <Input  style={{ width: '100%' }}/>
+            </Form.Item>
 
-      <Form.Item
-        name="NIC"
-        label="NIC"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your NIC!',
-            whitespace: true,
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
+            <Form.Item
+              name="NIC"
+              label="NIC"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your NIC!',
+                  whitespace: true,
+                },
+              ]}
+              style={{ width: '100%' }}
+            >
+              <Input />
+            </Form.Item>
 
-      <Form.Item
-        name="Address"
-        label="Address"
-        rules={[
-          {
-            required: true,
-            message: 'Please input address!',
-            whitespace: true,
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
+            <Form.Item
+              name="Address"
+              label="Address"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input address!',
+                  whitespace: true,
+                },
+              ]}
+              style={{ width: '100%' }}
+            >
+              <Input />
+            </Form.Item>
 
-      <Form.Item
-        name="phone"
-        label="Telephone"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your telephone number!',
-          },
-        ]}
-      >
-        <Input style={{ width: '100%' }} />
-      </Form.Item>
+            <Form.Item
+              name="phone"
+              label="Telephone"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your telephone number!',
+                },
+              ]}
+              style={{ width: '100%' }}
+            >
+              <Input style={{ width: '100%' }} />
+            </Form.Item>
 
-      <Form.Item
-        name="username"
-        label="Username"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your username!',
-            whitespace: true,
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
+            <Form.Item
+              name="username"
+              label="Username"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your username!',
+                  whitespace: true,
+                },
+              ]}
+              style={{ width: '100%' }}
+            >
+              <Input />
+            </Form.Item>
 
-      <Form.Item
-        name="password"
-        label="Password"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your password!',
-          },
-        ]}
-        hasFeedback
-      >
-        <Input.Password />
-      </Form.Item>
+            <Form.Item
+              name="password"
+              label="Password"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your password!',
+                },
+              ]}
+              // hasFeedback
+              style={{ width: '100%' }}
+            >
+              <Input.Password />
+            </Form.Item>
 
-      <Form.Item {...tailFormItemLayout}>
-        <Button type="primary" htmlType="submit">
-          Register
-        </Button>
-      </Form.Item>
-    </Form>
+            <Form.Item {...tailFormItemLayout}>
+              <Button type="primary" htmlType="submit">
+                Register
+              </Button>
+            </Form.Item>
+          </Form>
+          </div>
+          </div>
   );
 };
 

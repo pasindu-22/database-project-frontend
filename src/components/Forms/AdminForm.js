@@ -9,7 +9,6 @@ const AdminForm = () => {
   const onFinish = async (values) => {
     try {
       const response = await axios.post('http://localhost:3001/api/managers/', values);
-      console.log(response.data);
       message.success('Admin created successfully!');
       form.resetFields();
     } catch (error) {
