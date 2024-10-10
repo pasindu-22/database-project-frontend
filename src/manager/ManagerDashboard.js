@@ -12,32 +12,33 @@ import WithAccountNavigation from '../components/Layout/WithAccountNavigation';
 import TransactionReport from '../reports/TransactionReport';
 import { CustomerProvider } from '../contexts/CustomerContext';
 import LateLoanReport from '../reports/LateLoanReport';
+import './ManagerDashboard.css'; // Import the stylesheet
 
 const ManagerDashboard = () => {
   return (
     <CustomerProvider>
-    <div style={{ display: "flex", flexDirection: "column", flex: 1, height: "100vh", background: "#b7dcfa" }}>
-      <div style={{ position: "fixed", top: 0, width: "100%", zIndex: 1000 }}>
-        <Header />
-      </div>
-      <div style={{ display: "flex", flexDirection: "row", flex: 1, backgroundColor: "#b7dcfa",marginTop: "64px" }}>
-        <div style={{ position: "fixed", top: "64px", height: "calc(100vh - 64px)", zIndex: 1000 }}>
-          <SideMenu />
+      <div className="dashboard-container">
+        <div className="dashboard-header">
+          <Header />
         </div>
-        <div style={{ flex: 1, marginLeft: "260px", overflowY: "auto", height: "calc(100vh - 64px)"}}>
-          <Routes>
-            <Route path="/auth/*" element={<AuthRoutes />} />
-            <Route path="/management/*" element={<ManagementRoutes />} />
-            <Route path="/customers/new" element={<CustomerForm />} />
-            <Route path="/customers/search" element={<SearchCustomer />} />
-            <Route path='/app/reports/transactions' element={<TransactionReport/>}/>
-            <Route path='/app/reports/lateloans' element={<LateLoanReport/>}/>
-            <Route path="/customers/*" element={<WithAccountNavigation><CustomerRoutes /></WithAccountNavigation>} />
-            <Route path="/app/*" element={<AppRoutes/>}/>
-          </Routes>
+        <div className="dashboard-content">
+          <div className="dashboard-sidebar">
+            <SideMenu />
+          </div>
+          <div className="dashboard-main">
+            <Routes>
+              <Route path="/auth/*" element={<AuthRoutes />} />
+              <Route path="/management/*" element={<ManagementRoutes />} />
+              <Route path="/customers/new" element={<CustomerForm />} />
+              <Route path="/customers/search" element={<SearchCustomer />} />
+              <Route path='/app/reports/transactions' element={<TransactionReport/>}/>
+              <Route path='/app/reports/lateloans' element={<LateLoanReport/>}/>
+              <Route path="/customers/*" element={<WithAccountNavigation><CustomerRoutes /></WithAccountNavigation>} />
+              <Route path="/app/*" element={<AppRoutes/>}/>
+            </Routes>
+          </div>
         </div>
       </div>
-    </div>
     </CustomerProvider>
   );
 };

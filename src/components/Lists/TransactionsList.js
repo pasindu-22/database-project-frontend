@@ -50,7 +50,6 @@ const TransactionsList = () => {
         if (accountID) {
           try {
             const response = await axiosInstance.get(`http://localhost:3001/api/transactions/byAccount/${accountID}`);
-            console.log(response.data);
             setTransactions(response.data);
           } catch (error) {
             console.error("There was an error fetching the transactions data!");

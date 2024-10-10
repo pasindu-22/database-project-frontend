@@ -50,7 +50,6 @@ const columns = [
 ];
 
 const ManagerList = () => {
-    console.log('ManagerList component rendered');
     const [data, setData] = useState([]);
 
     useEffect(() => {
@@ -58,7 +57,6 @@ const ManagerList = () => {
         axios.get('http://localhost:3001/api/managers')
             .then(response => {
                 setData(response.data);
-                console.log(response.data);
             })
             .catch(error => {
                 console.error('Error fetching data:', error);

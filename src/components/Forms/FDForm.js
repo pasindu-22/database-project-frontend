@@ -28,7 +28,6 @@ const FixedDepositForm = ({userType}) => {    // Prop for conditionally render a
         Customer_ID:details.Customer_ID,
       });
       message.success('Fixed Deposit created successfully!');
-      console.log(response.data);
     } catch (error) {
       message.error('Failed to create Fixed Deposit.');
       console.error(error);

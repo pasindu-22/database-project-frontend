@@ -22,7 +22,6 @@ const LoanApplicationForm = (isCustomerEditable) => {
     values.Date = moment(values.Date).format('YYYY-MM-DD');
     values.Branch_ID = parseInt(values.Branch_ID, 10);
     values.Customer_ID = parseInt(values.Customer_ID, 10); 
-    console.log('Form values:', values);
 
     // Send form data to the backend
     axios.post('http://localhost:3001/api/loanApplications/', values)
