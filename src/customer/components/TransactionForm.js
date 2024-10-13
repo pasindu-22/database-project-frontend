@@ -120,7 +120,7 @@ const TransactionForm = () => {
       ),
     },
     {
-      title: 'Transaction Note',
+      title: 'Submit',
       content: (
         <>
           <Form.Item
@@ -133,7 +133,7 @@ const TransactionForm = () => {
           </Form.Item>
 
           <Form.Item style={{ textAlign: 'center' }}>
-            <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
+            <Button type="primary" htmlType="submit" style={{ width: '100%', alignSelf: 'center' }}>
               Submit
             </Button>
           </Form.Item>
@@ -170,6 +170,8 @@ const TransactionForm = () => {
             borderRadius: '15px',
             boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
           }}
+          labelCol={{ span: 3 }} // Adjust the label column width
+          wrapperCol={{ span: 20 }} // Adjust the input column width
         >
           {steps[current].content}
           <Form.Item style={{ textAlign: 'center' }}>
