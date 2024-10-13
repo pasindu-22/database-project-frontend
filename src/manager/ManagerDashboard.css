@@ -6,7 +6,7 @@
   flex-direction: column;
   flex: 1;
   height: 100vh;
-  background: url('/media/pasindu/New Volume/MyProjects/DBModuleProject/project-frontend/src/manager/image12.jpg') no-repeat center center fixed;
+  background: url('image12.jpg') no-repeat center center fixed;
   background-size: cover;
 }
 

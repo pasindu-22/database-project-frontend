@@ -71,13 +71,13 @@ const AccountPageCustomer = () => {
           renderItem={account => (
             <List.Item>
               <Card 
-              title={`Account ID: ${account.Account_ID}`}
+              title={`Account Number: ${account.Account_ID}`}
               style={{backgroundColor: 'rgba(224, 247, 250, 0.8)'}}
               >
-                <p>Branch ID: {account.Branch_ID}</p>
+                <p>Branch Number: {account.Branch_ID}</p>
                 <p>Type: {account.Type}</p>
                 <p>Plan: {account.Plan}</p>
-                <p>Opening Date: {account.OpeningDate}</p>
+                <p>Opening Date: {new Date(account.OpeningDate).toLocaleDateString()}</p>
                 <p>Balance: {account.Balance}</p>
               </Card>
             </List.Item>
