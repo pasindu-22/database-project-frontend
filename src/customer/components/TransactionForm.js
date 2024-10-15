@@ -12,20 +12,26 @@ const TransactionForm = () => {
   const [accounts, setAccounts] = useState([]); // State to store account data
   const { details } = useAuth(); // Get user details from AuthContext
   const [current, setCurrent] = useState(0); // State to manage current step
+  const [formValues, setFormValues] = useState({}); // State to store form values
 
   const onFinish = (values) => {
-    if (!values.Date) {
+    const mergedValues = { ...formValues, ...values };
+
+    console.log('Form Values:', mergedValues); // Log form values to check if date is set
+
+    if (!mergedValues.Date) {
       message.error('Please select a transaction date.');
       return;
     }
 
     const transactionData = {
-      FromAccount: values.FromAccount,
-      ToAccount: values.ToAccount,
-      Date: values.Date.format('YYYY-MM-DD'), // Format date for backend
-      Value: values.Value,
-      Type: values.Type,
+      FromAccount: mergedValues.FromAccount,
+      ToAccount: mergedValues.ToAccount,
+      Date: mergedValues.Date.format('YYYY-MM-DD'), // Format date for backend
+      Value: mergedValues.Value,
+      Type: mergedValues.Type,
     };
+
     console.log(transactionData);
 
     axiosInstance
@@ -34,6 +40,8 @@ const TransactionForm = () => {
         const { Transaction_ID } = response.data;
         message.success(`Transaction successful! Transaction ID: ${Transaction_ID}`);
         form.resetFields(); // Optionally reset the form after successful submission
+        setFormValues({}); // Reset form values state
+        setCurrent(0); // Reset to the first step
       })
       .catch((error) => {
         message.error('Transaction failed. Please try again.');
@@ -142,8 +150,14 @@ const TransactionForm = () => {
     },
   ];
 
-  const next = () => {
-    setCurrent(current + 1);
+  const next = async () => {
+    try {
+      const values = await form.validateFields();
+      setFormValues({ ...formValues, ...values });
+      setCurrent(current + 1);
+    } catch (errorInfo) {
+      console.log('Failed:', errorInfo);
+    }
   };
 
   const prev = () => {
@@ -162,6 +176,7 @@ const TransactionForm = () => {
         <Form
           form={form}
           onFinish={onFinish}
+          onValuesChange={(changedValues, allValues) => console.log(allValues)}
           style={{
             width: '100%',
             margin: '0 auto',
