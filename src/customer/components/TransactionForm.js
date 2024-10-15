@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, DatePicker, Select, message, InputNumber, Typography, Steps } from 'antd';
 import axiosInstance from '../../utils/axiosInstance';
 import { useAuth } from '../../contexts/AuthContext';
+import moment from 'moment';
 
 const { Option } = Select;
 const { Title } = Typography;
@@ -12,20 +13,37 @@ const TransactionForm = () => {
   const [accounts, setAccounts] = useState([]); // State to store account data
   const { details } = useAuth(); // Get user details from AuthContext
   const [current, setCurrent] = useState(0); // State to manage current step
+  const [formValues, setFormValues] = useState({}); // State to store form values
+
+  const fetchAccountData = async () => {
+    try {
+      const response = await axiosInstance.get(
+        `http://localhost:3001/api/accounts/customer/${details.Customer_ID}`
+      );
+      setAccounts(response.data);
+    } catch (error) {
+      console.error('There was an error fetching the account data!', error);
+    }
+  };
 
   const onFinish = (values) => {
-    if (!values.Date) {
+    const mergedValues = { ...formValues, ...values };
+
+    console.log('Form Values:', mergedValues); // Log form values to check if date is set
+
+    if (!mergedValues.Date) {
       message.error('Please select a transaction date.');
       return;
     }
 
     const transactionData = {
-      FromAccount: values.FromAccount,
-      ToAccount: values.ToAccount,
-      Date: values.Date.format('YYYY-MM-DD'), // Format date for backend
-      Value: values.Value,
-      Type: values.Type,
+      FromAccount: mergedValues.FromAccount,
+      ToAccount: mergedValues.ToAccount,
+      Date: mergedValues.Date.format('YYYY-MM-DD'), // Format date for backend
+      Value: mergedValues.Value,
+      Type: mergedValues.Type,
     };
+
     console.log(transactionData);
 
     axiosInstance
@@ -34,6 +52,9 @@ const TransactionForm = () => {
         const { Transaction_ID } = response.data;
         message.success(`Transaction successful! Transaction ID: ${Transaction_ID}`);
         form.resetFields(); // Optionally reset the form after successful submission
+        setFormValues({}); // Reset form values state
+        setCurrent(0); // Reset to the first step
+        fetchAccountData(); // Refetch account data to update dropdown
       })
       .catch((error) => {
         message.error('Transaction failed. Please try again.');
@@ -42,17 +63,6 @@ const TransactionForm = () => {
 
   useEffect(() => {
     // Fetch account data after component mount to show in dropdown.
-    const fetchAccountData = async () => {
-      try {
-        const response = await axiosInstance.get(
-          `http://localhost:3001/api/accounts/customer/${details.Customer_ID}`
-        );
-        setAccounts(response.data);
-      } catch (error) {
-        console.error('There was an error fetching the account data!', error);
-      }
-    };
-
     fetchAccountData();
   }, [details]);
 
@@ -101,8 +111,9 @@ const TransactionForm = () => {
             label="Transaction Date"
             rules={[{ required: true, message: 'Please select the date!' }]}
             style={{ width: '100%' }}
+            initialValue={moment()} // Set current date as default
           >
-            <DatePicker placeholder="Select Date" style={{ width: '100%' }} />
+            <DatePicker placeholder="Select Date" style={{ width: '100%' }} disabled />
           </Form.Item>
 
           <Form.Item
@@ -142,8 +153,14 @@ const TransactionForm = () => {
     },
   ];
 
-  const next = () => {
-    setCurrent(current + 1);
+  const next = async () => {
+    try {
+      const values = await form.validateFields();
+      setFormValues({ ...formValues, ...values });
+      setCurrent(current + 1);
+    } catch (errorInfo) {
+      console.log('Failed:', errorInfo);
+    }
   };
 
   const prev = () => {
@@ -162,6 +179,7 @@ const TransactionForm = () => {
         <Form
           form={form}
           onFinish={onFinish}
+          onValuesChange={(changedValues, allValues) => console.log(allValues)}
           style={{
             width: '100%',
             margin: '0 auto',
