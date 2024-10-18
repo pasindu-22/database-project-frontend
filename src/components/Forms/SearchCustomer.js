@@ -39,28 +39,28 @@ const SearchCustomer = () => {
   };
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Header style={{ background: 'lightskyblue', padding: 0, textAlign: 'center' ,borderRadius:'10px'}}>
+    <div style={{ minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <div style={{ width: '100%', maxWidth: '600px', textAlign: 'center', borderRadius: '10px' }}>
         <h1>Customer Search</h1>
-      </Header>
-      <Content style={{ background: '#b7dcfa', padding: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <Form layout="inline" onFinish={handleSearch}>
-          <Form.Item>
-            <Input
-              placeholder="Enter Customer ID or Account Number"
-              value={customerID}
-              onChange={e => setSearchTerm(e.target.value)}
-              style={{ width: 300 }}
-            />
-          </Form.Item>
-          <Form.Item>
-            <Button type="primary" htmlType="submit" loading={loading}>
-              Search
-            </Button>
-          </Form.Item>
-        </Form>
-      </Content>
-    </Layout>
+        <div style={{ padding: '20px' }}>
+          <Form layout="inline" onFinish={handleSearch}>
+            <Form.Item>
+              <Input
+                placeholder="Enter Customer ID or Account Number"
+                value={customerID}
+                onChange={e => setSearchTerm(e.target.value)}
+                style={{ width: 300 }}
+              />
+            </Form.Item>
+            <Form.Item>
+              <Button type="primary" htmlType="submit" loading={loading}>
+                Search
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
+      </div>
+    </div>
   );
 };
 

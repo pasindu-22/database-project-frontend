@@ -57,7 +57,11 @@ const TransactionForm = () => {
         fetchAccountData(); // Refetch account data to update dropdown
       })
       .catch((error) => {
-        message.error('Transaction failed. Please try again.');
+        if (error.response && error.response.status === 500 ) {
+          message.error('Transaction limit for the current month exceeded. Please try again next month.');
+        } else {
+          message.error('Transaction failed. Please try again.');
+        }
       });
   };
 
