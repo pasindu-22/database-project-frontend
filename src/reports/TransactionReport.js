@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { Radio, DatePicker, Button, Table, message } from 'antd';
+import React, { useState, useMemo } from 'react';
+import { Radio, DatePicker, Button, Table, message, Row, Col, Statistic } from 'antd';
 import axiosInstance from '../utils/axiosInstance';
 import { useAuth } from '../contexts/AuthContext';
 import moment from 'moment';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 const { RangePicker } = DatePicker;
 
@@ -51,6 +53,39 @@ const ReportPage = () => {
     }
   };
 
+  const generatePDF = () => {
+    if (!reportData.length) {
+      message.warning('No data available to generate the PDF.');
+      return;
+    }
+
+    const doc = new jsPDF();
+    doc.text('Transaction Report', 14, 16);
+    doc.autoTable({
+      startY: 20,
+      head: [['From Account', 'To Account', 'Date', 'Value', 'Type']],
+      body: reportData.map((row) => [
+        row.FromAccount,
+        row.ToAccount,
+        moment(row.Date).format('YYYY-MM-DD'),
+        row.Value,
+        row.Type,
+      ]),
+    });
+    doc.save(`transaction_report_${reportType}.pdf`);
+  };
+
+  // Calculating the total value and average value
+  const totalValue = useMemo(
+    () => reportData.reduce((total, record) => total + (Number(record.Value) || 0), 0),
+    [reportData]
+  );
+
+  const averageValue = useMemo(
+    () => (reportData.length ? totalValue / reportData.length : 0),
+    [reportData, totalValue]
+  );
+
   const columns = [
     {
       title: 'From Account',
@@ -83,20 +118,62 @@ const ReportPage = () => {
   return (
     <div style={{ padding: '20px' }}>
       <h1>Transaction Reports</h1>
-      <Radio.Group onChange={handleReportTypeChange} value={reportType}>
+      <Radio.Group value={reportType} onChange={handleReportTypeChange}>
         <Radio value="outgoing">Outgoing</Radio>
         <Radio value="incoming">Incoming</Radio>
       </Radio.Group>
-      <RangePicker onChange={handleDateChange} style={{ marginLeft: '20px' }} />
-      <Button type="primary" onClick={handleSubmit} style={{ marginLeft: '20px' }}>
+      <RangePicker
+        style={{ marginLeft: '20px' }}
+        onChange={handleDateChange}
+        format="YYYY-MM-DD"
+      />
+      <Button
+        type="primary"
+        onClick={handleSubmit}
+        style={{ marginLeft: '20px' }}
+        disabled={loading}
+      >
         Submit
       </Button>
+      <Button
+        type="primary"
+        onClick={generatePDF}
+        style={{ marginLeft: '20px' }}
+        disabled={!reportData.length}
+      >
+        Download PDF
+      </Button>
+
+      {/* Calculated Summary Section */}
+      <div style={{ marginTop: '20px' }}>
+        <Row gutter={16}>
+          <Col span={8}>
+            <Statistic title="Total Transactions" value={reportData.length} />
+          </Col>
+          <Col span={8}>
+            <Statistic
+              title="Total Value"
+              value={Number.isFinite(totalValue) ? totalValue.toFixed(2) : '0.00'}
+              prefix="Rs"
+            />
+          </Col>
+          <Col span={8}>
+            <Statistic
+              title="Average Transaction Value"
+              value={Number.isFinite(averageValue) ? averageValue.toFixed(2) : '0.00'}
+              prefix="Rs"
+            />
+          </Col>
+        </Row>
+      </div>
+
       <Table
         columns={columns}
         dataSource={reportData}
         rowKey="id"
         loading={loading}
         style={{ marginTop: '20px' }}
+        pagination={{ pageSize: 5 }}
       />
     </div>
   );
