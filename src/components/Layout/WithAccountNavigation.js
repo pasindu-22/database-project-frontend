@@ -5,7 +5,7 @@ const WithAccountNavigation = ({ children }) => {
   return (
     <>
       <AccountNavigation />
-      <div style={{ padding: '16px', backgroundColor: '#b7dcfa', height: '100%' }}>
+      <div style={{ padding: '25px', backgroundColor: 'transparent', height: '100%' }}>
         {children}
       </div>
     </>
