@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Layout, List, Card, Typography, Spin, Table,Modal, Button } from 'antd';
+import { Layout, List, Card, Typography, Spin, Table, Modal, Button } from 'antd';
 import axiosInstance from '../../utils/axiosInstance';
 import { CustomerContext } from '../../contexts/CustomerContext';
 
@@ -10,7 +10,7 @@ const AccountPage = () => {
   const [loading, setLoading] = useState(true);
   const [accountData, setAccountData] = useState([]);
   const [accountID, setAccountID] = useState([]);
-  const [isModalVisible,setIsModalVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [transactions, setTransactions] = useState([]);
   const { customerId } = useContext(CustomerContext);
 
@@ -33,28 +33,25 @@ const AccountPage = () => {
     }
   }, [customerId]);
 
-  useEffect(() => {
-    const fetchTransactions = async () => {
-      if (accountID.length) {
-        try {
-          const response = await axiosInstance.get(`http://localhost:3001/api/transactions/byAccount/${accountID}`);
-          console.log(response.data);
-          setTransactions(response.data);
-        } catch (error) {
-          console.error("There was an error fetching the transactions data!");
-        }
-      }
-    };
-    fetchTransactions();
-  }, [accountID]);
+  const fetchTransactions = async (id) => {
+    try {
+      const response = await axiosInstance.get(`http://localhost:3001/api/transactions/byAccount/${id}`);
+      console.log(response.data);
+      setTransactions(response.data);
+    } catch (error) {
+      console.error("There was an error fetching the transactions data!");
+    }
+  };
 
   const showModal = (id) => {
-      setAccountID(id);
-      setIsModalVisible(true);
-  }
+    setAccountID(id);
+    fetchTransactions(id);
+    setIsModalVisible(true);
+  };
+
   const handleCancel = () => {
-      setIsModalVisible(false);
-  }
+    setIsModalVisible(false);
+  };
 
   if (loading) {
     return (
@@ -75,7 +72,7 @@ const AccountPage = () => {
         <Header style={{ background: '#A9A9A9', padding: 0, textAlign: 'center' }}>
           <Title level={2}>Customer Accounts</Title>
         </Header>
-        <Content style={{ background: '#A9A9A9', padding: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Content style={{ background: 'transperent', padding: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <p>No account data found</p>
         </Content>
       </Layout>
@@ -84,14 +81,14 @@ const AccountPage = () => {
 
   const columns = [
     {
-        title: 'Date',
-        dataIndex: 'Date',
-        key: 'date',
+      title: 'Date',
+      dataIndex: 'Date',
+      key: 'date',
     },
     {
-        title: 'From',
-        dataIndex: 'FromAccount',
-        key: 'from',
+      title: 'From',
+      dataIndex: 'FromAccount',
+      key: 'from',
     },
     {
       title: 'To',
@@ -99,34 +96,33 @@ const AccountPage = () => {
       key: 'to',
     },
     {
-        title: 'Debit/Credit',
-        dataIndex: 'Type',
-        key: 'type',
+      title: 'Debit/Credit',
+      dataIndex: 'Type',
+      key: 'type',
     },
     {
-        title: 'Value',
-        dataIndex: 'Value',
-        key: 'value',
+      title: 'Value',
+      dataIndex: 'Value',
+      key: 'value',
     },
-  ]
+  ];
 
   return (
-    <Layout style={{ minHeight: '100vh' , borderRadius:'20'}}>
-      <Header style={{ background: '#b7dcfa', padding: 0, textAlign: 'center' }}>
-        <Title level={2}>Customer Accounts</Title>
-      </Header>
-      <Content style={{ background: '#b7dcfa', padding: '50px' }}>
+        <div style={{ minHeight: '100vh', borderRadius: '20px' }}>
+      <div style={{ background: 'transparent', padding: 0, textAlign: 'center' }}>
+        <h2>Customer Accounts</h2>
+      </div>
+      <div style={{ background: 'transparent', padding: '50px' }}>
         <List
           grid={{ gutter: 16, column: 1 }}
           dataSource={accountData}
           renderItem={account => (
             <List.Item>
-              <Card 
-                    type="inner" 
-                    title={`Account IDs: ${account.Account_ID}`} 
-                    extra={<Button type='primary' onClick={() => showModal(account.Account_ID)}>Transactions</Button>}
-
-                    >
+              <Card
+                type="inner"
+                title={`Account IDs: ${account.Account_ID}`}
+                extra={<Button type='primary' onClick={() => showModal(account.Account_ID)}>Transactions</Button>}
+              >
                 <p>Branch ID: {account.Branch_ID}</p>
                 <p>Type: {account.Type}</p>
                 <p>Plan: {account.Plan}</p>
@@ -138,18 +134,17 @@ const AccountPage = () => {
                 visible={isModalVisible}
                 onCancel={handleCancel}
                 footer={null}
-                >
-                    <Table
-                    columns={columns}
-                    dataSource={transactions}
-                    />
-                </Modal>
-
+              >
+                <Table
+                  columns={columns}
+                  dataSource={transactions}
+                />
+              </Modal>
             </List.Item>
           )}
         />
-      </Content>
-    </Layout>
+      </div>
+    </div>
   );
 };
 

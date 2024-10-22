@@ -125,14 +125,14 @@ const LateLoanReport = () => {
           <Statistic
             title="Total Loan Value"
             value={Number.isFinite(totalLoanValue) ? totalLoanValue.toFixed(2) : '0.00'}
-            prefix="$"
+            prefix="Rs"
           />
         </Col>
         <Col span={8}>
           <Statistic
             title="Average Loan Value"
             value={Number.isFinite(averageLoanValue) ? averageLoanValue.toFixed(2) : '0.00'}
-            prefix="$"
+            prefix="Rs"
           />
         </Col>
       </Row>

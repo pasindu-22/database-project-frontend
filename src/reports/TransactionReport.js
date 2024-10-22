@@ -1,10 +1,12 @@
 import React, { useState, useMemo } from 'react';
-import { Radio, DatePicker, Button, Table, message, Row, Col, Statistic } from 'antd';
+import { Radio, DatePicker, Button, Table, message, Row, Col, Statistic, Modal } from 'antd';
 import axiosInstance from '../utils/axiosInstance';
 import { useAuth } from '../contexts/AuthContext';
 import moment from 'moment';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import { PieChartOutlined } from '@ant-design/icons';
+import { Pie } from '@ant-design/charts';
 
 const { RangePicker } = DatePicker;
 
@@ -14,6 +16,8 @@ const ReportPage = () => {
   const [dateRange, setDateRange] = useState([]);
   const [reportData, setReportData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [transactionTotals, setTransactionTotals] = useState([]);
 
   const handleReportTypeChange = (e) => {
     setReportType(e.target.value);
@@ -75,6 +79,27 @@ const ReportPage = () => {
     doc.save(`transaction_report_${reportType}.pdf`);
   };
 
+  const fetchTransactionTotals = async () => {
+    try {
+      const response = await axiosInstance.get(`http://localhost:3001/api/transactions/transaction-totals/${details.Manager_ID}`);
+      setTransactionTotals([
+        { type: 'Incoming', value: response.data.totalIncoming },
+        { type: 'Outgoing', value: response.data.totalOutgoing },
+      ]);
+    } catch (error) {
+      message.error('Error fetching transaction totals');
+    }
+  };
+
+  const handleShowChart = () => {
+    fetchTransactionTotals();
+    setIsModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   // Calculating the total value and average value
   const totalValue = useMemo(
     () => reportData.reduce((total, record) => total + (Number(record.Value) || 0), 0),
@@ -115,6 +140,29 @@ const ReportPage = () => {
     },
   ];
 
+  const pieChartConfig = {
+    appendPadding: 10,
+    data: transactionTotals,
+    angleField: 'value',
+    colorField: 'type',
+    radius: 1,
+    innerRadius: 0.6,
+    interactions: [{ type: 'element-selected' }, { type: 'element-active' }],
+    statistic: {
+      title: false,
+      content: {
+        style: {
+          whiteSpace: 'pre-wrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+        },
+        content: 'Total Transactions',
+      },
+    },
+  };
+
+  console.log(transactionTotals);
+
   return (
     <div style={{ padding: '20px' }}>
       <h1>Transaction Reports</h1>
@@ -142,6 +190,14 @@ const ReportPage = () => {
         disabled={!reportData.length}
       >
         Download PDF
+      </Button>
+      <Button
+        type="primary"
+        icon={<PieChartOutlined />}
+        onClick={handleShowChart}
+        style={{ marginLeft: '20px' }}
+      >
+        Display Chart
       </Button>
 
       {/* Calculated Summary Section */}
@@ -173,8 +229,18 @@ const ReportPage = () => {
         rowKey="id"
         loading={loading}
         style={{ marginTop: '20px' }}
-        pagination={{ pageSize: 5 }}
+        pagination={{ pageSize: 7 }}
       />
+
+      {/* Modal with pie chart */}
+      <Modal
+        title="Transaction Totals"
+        visible={isModalVisible}
+        onCancel={handleCancel}
+        footer={null}
+      >
+        <Pie {...pieChartConfig} />
+      </Modal>
     </div>
   );
 };

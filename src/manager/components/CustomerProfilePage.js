@@ -80,11 +80,11 @@ const ProfilePage = () => {
   }
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Header style={{ background: '#b7dcfa', padding: 0, textAlign: 'center' }}>
+    <div style={{ minHeight: '100vh' }}>
+      <div style={{ background:'transparent', padding: '25px', textAlign: 'center' }}>
         <Title level={2}>Customer Profile</Title>
-      </Header>
-      <Content style={{ background: '#b7dcfa', padding: '50px' }}>
+      </div>
+      <div style={{background:'transparent', padding: '50px' }}>
         <Card
           title="Profile Details"
           extra={<Button icon={<EditOutlined />} onClick={showModal}>Edit</Button>}
@@ -114,8 +114,8 @@ const ProfilePage = () => {
             </Form.Item>
           </Form>
         </Modal>
-      </Content>
-    </Layout>
+      </div>
+    </div>
   );
 };
 
