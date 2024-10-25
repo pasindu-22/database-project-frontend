@@ -17,7 +17,7 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/customers/${customerId}`);
+        const response = await axios.get(`https://database-backend-g8-d3f914ee6287.herokuapp.com/api/customers/${customerId}`);
         setProfileData(response.data);
       } catch (error) {
         console.error("There was an error fetching the profile data!", error);
@@ -41,7 +41,7 @@ const ProfilePage = () => {
   const handleOk = async () => {
     try {
       const values = await form.validateFields();
-      await axios.put(`http://localhost:3001/api/customers/${customerId}`, values);
+      await axios.put(`https://database-backend-g8-d3f914ee6287.herokuapp.com/api/customers/${customerId}`, values);
       setProfileData(values);
       setIsModalVisible(false);
     } catch (error) {

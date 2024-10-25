@@ -15,7 +15,7 @@ const OnlineLoanForm = () => {
   useEffect(() => {
     if (customerId) {
       // Fetch FDs under the customer ID
-      axios.get(`http://localhost:3001/api/fixedDeposits/customer/${customerId}`) 
+      axios.get(`https://database-backend-g8-d3f914ee6287.herokuapp.com/api/fixedDeposits/customer/${customerId}`) 
         .then(response => {
           setFds(response.data);
         })
@@ -27,7 +27,7 @@ const OnlineLoanForm = () => {
 
   const onFinish = async (values) => {
     try {
-      const response = await axios.post('http://localhost:3001/api/loans/quick-loan/', { ...values, Customer_ID: customerId });
+      const response = await axios.post('https://database-backend-g8-d3f914ee6287.herokuapp.com/api/loans/quick-loan/', { ...values, Customer_ID: customerId });
       message.success('Loan created successfully!');
       form.resetFields();
     } catch (error) {

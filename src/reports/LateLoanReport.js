@@ -15,7 +15,7 @@ const LateLoanReport = () => {
     const fetchLateLoans = async () => {
       try {
         const response = await axiosInstance.get(
-          `http://localhost:3001/api/loanInstallments/late/${details.Manager_ID}`
+          `https://database-backend-g8-d3f914ee6287.herokuapp.com/api/loanInstallments/late/${details.Manager_ID}`
         );
         setLoanData(response.data);
         console.log(response.data);
@@ -34,7 +34,7 @@ const LateLoanReport = () => {
   const fetchCustomerDetails = async (loanID) => {
     try {
       const response = await axiosInstance.get(
-        `http://localhost:3001/api/customers/by-loan/${loanID}`
+        `https://database-backend-g8-d3f914ee6287.herokuapp.com/api/customers/by-loan/${loanID}`
       );
       setCustomerDetails(response.data);
       setIsModalVisible(true);

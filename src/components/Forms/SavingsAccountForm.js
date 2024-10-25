@@ -15,7 +15,7 @@ const SavingsAccountForm = () => {
     values.OpeningDate = moment(values.OpeningDate).format('YYYY-MM-DD');
 
     // Send data to the backend using Axios
-    axiosInstance.post('http://localhost:3001/api/accounts/', values)
+    axiosInstance.post('https://database-backend-g8-d3f914ee6287.herokuapp.com/api/accounts/', values)
       .then(response => {
         setAccountDetails(response.data);
         setModalVisible(true);

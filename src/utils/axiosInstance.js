@@ -3,7 +3,7 @@ import { message } from 'antd';
 
 // Create an Axios instance
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3001/api/',
+  baseURL: 'https://database-backend-g8-d3f914ee6287.herokuapp.com/api/',
   withCredentials: true, // Ensure cookies are sent with requests
 });
 

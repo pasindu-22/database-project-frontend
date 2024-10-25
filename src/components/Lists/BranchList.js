@@ -61,7 +61,7 @@ const BranchList = () => {
 
     useEffect(() => {
         // Fetch data from the backend using Axios
-        axios.get('http://localhost:3001/api/branches/')
+        axios.get('https://database-backend-g8-d3f914ee6287.herokuapp.com/api/branches/')
             .then(response => {
                 setData(response.data);
             })
