@@ -1,9 +1,8 @@
 # **Bank Transaction and Loan Processing System**
 
-
-# A Bank
-
 A core banking solution designed for a private bank in Seychelles, featuring branch management, internal fund transfers, loan processing, and customer account management.
+
+This is the frontend for our project for CS3043 - Database systems. 
 
 ## **Table of Contents**
 
@@ -14,7 +13,7 @@ A core banking solution designed for a private bank in Seychelles, featuring bra
 5. [Usage](#usage)
 6. [Database Structure](#database-structure)
 7. [API Endpoints](#api-endpoints)
-8. [Project Structure](#project-structure)
+8. [Project Structure](#project-structure-of-frontend)
 9. [UI Screenshots](#ui-screenshots)
     
 
@@ -58,7 +57,7 @@ The system will support:
 ### **Setup Steps**
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/your-username/banking-system.git
+   git clone https://github.com/pasindu-22/database-project-frontend.git
    cd banking-system
    ```
 2. **Install dependencies**
@@ -77,11 +76,6 @@ DB_PASSWORD=your_password
 DB_NAME=banking_system
 ```
 
-4. Run Database migrations:
-   ```bash
-   npx sequelize-cli db:migrate
-   ```
-
 
 ## **Usage**
 
@@ -97,12 +91,6 @@ DB_NAME=banking_system
 http://localhost:3000
 ```
 
-###**Running tests**
-
-- To run the test suite
-```bash
-  npm test
-```
 
 ## **Database Structure**
 
@@ -141,23 +129,9 @@ http://localhost:3000
 
 <img width="1030" alt="Screenshot 2024-10-26 at 19 57 20" src="https://github.com/user-attachments/assets/cb22f864-0811-47ea-b59b-d9fddd1aad21" align ="centre">
 
-## **API Endpoints**
 
-### Account Management
 
-- GET /api/accounts - Retrieve all accounts.
-- POST /api/accounts - Create a new account.
-- GET /api/accounts/:id - Retrieve account details by ID.
-- GET /api/accounts/customer/:customerId - Retrieve accounts by customer ID.
-
-### Loan Management
-
-- POST /api/loans - Create a new loan application.
-- GET /api/loans/:id - Get loan details by ID.
-- PATCH /api/loans/:id/approve - Approve a loan (Branch manager only).
-- GET /api/loans/customer/:customerId - Retrieve loans by customer ID.
-
-## **Project Structure**
+## **Project Structure of front end**
 ```
 banking-system/
 ├── controllers/     # Contains route handler functions (business logic)
@@ -193,6 +167,8 @@ http://localhost:3000/manager-login
 
 ### Other Pages
 
+<img width=49% alt="Screenshot 2024-10-27 at 09 58 11" src="https://github.com/user-attachments/assets/0e9a8345-1aac-4e86-8f55-def06727d6d9">
+
 <img width=49% alt="Screenshot 2024-10-26 at 22 52 52" src="https://github.com/user-attachments/assets/78c95f9d-813c-4c22-8369-40902274e345">  
 
 ### Account Management
@@ -215,7 +191,7 @@ http://localhost:3000/manager-login
 <img width=49% alt="Screenshot 2024-10-26 at 23 11 36" src="https://github.com/user-attachments/assets/3acdcb52-962a-495b-9e76-8b843e1f6a13">
 
 ### Sign Out
-<img width="831" alt="Screenshot 2024-10-26 at 23 14 20" src="https://github.com/user-attachments/assets/a0517b31-65f2-447a-a5ba-7b626d61a5e9">
+<img width=49% alt="Screenshot 2024-10-26 at 23 14 20" src="https://github.com/user-attachments/assets/a0517b31-65f2-447a-a5ba-7b626d61a5e9">
 
 
 
@@ -225,7 +201,7 @@ http://localhost:3000/manager-login
 
 <img width=49% alt="Screenshot 2024-10-26 at 23 22 32" src="https://github.com/user-attachments/assets/3a188eec-cbc7-4f5e-97ac-4805f8fbecda">
 
-### Customers
+### Customer Management
 <img width=49% alt="Screenshot 2024-10-26 at 23 22 52" src="https://github.com/user-attachments/assets/3c1c35b2-dc2d-4c4a-a143-b927656cb59f">
 
 <img width=49% alt="Screenshot 2024-10-26 at 23 25 50" src="https://github.com/user-attachments/assets/bc686ac0-8bd4-4bfc-9163-498462e95088">
@@ -237,6 +213,23 @@ http://localhost:3000/manager-login
 <img width=49% alt="Screenshot 2024-10-26 at 23 27 34" src="https://github.com/user-attachments/assets/c84bd9e9-4a43-4751-85ec-9903b2c8b28b">
 
 ## Manager
+
+### Reports
+
+<img width=49% alt="Screenshot 2024-10-27 at 01 21 18" src="https://github.com/user-attachments/assets/34dc3946-cfcf-4a7a-a493-9bb2a13b9e1e">
+
+<img width=49% alt="Screenshot 2024-10-27 at 01 21 57" src="https://github.com/user-attachments/assets/d5a00cb9-7d98-43da-8cda-81f1b4c9ec73">
+
+<img width=49% alt="Screenshot 2024-10-27 at 01 22 36" src="https://github.com/user-attachments/assets/e850e850-2192-4202-ae00-2622092baa6f">
+
+### Pending Loans 
+<img width=49% alt="Screenshot 2024-10-27 at 01 23 39" src="https://github.com/user-attachments/assets/7640fb8b-5a53-4678-9170-6e5188c6b460">
+
+### New Manager and Branch
+
+<img width=49% alt="Screenshot 2024-10-27 at 01 25 07" src="https://github.com/user-attachments/assets/63886345-39d6-42f2-8b95-235bab22eb2e">
+
+<img width=49% alt="Screenshot 2024-10-27 at 01 25 18" src="https://github.com/user-attachments/assets/66b0f825-03a3-466d-82bb-94749042cb2f">
 
 
 
