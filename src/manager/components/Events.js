@@ -6,19 +6,19 @@ import moment from 'moment';
 const Events = () => {
     const [events, setEvents] = useState([]); // State for calendar events
 
-    useEffect(() => {
-        // Fetch events from the backend
-        const fetchEvents = async () => {
-            try {
-              const response = await axios.get('/api/calendar-events');
-              setEvents(response.data);
-            } catch (error) {
-              console.error('Error fetching events:', error);
-            }
-          };
-          fetchEvents();
+    // useEffect(() => {
+    //     // Fetch events from the backend
+    //     const fetchEvents = async () => {
+    //         try {
+    //           const response = await axios.get('/api/calendar-events');
+    //           setEvents(response.data);
+    //         } catch (error) {
+    //           console.error('Error fetching events:', error);
+    //         }
+    //       };
+    //       fetchEvents();
 
-    },[]);
+    // },[]);
 
     const dateCellRender = (value) => {
         const currentDayEvents = events.filter(
