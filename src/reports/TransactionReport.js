@@ -134,10 +134,16 @@ const ReportPage = () => {
       key: 'value',
     },
     {
-      title: 'Type',
+      title: 'Note',
+      dataIndex: 'Note',
+      key: 'note',
+    },
+    {
+      title: 'Account Type',
       dataIndex: 'Type',
       key: 'type',
     },
+    
   ];
 
   const pieChartConfig = {
@@ -146,7 +152,7 @@ const ReportPage = () => {
     angleField: 'value',
     colorField: 'type',
     radius: 1,
-    innerRadius: 0.6,
+    innerRadius: 0.7,
     interactions: [{ type: 'element-selected' }, { type: 'element-active' }],
     statistic: {
       title: false,
