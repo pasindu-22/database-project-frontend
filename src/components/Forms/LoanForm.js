@@ -19,7 +19,7 @@ const LoanApplicationForm = (isCustomerEditable) => {
 
   const onFinish = (values) => {
 
-    values.Date = moment(values.Date).format('YYYY-MM-DD');
+    values.Date = values.Date.format('YYYY-MM-DD');
     values.Branch_ID = parseInt(values.Branch_ID, 10);
     values.Customer_ID = parseInt(values.Customer_ID, 10); 
 

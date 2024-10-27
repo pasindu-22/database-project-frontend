@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Typography, Button, DatePicker, Select, message, InputNumber } from 'antd';
+import { Form, Typography, Button, DatePicker, Select, message, InputNumber, Input } from 'antd';
 import axios from 'axios';
 import moment from 'moment';
 
@@ -70,12 +70,15 @@ const TransactionForm = () => {
             </Form.Item>
 
             <Form.Item
-              name="Date"
-              label="Transaction Date"
-              rules={[{ required: true, message: 'Please select the date!' }]}
-            >
-              <DatePicker placeholder="Select Date" style={{width:'100%'}}/>
-            </Form.Item>
+            name="Date"
+            label="Transaction Date"
+            rules={[{ required: true, message: 'Please select the date!' }]}
+            style={{ width: '100%' }}
+            initialValue={moment()} // Set current date as default
+          >
+            <DatePicker placeholder="Select Date" style={{ width: '100%' }} disabled />
+          </Form.Item> 
+          
 
             <Form.Item
               name="Value"
@@ -90,13 +93,14 @@ const TransactionForm = () => {
 
             <Form.Item
               name="Type"
-              label="Transaction Type"
-              rules={[{ required: true, message: 'Please select the transaction type!' }]}
+              label="Transaction Note"
+              rules={[{ required: true, message: 'Please enter the transaction note!' }]}
             >
-              <Select placeholder="Select Type">
+              <Input placeholder="Enter Note" style={{width:'100%'}}/>
+              {/* <Select placeholder="Select Type">
                 <Option value="credit">Credit</Option>
                 <Option value="debit">Debit</Option>
-              </Select>
+              </Select> */}
             </Form.Item>
 
             <Form.Item>
