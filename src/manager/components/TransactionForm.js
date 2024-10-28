@@ -18,7 +18,7 @@ const TransactionForm = () => {
       Type: values.Type,
     };
 
-    axios.post('http://localhost:3001/api/transactions/', transactionData)
+    axios.post('https://database-backend-g8-d3f914ee6287.herokuapp.com/api/transactions/', transactionData)
       .then((response) => {
         const { Transaction_ID } = response.data;
         message.success(`Transaction successful! Transaction ID: ${Transaction_ID}`);

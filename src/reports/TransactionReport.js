@@ -43,7 +43,7 @@ const ReportPage = () => {
 
     try {
       const response = await axiosInstance.post(
-        `http://localhost:3001/api/transactions/${reportType}Report/${details.Manager_ID}`,
+        `https://database-backend-g8-d3f914ee6287.herokuapp.com/api/transactions/${reportType}Report/${details.Manager_ID}`,
         {
           startDate: formattedStartDate,
           endDate: formattedEndDate,
@@ -81,7 +81,7 @@ const ReportPage = () => {
 
   const fetchTransactionTotals = async () => {
     try {
-      const response = await axiosInstance.get(`http://localhost:3001/api/transactions/transaction-totals/${details.Manager_ID}`);
+      const response = await axiosInstance.get(`https://database-backend-g8-d3f914ee6287.herokuapp.com/api/transactions/transaction-totals/${details.Manager_ID}`);
       setTransactionTotals([
         { type: 'Incoming', value: response.data.totalIncoming },
         { type: 'Outgoing', value: response.data.totalOutgoing },

@@ -21,7 +21,7 @@ const SearchCustomer = () => {
     setLoading(true);
 
     try {
-        const response = await axiosInstance.get(`http://localhost:3001/api/customers/${customerID}`);
+        const response = await axiosInstance.get(`https://database-backend-g8-d3f914ee6287.herokuapp.com/api/customers/${customerID}`);
 
       if (response.status === 200) {
         message.success('Customer found!');

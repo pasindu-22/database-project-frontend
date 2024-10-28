@@ -44,7 +44,7 @@ const CustomerForm = () => {
     const { Name, NIC, Address ,username,password} = values;
     const customerData = { Name, NIC, Address, username, password };
     try {
-      const response = await axios.post('http://localhost:3001/api/customers/',  customerData );
+      const response = await axios.post('https://database-backend-g8-d3f914ee6287.herokuapp.com/api/customers/',  customerData );
       alert('Customer created successfully!');
     } catch (error) {
       console.error('There was an error creating the user!', error);

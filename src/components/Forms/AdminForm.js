@@ -8,7 +8,7 @@ const AdminForm = () => {
 
   const onFinish = async (values) => {
     try {
-      const response = await axios.post('http://localhost:3001/api/managers/', values);
+      const response = await axios.post('https://database-backend-g8-d3f914ee6287.herokuapp.com/api/managers/', values);
       message.success('Admin created successfully!');
       form.resetFields();
     } catch (error) {

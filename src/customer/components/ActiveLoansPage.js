@@ -22,7 +22,7 @@ const ActiveLoansPage = () => {
   useEffect(() => {
     const fetchLoanData = async () => {
       try {
-        const response = await axiosInstance.get(`http://localhost:3001/api/loans/customer/${details.Customer_ID}`);
+        const response = await axiosInstance.get(`https://database-backend-g8-d3f914ee6287.herokuapp.com/api/loans/customer/${details.Customer_ID}`);
         setLoanData(response.data);
       } catch (error) {
         console.error("Error occurred while loading");
@@ -38,7 +38,7 @@ const ActiveLoansPage = () => {
 
   const fetchLoanInstallments = async (loanID) => {
     try {
-      const response = await axiosInstance.get(`http://localhost:3001/api/loanInstallments/loan/${loanID}`);
+      const response = await axiosInstance.get(`https://database-backend-g8-d3f914ee6287.herokuapp.com/api/loanInstallments/loan/${loanID}`);
       setInstallmentData((prevData) => ({
         ...prevData,
         [loanID]: response.data,
@@ -50,7 +50,7 @@ const ActiveLoansPage = () => {
 
   const fetchAccounts = async () => {
     try {
-      const response = await axiosInstance.get(`http://localhost:3001/api/accounts/customer/${details.Customer_ID}`);
+      const response = await axiosInstance.get(`https://database-backend-g8-d3f914ee6287.herokuapp.com/api/accounts/customer/${details.Customer_ID}`);
       setAccounts(response.data);
     } catch (error) {
       console.error("Error occurred while loading accounts");
@@ -66,7 +66,7 @@ const ActiveLoansPage = () => {
   const handleOk = async (values) => {
     console.log('Received values:', values);
     try {
-      const response = await axiosInstance.post(`http://localhost:3001/api/loanInstallments/pay/${selectedInstallment.Installment_ID}`, {
+      const response = await axiosInstance.post(`https://database-backend-g8-d3f914ee6287.herokuapp.com/api/loanInstallments/pay/${selectedInstallment.Installment_ID}`, {
         accountId: String(values.accountID),
         installmentID: selectedInstallment.Installment_ID,
         amount: selectedInstallment.Value,
