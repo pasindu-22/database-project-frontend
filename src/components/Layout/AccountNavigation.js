@@ -22,7 +22,7 @@ const items = [
     icon: <SettingOutlined />,
     children: [
           {
-            label: 'Saving Account',
+            label: 'Account',
             key: 'accounts/new',
           },
           {

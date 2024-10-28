@@ -59,11 +59,12 @@ const PendingLoansPage = () => {
         
         message.success(`Application ${Application_Id} ${getApprovalStatus(Approved)} successfully!`);
         // Update the local state to reflect the action
-        setData(prevData =>
-          prevData.map(item =>
-            item.Application_ID === Application_Id ? { ...item, Approved: Approved === 1 ? 1 : -1 } : item
-          )
-        );
+        // setData(prevData =>
+        //   prevData.map(item =>
+        //     item.Application_ID === Application_Id ? { ...item, Approved: Approved === 1 ? 1 : -1 } : item
+        //   )
+        // );
+        window.location.reload();
       })
       .catch(error => {
         message.error(`Failed to ${getApprovalStatus(Approved)} application ${Application_Id}. Please try again.`);

@@ -66,15 +66,21 @@ const OnlineLoanForm = () => {
             label="Loan Period"
             rules={[{ required: true, message: 'Please enter the Loan Period!' }]}
           >
-            <Input placeholder="Enter Loan Period" />
+            <Select placeholder="Select Loan Period">
+              <Option value={3}>3 months</Option>
+              <Option value={6}>6 months</Option>
+              <Option value={12}>12 months</Option>
+              <Option value={24}>24 months</Option>
+            </Select>
           </Form.Item>
 
           <Form.Item
             name="InterestRate"
             label="Interest Rate"
+            initialValue={10}
             rules={[{ required: true, message: 'Please enter the Interest Rate!' }]}
           >
-            <Input placeholder="Enter Interest Rate" />
+            <Input placeholder="Enter Interest Rate" disabled />
           </Form.Item>
 
           <Form.Item
