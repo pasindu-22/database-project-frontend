@@ -6,7 +6,7 @@ import AuthRoutes from '../manager/routes/AuthRoutes';
 import ManagementRoutes from '../manager/routes/ManagementRoutes';
 import AppRoutes from '../manager/routes/AppRoutes';
 import CustomerRoutes from '../manager/routes/CustomerRoutes';
-import CustomerForm from '../components/Forms/CustomerForm';
+import CustomerForm from '../components/Forms/PersonalCustomerForm';
 import SearchCustomer from '../components/Forms/SearchCustomer';
 import WithAccountNavigation from '../components/Layout/WithAccountNavigation';
 import { CustomerProvider } from '../contexts/CustomerContext';

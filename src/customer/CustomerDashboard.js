@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import SideMenu from './components/CustomerSideMenu';
-import CustomerForm from '../components/Forms/CustomerForm';
+import CustomerForm from '../components/Forms/PersonalCustomerForm';
 import Header from '../components/Layout/Header';
 import OnlineLoanForm from '../components/Forms/OnlineLoanForm';
 import FixedDepositForm from '../components/Forms/FDForm';

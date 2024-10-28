@@ -58,6 +58,16 @@ const items = [
         key: '/customers/new',
         label: 'New Customer',
         icon: <UserAddOutlined />,
+        children: [
+          {
+            key: '/customers/new/personal',
+            label: 'Individual',
+          },
+          {
+            key: '/customers/new/business',
+            label: 'Business',
+          }
+        ]
       },
       {
         key: '/customers/search',

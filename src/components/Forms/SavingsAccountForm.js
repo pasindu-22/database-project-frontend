@@ -40,8 +40,8 @@ const SavingsAccountForm = () => {
         style={{ width: '100%',
           margin: '20px auto',
           padding: '20px',
-          backgroundColor: '#f7f7f7',
-          borderRadius: '8px',
+          backgroundColor: 'rgba(224, 247, 250, 0.8)',
+          borderRadius: '15px',
           boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)'}}
       >
         <Form.Item
@@ -102,7 +102,7 @@ const SavingsAccountForm = () => {
 
         <Form.Item>
           <Button type="primary" htmlType="submit" block>
-            Open Savings Account
+            Open Account
           </Button>
         </Form.Item>
       </Form>

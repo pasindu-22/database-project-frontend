@@ -35,17 +35,17 @@ const TransactionForm = () => {
         <div style={{ display: 'flex', justifyContent: 'center', padding: '0px' }}>
           <Form
             form={form}
-            
             onFinish={onFinish}
             style={{
               width: '100%',
-              // maxWidth: '600px', // Set max-width for better form structure
               margin: '0 auto',
               padding: '20px',
-              backgroundColor: 'rgba(224, 247, 250, 0.8)', // Semi-transparent to show background image
+              backgroundColor: 'rgba(224, 247, 250, 0.8)',
               borderRadius: '15px',
               boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
             }}
+            labelCol={{ span: 4 }} // Adjust the label column width
+            wrapperCol={{ span: 16 }} // Adjust the input column width
           >
             <Form.Item
               name="FromAccount"
@@ -103,7 +103,7 @@ const TransactionForm = () => {
               </Select> */}
             </Form.Item>
 
-            <Form.Item>
+            <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: 'center' }}>
               <Button type="primary" htmlType="submit">
                 Submit
               </Button>
