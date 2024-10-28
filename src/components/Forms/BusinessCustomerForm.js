@@ -42,7 +42,7 @@ const BusinessCustomerForm = () => {
 
   const onFinish = async(values) => {
     const { Name, NIC, Address ,username,password} = values;
-    const customerData = { Name, NIC, Address, username, password };
+    const customerData = { Name, NIC, Address, username, password, CustomerType: 'Business' };
     try {
       const response = await axios.post('https://database-backend-g8-d3f914ee6287.herokuapp.com/api/customers/',  customerData );
       alert('Customer created successfully!');
