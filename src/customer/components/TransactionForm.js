@@ -58,7 +58,7 @@ const TransactionForm = () => {
       })
       .catch((error) => {
         if (error.response && error.response.status === 500 ) {
-          message.error('Transaction limit for the current month exceeded. Please try again next month.');
+            message.error(`Transaction failed: ${error.response.data.error}`);
         } else {
           message.error('Transaction failed. Please try again.');
         }
