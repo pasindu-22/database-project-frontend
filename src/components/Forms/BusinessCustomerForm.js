@@ -46,6 +46,7 @@ const BusinessCustomerForm = () => {
     try {
       const response = await axios.post('https://database-backend-g8-d3f914ee6287.herokuapp.com/api/customers/',  customerData );
       alert('Customer created successfully!');
+      form.resetFields();
     } catch (error) {
       console.error('There was an error creating the user!', error);
       alert('Failed to create user');
