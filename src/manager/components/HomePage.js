@@ -87,7 +87,7 @@ const HomePage = () => {
   };
 
   const handleNewCustomer = () => {
-    navigate('/customers/new');
+    navigate('/customers/new/personal');
   };
 
 
