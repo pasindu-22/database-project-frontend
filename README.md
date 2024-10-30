@@ -40,10 +40,14 @@ The system will support:
 
 ## **Technologies Used**
 
-- **Frontend**: React.js
-- **Backend**: Node.js, Express.js
-- **Database**: MySQL
-- **Others**: Axios (for API requests), Sequelize (ORM for MySQL), JSON Web Token (JWT) for authentication, bcrypt for password hashing.
+- **Frontend**: React.js for UI components and interaction.
+- **Backend**: Node.js with Express.js for server-side handling.
+- **Database**: MySQL for relational data storage.
+- **Others**:
+  - **Axios**: Handles API requests.
+  - **Sequelize**: ORM for MySQL data management.
+  - **JWT**: Provides secure authentication.
+  - **bcrypt**: Ensures hashed password storage for security.
 
 ## **Installation**
 
@@ -230,12 +234,5 @@ http://localhost:3000/manager-login
 <img width=49% alt="Screenshot 2024-10-27 at 01 25 07" src="https://github.com/user-attachments/assets/63886345-39d6-42f2-8b95-235bab22eb2e">
 
 <img width=49% alt="Screenshot 2024-10-27 at 01 25 18" src="https://github.com/user-attachments/assets/66b0f825-03a3-466d-82bb-94749042cb2f">
-
-
-
-
-
-
-
 
 
