@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes,Route } from 'react-router-dom';
 import AccountPage from '../components/AccountsPage';
-import SavingsAccountForm from '../../components/Forms/SavingsAccountForm';
+import SavingsAccountForm from '../../components/Forms/AccountForm';
 import FDForm from '../../components/Forms/FDForm';
 
 function AccountRoutes() {

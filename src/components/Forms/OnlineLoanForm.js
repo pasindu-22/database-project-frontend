@@ -15,7 +15,7 @@ const OnlineLoanForm = () => {
   useEffect(() => {
     if (customerId) {
       // Fetch FDs under the customer ID
-      axios.get(`http://localhost:3001/api/fixedDeposits/customer/${customerId}`) 
+      axios.get(`https://database-backend-g8-d3f914ee6287.herokuapp.com/api/fixedDeposits/customer/${customerId}`) 
         .then(response => {
           setFds(response.data);
         })
@@ -27,7 +27,7 @@ const OnlineLoanForm = () => {
 
   const onFinish = async (values) => {
     try {
-      const response = await axios.post('http://localhost:3001/api/loans/quick-loan/', { ...values, Customer_ID: customerId });
+      const response = await axios.post('https://database-backend-g8-d3f914ee6287.herokuapp.com/api/loans/quick-loan/', { ...values, Customer_ID: customerId });
       message.success('Loan created successfully!');
       form.resetFields();
     } catch (error) {
@@ -66,15 +66,21 @@ const OnlineLoanForm = () => {
             label="Loan Period"
             rules={[{ required: true, message: 'Please enter the Loan Period!' }]}
           >
-            <Input placeholder="Enter Loan Period" />
+            <Select placeholder="Select Loan Period">
+              <Option value={3}>3 months</Option>
+              <Option value={6}>6 months</Option>
+              <Option value={12}>12 months</Option>
+              <Option value={24}>24 months</Option>
+            </Select>
           </Form.Item>
 
           <Form.Item
             name="InterestRate"
             label="Interest Rate"
+            initialValue={10}
             rules={[{ required: true, message: 'Please enter the Interest Rate!' }]}
           >
-            <Input placeholder="Enter Interest Rate" />
+            <Input placeholder="Enter Interest Rate" disabled />
           </Form.Item>
 
           <Form.Item

@@ -17,7 +17,7 @@ const AccountPage = () => {
   useEffect(() => {
     const fetchAccountData = async () => {
       try {
-        const response = await axiosInstance.get(`http://localhost:3001/api/accounts/customer/${customerId}`);
+        const response = await axiosInstance.get(`https://database-backend-g8-d3f914ee6287.herokuapp.com/api/accounts/customer/${customerId}`);
         setAccountData(response.data);
       } catch (error) {
         console.error("There was an error fetching the account data!", error);
@@ -35,7 +35,7 @@ const AccountPage = () => {
 
   const fetchTransactions = async (id) => {
     try {
-      const response = await axiosInstance.get(`http://localhost:3001/api/transactions/byAccount/${id}`);
+      const response = await axiosInstance.get(`https://database-backend-g8-d3f914ee6287.herokuapp.com/api/transactions/byAccount/${id}`);
       console.log(response.data);
       setTransactions(response.data);
     } catch (error) {

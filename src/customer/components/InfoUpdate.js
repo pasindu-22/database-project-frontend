@@ -33,7 +33,7 @@ const InfoUpdate = () => {
 
   const handleLogin = async (values) => {
     try {
-      const response = await axiosInstance.put(`http://localhost:3001/api/customers/${details.Customer_ID}`, values);
+      const response = await axiosInstance.put(`https://database-backend-g8-d3f914ee6287.herokuapp.com/api/customers/${details.Customer_ID}`, values);
       console.log('Login response:', response.data);
       message.success('Login successful');
     } catch (error) {

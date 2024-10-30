@@ -15,7 +15,7 @@ const PendingLoans = () => {
   useEffect(() => {
     // Fetch data from backend API
     if (customerId) { 
-      axios.get(`http://localhost:3001/api/loanapplications/${customerId}/getPendingByCustomer`)
+      axios.get(`https://database-backend-g8-d3f914ee6287.herokuapp.com/api/loanapplications/${customerId}/getPendingByCustomer`)
       .then(response => {
         setData(response.data);
         setLoading(false);

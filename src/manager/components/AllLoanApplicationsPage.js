@@ -13,7 +13,7 @@ const PendingLoansPage = () => {
   // Fetch data from backend API when component mounts
   useEffect(() => {
     if (details && details.Manager_ID) {
-      axios.get(`http://localhost:3001/api/loanapplications/${details.Manager_ID}/getAll`)
+      axios.get(`https://database-backend-g8-d3f914ee6287.herokuapp.com/api/loanapplications/${details.Manager_ID}/getAll`)
         .then(response => {
           if (Array.isArray(response.data)) {
             setData(response.data); // Assuming the data is an array
@@ -54,16 +54,17 @@ const PendingLoansPage = () => {
     };
 
     // Send data to the backend using Axios
-    axios.post(`http://localhost:3001/api/loanapplications/${Application_Id}/approve`, postData)
+    axios.post(`https://database-backend-g8-d3f914ee6287.herokuapp.com/api/loanapplications/${Application_Id}/approve`, postData)
       .then(response => {
         
         message.success(`Application ${Application_Id} ${getApprovalStatus(Approved)} successfully!`);
         // Update the local state to reflect the action
-        setData(prevData =>
-          prevData.map(item =>
-            item.Application_ID === Application_Id ? { ...item, Approved: Approved === 1 ? 1 : -1 } : item
-          )
-        );
+        // setData(prevData =>
+        //   prevData.map(item =>
+        //     item.Application_ID === Application_Id ? { ...item, Approved: Approved === 1 ? 1 : -1 } : item
+        //   )
+        // );
+        window.location.reload();
       })
       .catch(error => {
         message.error(`Failed to ${getApprovalStatus(Approved)} application ${Application_Id}. Please try again.`);

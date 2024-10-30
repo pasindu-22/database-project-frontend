@@ -6,7 +6,8 @@ import AuthRoutes from './routes/AuthRoutes';
 import ManagementRoutes from './routes/ManagementRoutes';
 import AppRoutes from './routes/AppRoutes';
 import CustomerRoutes from './routes/CustomerRoutes';
-import CustomerForm from '../components/Forms/CustomerForm';
+import CustomerForm from '../components/Forms/PersonalCustomerForm';
+import BusinessCustomerForm from '../components/Forms/BusinessCustomerForm';
 import SearchCustomer from '../components/Forms/SearchCustomer';
 import WithAccountNavigation from '../components/Layout/WithAccountNavigation';
 import TransactionReport from '../reports/TransactionReport';
@@ -29,7 +30,8 @@ const ManagerDashboard = () => {
             <Routes>
               <Route path="/auth/*" element={<AuthRoutes />} />
               <Route path="/management/*" element={<ManagementRoutes />} />
-              <Route path="/customers/new" element={<CustomerForm />} />
+              <Route path="/customers/new/personal" element={<CustomerForm />} />
+              <Route path="/customers/new/business" element={<BusinessCustomerForm />} />
               <Route path="/customers/search" element={<SearchCustomer />} />
               <Route path='/app/reports/transactions' element={<TransactionReport/>}/>
               <Route path='/app/reports/lateloans' element={<LateLoanReport/>}/>
@@ -42,5 +44,6 @@ const ManagerDashboard = () => {
     </CustomerProvider>
   );
 };
+
 
 export default ManagerDashboard;

@@ -20,9 +20,18 @@ const FixedDepositForm = ({ userType }) => {    // Prop for conditionally render
     '3 years': 36,
   };
 
+  const fetchAccountData = async () => {
+    try {
+      const response = await axiosInstance.get(`https://database-backend-g8-d3f914ee6287.herokuapp.com/api/accounts/customer/${details.Customer_ID}`);
+      setAccounts(response.data);
+    } catch (error) {
+      console.error("There was an error fetching the account data!", error);
+    }
+  };
+
   const onFinish = async (values) => {            // Function to control form submission(Send data to backend).
     try {
-      const response = await axiosInstance.post('http://localhost:3001/api/fixedDeposits/', {
+      const response = await axiosInstance.post('https://database-backend-g8-d3f914ee6287.herokuapp.com/api/fixedDeposits/', {
         ...values,
         StartDate: values.StartDate.format('YYYY-MM-DD'), // Format date to string
         Period: periodMapping[values.Period], // Map period to integer
@@ -31,6 +40,9 @@ const FixedDepositForm = ({ userType }) => {    // Prop for conditionally render
       message.success('Fixed Deposit created successfully!');
       setFdDetails(response.data); // Store the received fixed deposit details
       setIsModalVisible(true); // Show the modal with the fixed deposit details
+      if (userType === 'customer') {
+        fetchAccountData(); // Fetch account data again if user is a customer
+      }
     } catch (error) {
       message.error('Failed to create Fixed Deposit.');
       console.error(error);
@@ -38,17 +50,7 @@ const FixedDepositForm = ({ userType }) => {    // Prop for conditionally render
   };
 
   useEffect(() => {     // Fetch account data after component mount to show in dropdown. 
-    const fetchAccountData = async () => {
-      try {
-        const response = await axiosInstance.get(`http://localhost:3001/api/accounts/customer/${details.Customer_ID}`);
-        setAccounts(response.data);
-      } catch (error) {
-        console.error("There was an error fetching the account data!", error);
-      }
-    };
-
     fetchAccountData();
-
   }, [details]);
 
   const handleModalOk = () => {
@@ -134,8 +136,8 @@ const FixedDepositForm = ({ userType }) => {    // Prop for conditionally render
             />
           </Form.Item>
 
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit">
+          <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
+            <Button type="primary" htmlType="submit" block>
               Submit
             </Button>
           </Form.Item>

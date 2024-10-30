@@ -236,8 +236,3 @@ http://localhost:3000/manager-login
 <img width=49% alt="Screenshot 2024-10-27 at 01 25 18" src="https://github.com/user-attachments/assets/66b0f825-03a3-466d-82bb-94749042cb2f">
 
 
-
-
-
-
-

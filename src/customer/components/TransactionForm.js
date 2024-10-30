@@ -18,7 +18,7 @@ const TransactionForm = () => {
   const fetchAccountData = async () => {
     try {
       const response = await axiosInstance.get(
-        `http://localhost:3001/api/accounts/customer/${details.Customer_ID}`
+        `https://database-backend-g8-d3f914ee6287.herokuapp.com/api/accounts/customer/${details.Customer_ID}`
       );
       setAccounts(response.data);
     } catch (error) {
@@ -47,7 +47,7 @@ const TransactionForm = () => {
     console.log(transactionData);
 
     axiosInstance
-      .post('http://localhost:3001/api/transactions/', transactionData)
+      .post('https://database-backend-g8-d3f914ee6287.herokuapp.com/api/transactions/', transactionData)
       .then((response) => {
         const { Transaction_ID } = response.data;
         message.success(`Transaction successful! Transaction ID: ${Transaction_ID}`);
@@ -58,7 +58,7 @@ const TransactionForm = () => {
       })
       .catch((error) => {
         if (error.response && error.response.status === 500 ) {
-          message.error('Transaction limit for the current month exceeded. Please try again next month.');
+            message.error(`Transaction failed: ${error.response.data.error}`);
         } else {
           message.error('Transaction failed. Please try again.');
         }

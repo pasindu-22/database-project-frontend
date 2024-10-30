@@ -11,7 +11,7 @@ const items = [
     type: 'group',
     children: [
       {
-        key: '/app/home',
+        key: '/employee/home',
         label: 'Home',
         icon: <BankOutlined />,
       },
@@ -27,6 +27,7 @@ const items = [
       },
     ],
   },
+
   {
     type: 'divider',
     style: {
@@ -43,6 +44,16 @@ const items = [
         key: '/customers/new',
         label: 'New Customer',
         icon: <UserAddOutlined />,
+        children: [
+          {
+            key: '/customers/new/personal',
+            label: 'Individual',
+          },
+          {
+            key: '/customers/new/business',
+            label: 'Business',
+          }
+        ]
       },
       {
         key: '/customers/search',
@@ -120,6 +131,7 @@ const EmployeeSideMenu = () => {
         borderRadius: '15px 15px 15px 15px',
         background: 'linear-gradient(25deg, rgba(248, 248, 248, 1), rgba(150, 216, 230, 1))',
         borderColor: '#fafafa',
+        height: '100%',
       }}
       selectedKeys={[location.pathname]}
       openKeys={openKeys}

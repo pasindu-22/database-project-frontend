@@ -6,9 +6,11 @@ import AuthRoutes from '../manager/routes/AuthRoutes';
 import ManagementRoutes from '../manager/routes/ManagementRoutes';
 import AppRoutes from '../manager/routes/AppRoutes';
 import CustomerRoutes from '../manager/routes/CustomerRoutes';
-import CustomerForm from '../components/Forms/CustomerForm';
+import CustomerForm from '../components/Forms/PersonalCustomerForm';
+import BusinessCustomerForm from '../components/Forms/BusinessCustomerForm';
 import SearchCustomer from '../components/Forms/SearchCustomer';
 import WithAccountNavigation from '../components/Layout/WithAccountNavigation';
+import HomePage from './components/HomePage';
 import { CustomerProvider } from '../contexts/CustomerContext';
 
 const EmployeeDashboard = () => {
@@ -24,9 +26,11 @@ const EmployeeDashboard = () => {
         </div>
         <div style={{ flex: 1, marginLeft: "260px", overflowY: "auto", height: "calc(100vh - 64px)"}}>
           <Routes>
+            <Route path="/employee/home" element={<HomePage />} />
             <Route path="/auth/*" element={<AuthRoutes />} />
             <Route path="/management/*" element={<ManagementRoutes />} />
-            <Route path="/customers/new" element={<CustomerForm />} />
+            <Route path="/customers/new/personal" element={<CustomerForm />} />
+            <Route path="/customers/new/business" element={<BusinessCustomerForm />} />
             <Route path="/customers/search" element={<SearchCustomer />} />
             <Route path="/customers/*" element={<WithAccountNavigation><CustomerRoutes /></WithAccountNavigation>} />
             <Route path="/app/*" element={<AppRoutes />} />
